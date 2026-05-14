@@ -1,0 +1,3 @@
+# Normalize line endings — store as LF in the repo, check out native.
+# Keeps the repo consistent across Windows/macOS/Linux and on Vercel.
+* text=auto eol=lf
