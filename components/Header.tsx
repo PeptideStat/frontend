@@ -28,7 +28,7 @@ export function Header() {
             aria-label={siteConfig.name}
             className="flex items-center text-ink transition-colors hover:text-accent-bright"
           >
-            <Logo className="h-9 w-auto" />
+            <Logo className="h-10 w-auto" />
           </Link>
 
           <nav className="hidden items-center gap-1 text-sm font-medium md:flex">

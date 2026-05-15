@@ -51,7 +51,7 @@ export function Footer() {
               aria-label={siteConfig.name}
               className="inline-flex items-center text-ink transition-colors hover:text-accent-bright"
             >
-              <Logo className="h-12 w-auto" />
+              <Logo className="h-14 w-auto" />
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-muted">
               {siteConfig.description}
