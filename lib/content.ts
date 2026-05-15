@@ -80,16 +80,24 @@ export function getArticleBySlug(slug: string): Article | null {
 
 interface GetArticlesOptions {
   includeDrafts?: boolean;
+  /** Include articles whose `date` is in the future. Off by default so a
+   *  staggered publishing schedule can sit in the repo unpublished. */
+  includeFuture?: boolean;
 }
 
 /** All articles as metadata only (no MDX body), newest first. */
 export function getAllArticles({
   includeDrafts = false,
+  includeFuture = false,
 }: GetArticlesOptions = {}): ArticleMeta[] {
+  const now = Date.now();
   return getArticleSlugs()
     .map((slug) => getArticleBySlug(slug))
     .filter((article): article is Article => article !== null)
     .filter((article) => includeDrafts || !article.draft)
+    .filter(
+      (article) => includeFuture || new Date(article.date).getTime() <= now,
+    )
     .sort((a, b) => +new Date(b.date) - +new Date(a.date))
     .map(({ content: _content, ...meta }) => meta);
 }
