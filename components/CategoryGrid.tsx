@@ -25,7 +25,7 @@ export function CategoryGrid() {
     <section className="mx-auto max-w-6xl px-5 py-20">
       <div className="mb-10 flex items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent-dark">
+          <p className="text-xs font-semibold uppercase tracking-wider text-accent">
             Topics
           </p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
@@ -46,7 +46,7 @@ export function CategoryGrid() {
             <Link
               key={category.slug}
               href={category.href}
-              className="group flex flex-col gap-3 rounded-xl border border-line bg-canvas p-5 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-hover"
+              className="group flex flex-col gap-3 rounded-xl border border-line bg-surface-2 p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card-hover"
             >
               <span
                 className={`flex h-10 w-10 items-center justify-center rounded-lg ${tintClasses}`}
@@ -55,7 +55,7 @@ export function CategoryGrid() {
                 <Icon className="h-5 w-5" />
               </span>
               <div>
-                <h3 className="text-base font-semibold tracking-tight text-ink transition-colors group-hover:text-accent-dark">
+                <h3 className="text-base font-semibold tracking-tight text-ink transition-colors group-hover:text-accent-bright">
                   {category.title}
                 </h3>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted">

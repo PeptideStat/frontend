@@ -16,7 +16,9 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "linear-gradient(135deg, #e7f6ef 0%, #ffffff 60%)",
+          // Match the site's dark canvas + radial accent glow
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(16,185,129,0.28), transparent 70%), #0b0f14",
           fontFamily: "sans-serif",
         }}
       >
@@ -25,7 +27,7 @@ export default function Image() {
             display: "flex",
             alignItems: "center",
             gap: 16,
-            color: "#0a7d57",
+            color: "#34d399",
             fontSize: 34,
             fontWeight: 700,
           }}
@@ -35,7 +37,7 @@ export default function Image() {
               width: 56,
               height: 56,
               borderRadius: 12,
-              background: "#0f9d6e",
+              background: "linear-gradient(135deg, #10b981, #047857)",
               color: "white",
               display: "flex",
               alignItems: "center",
@@ -50,16 +52,20 @@ export default function Image() {
         <div
           style={{
             marginTop: 40,
+            display: "flex",
+            flexWrap: "wrap",
             fontSize: 64,
             fontWeight: 800,
-            color: "#0d1714",
+            color: "#e6edf3",
             lineHeight: 1.15,
             maxWidth: 900,
+            gap: "0.25em",
           }}
         >
-          Clear, research-backed answers about peptides.
+          <span>Clear answers about peptides,</span>
+          <span style={{ color: "#34d399" }}>grounded in research.</span>
         </div>
-        <div style={{ marginTop: 28, fontSize: 30, color: "#5f6f68" }}>
+        <div style={{ marginTop: 28, fontSize: 30, color: "#7d8a99" }}>
           {siteConfig.tagline}
         </div>
       </div>

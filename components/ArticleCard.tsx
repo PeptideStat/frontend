@@ -14,7 +14,7 @@ export function ArticleCard({
   const href = `/peptides/${article.slug}`;
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-line bg-canvas transition-shadow hover:shadow-md">
+    <article className="group flex flex-col overflow-hidden rounded-xl border border-line bg-surface-2 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card-hover">
       <Link href={href} className="block">
         <div className="relative aspect-[16/9] overflow-hidden bg-surface-2">
           {article.coverImage ? (
@@ -28,7 +28,7 @@ export function ArticleCard({
             />
           ) : (
             <div className="flex h-full items-center justify-center bg-gradient-to-br from-accent-soft to-surface-2">
-              <span className="text-2xl font-bold tracking-tight text-accent-dark/70">
+              <span className="text-2xl font-bold tracking-tight text-accent/70">
                 {article.title.slice(0, 2).toUpperCase()}
               </span>
             </div>
@@ -39,7 +39,7 @@ export function ArticleCard({
       <div className="flex flex-1 flex-col gap-2 p-5">
         <div className="flex items-center gap-2 text-xs font-medium text-muted">
           {article.pillar && (
-            <span className="rounded bg-accent-soft px-1.5 py-0.5 text-accent-dark">
+            <span className="rounded bg-accent-soft px-1.5 py-0.5 text-accent-bright">
               Guide
             </span>
           )}
@@ -51,7 +51,7 @@ export function ArticleCard({
         <h3 className="text-lg font-semibold leading-snug tracking-tight">
           <Link
             href={href}
-            className="transition-colors hover:text-accent-dark"
+            className="transition-colors hover:text-accent-bright"
           >
             {article.title}
           </Link>

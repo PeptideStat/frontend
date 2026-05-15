@@ -18,7 +18,7 @@ function MdxLink({ href = "", children, ...props }: AnchorProps) {
     return (
       <Link
         href={href}
-        className="font-medium text-accent-dark underline underline-offset-2 hover:text-accent"
+        className="font-medium text-accent underline underline-offset-2 hover:text-accent-bright"
       >
         {children}
       </Link>
@@ -31,7 +31,7 @@ function MdxLink({ href = "", children, ...props }: AnchorProps) {
       href={href}
       target="_blank"
       rel="nofollow noopener noreferrer"
-      className="font-medium text-accent-dark underline underline-offset-2 hover:text-accent"
+      className="font-medium text-accent underline underline-offset-2 hover:text-accent-bright"
       {...props}
     >
       {children}
@@ -103,13 +103,13 @@ export const mdxComponents = {
   ),
   code: (props: ComponentPropsWithoutRef<"code">) => (
     <code
-      className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[0.85em] text-accent-dark"
+      className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[0.85em] text-accent-bright"
       {...props}
     />
   ),
   pre: (props: ComponentPropsWithoutRef<"pre">) => (
     <pre
-      className="mt-6 overflow-x-auto rounded-lg bg-ink p-4 font-mono text-sm text-surface"
+      className="mt-6 overflow-x-auto rounded-lg border border-line bg-surface p-4 font-mono text-sm text-ink"
       {...props}
     />
   ),

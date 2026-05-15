@@ -93,7 +93,7 @@ export default async function ArticlePage(
                 ) : (
                   <Link
                     href={crumb.path}
-                    className="transition-colors hover:text-accent-dark"
+                    className="transition-colors hover:text-accent-bright"
                   >
                     {crumb.name}
                   </Link>
@@ -107,7 +107,7 @@ export default async function ArticlePage(
         {/* Header */}
         <header className="mt-6">
           {article.pillar && (
-            <span className="text-xs font-semibold uppercase tracking-wider text-accent-dark">
+            <span className="text-xs font-semibold uppercase tracking-wider text-accent">
               Complete Guide
             </span>
           )}

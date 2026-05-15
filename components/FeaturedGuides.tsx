@@ -13,7 +13,7 @@ export function FeaturedGuides() {
       <div className="mx-auto max-w-6xl px-5 py-20">
         <div className="mb-10 flex items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-accent-dark">
+            <p className="text-xs font-semibold uppercase tracking-wider text-accent">
               In depth
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
@@ -26,7 +26,7 @@ export function FeaturedGuides() {
           </div>
           <Link
             href="/peptides"
-            className="hidden text-sm font-medium text-accent-dark hover:text-accent sm:block"
+            className="hidden text-sm font-medium text-accent hover:text-accent-bright sm:block"
           >
             All guides &rarr;
           </Link>
@@ -37,18 +37,18 @@ export function FeaturedGuides() {
             <Link
               key={guide.href}
               href={guide.href}
-              className="group flex flex-col gap-3 rounded-xl border border-line bg-canvas p-6 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-hover"
+              className="group flex flex-col gap-3 rounded-xl border border-line bg-surface-2 p-6 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card-hover"
             >
-              <span className="text-xs font-semibold uppercase tracking-wider text-accent-dark">
+              <span className="text-xs font-semibold uppercase tracking-wider text-accent">
                 {guide.kicker}
               </span>
-              <h3 className="text-lg font-semibold leading-snug tracking-tight text-ink transition-colors group-hover:text-accent-dark">
+              <h3 className="text-lg font-semibold leading-snug tracking-tight text-ink transition-colors group-hover:text-accent-bright">
                 {guide.title}
               </h3>
               <p className="text-sm leading-relaxed text-muted">
                 {guide.description}
               </p>
-              <span className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-accent-dark">
+              <span className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-accent">
                 Read guide
                 <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </span>

@@ -110,12 +110,12 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="hidden h-9 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm text-muted transition-colors hover:border-line-strong hover:text-ink-soft sm:inline-flex"
+        className="hidden h-9 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm text-muted transition-colors hover:border-accent/50 hover:text-ink-soft sm:inline-flex"
         aria-label="Search articles"
       >
         <SearchIcon className="h-4 w-4" />
         <span>Search</span>
-        <kbd className="ml-2 rounded border border-line bg-canvas px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted">
+        <kbd className="ml-2 rounded border border-line bg-canvas px-1.5 py-0.5 font-mono text-[10px] font-medium text-ink-soft">
           ⌘K
         </kbd>
       </button>
@@ -142,11 +142,11 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
             type="button"
             aria-label="Close search"
             onClick={() => setOpen(false)}
-            className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
           />
 
           {/* Panel */}
-          <div className="relative z-10 w-full max-w-xl overflow-hidden rounded-xl border border-line bg-canvas shadow-card-hover">
+          <div className="relative z-10 w-full max-w-xl overflow-hidden rounded-xl border border-line bg-surface-2 shadow-card-hover">
             <div className="flex items-center gap-2 border-b border-line px-4">
               <SearchIcon className="h-5 w-5 text-muted" />
               <input
@@ -200,16 +200,16 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
             <div className="flex items-center justify-between border-t border-line bg-surface px-4 py-2 text-[11px] text-muted">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
-                  <kbd className="rounded border border-line bg-canvas px-1.5 font-mono">↑↓</kbd>
+                  <kbd className="rounded border border-line bg-surface px-1.5 font-mono">↑↓</kbd>
                   navigate
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="rounded border border-line bg-canvas px-1.5 font-mono">↵</kbd>
+                  <kbd className="rounded border border-line bg-surface px-1.5 font-mono">↵</kbd>
                   open
                 </span>
               </div>
               <span className="flex items-center gap-1">
-                <kbd className="rounded border border-line bg-canvas px-1.5 font-mono">esc</kbd>
+                <kbd className="rounded border border-line bg-surface px-1.5 font-mono">esc</kbd>
                 close
               </span>
             </div>

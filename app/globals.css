@@ -1,37 +1,45 @@
 @import "tailwindcss";
 
 @theme {
-  /* Surfaces — clinical, low-contrast neutrals */
-  --color-canvas: #ffffff;
-  --color-surface: #f7faf9;
-  --color-surface-2: #eef2f1;
-  --color-line: #e3e8e6;
-  --color-line-strong: #cdd5d2;
+  /* Surfaces — deep cool dark with stepped elevation.
+     canvas = page background (darkest)
+     surface = subtle section accent
+     surface-2 = cards and elevated panels (lightest) */
+  --color-canvas: #0b0f14;
+  --color-surface: #11161d;
+  --color-surface-2: #18202a;
+  --color-line: #1f2937;
+  --color-line-strong: #2e3a4d;
 
-  /* Text */
-  --color-ink: #0b1411;
-  --color-ink-soft: #2a3631;
-  --color-muted: #5d6b65;
-  --color-muted-soft: #8b9994;
+  /* Text — cool near-white scale */
+  --color-ink: #e6edf3;
+  --color-ink-soft: #b9c4d0;
+  --color-muted: #7d8a99;
+  --color-muted-soft: #586374;
 
-  /* Brand accent — research-green */
-  --color-accent: #0f9d6e;
-  --color-accent-dark: #0a7d57;
-  --color-accent-soft: #e5f5ec;
+  /* Brand accent — vivid emerald on dark.
+     accent-bright = hover / active (gets lighter on dark)
+     accent       = default
+     accent-dark  = strong border / shadow tint
+     accent-soft  = tinted dark bg for chips and gradients */
+  --color-accent-bright: #34d399;
+  --color-accent: #10b981;
+  --color-accent-dark: #047857;
+  --color-accent-soft: #062a1d;
 
-  /* Category-card tints — paired soft bg + ink */
-  --color-tint-emerald: #e5f5ec;
-  --color-tint-emerald-ink: #0a7d57;
-  --color-tint-sky: #e5f1fa;
-  --color-tint-sky-ink: #0b6cb1;
-  --color-tint-amber: #fbf1dc;
-  --color-tint-amber-ink: #976308;
-  --color-tint-violet: #efeaf9;
-  --color-tint-violet-ink: #5b3aa6;
-  --color-tint-rose: #fbe7ec;
-  --color-tint-rose-ink: #b4314f;
-  --color-tint-slate: #e9eef1;
-  --color-tint-slate-ink: #3d4a52;
+  /* Category-card tints — paired dark bg + bright ink */
+  --color-tint-emerald: #0a2e22;
+  --color-tint-emerald-ink: #34d399;
+  --color-tint-sky: #0a253b;
+  --color-tint-sky-ink: #38bdf8;
+  --color-tint-amber: #2e2210;
+  --color-tint-amber-ink: #fbbf24;
+  --color-tint-violet: #1f1a35;
+  --color-tint-violet-ink: #a78bfa;
+  --color-tint-rose: #2e1620;
+  --color-tint-rose-ink: #fb7185;
+  --color-tint-slate: #1a2230;
+  --color-tint-slate-ink: #94a3b8;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
     sans-serif;
@@ -47,6 +55,7 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
@@ -59,26 +68,39 @@ body {
 
 ::selection {
   background: var(--color-accent-soft);
-  color: var(--color-accent-dark);
+  color: var(--color-accent-bright);
 }
 
-/* Subtle elevation utility for cards */
+/* Subtle elevation utility for cards — dark-mode shadows.
+   We layer a soft accent-tinted glow over a deeper dark drop so cards
+   feel lifted off the canvas without looking like flat strokes. */
 @utility shadow-card {
   box-shadow:
-    0 1px 0 0 rgb(15 23 22 / 0.03),
-    0 1px 2px 0 rgb(15 23 22 / 0.04);
+    0 1px 0 0 rgb(255 255 255 / 0.03) inset,
+    0 1px 2px 0 rgb(0 0 0 / 0.5),
+    0 0 0 1px rgb(255 255 255 / 0.01);
 }
 
 @utility shadow-card-hover {
   box-shadow:
-    0 1px 0 0 rgb(15 23 22 / 0.04),
-    0 8px 24px -8px rgb(15 23 22 / 0.1);
+    0 1px 0 0 rgb(255 255 255 / 0.05) inset,
+    0 12px 32px -12px rgb(0 0 0 / 0.7),
+    0 0 0 1px rgb(16 185 129 / 0.15);
 }
 
-/* Faint grid pattern used on the hero */
+/* Faint light grid pattern over the hero */
 @utility bg-grid {
   background-image:
-    linear-gradient(to right, rgb(15 23 22 / 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(15 23 22 / 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
   background-size: 32px 32px;
+}
+
+/* Radial accent glow used behind the hero headline */
+@utility bg-hero-glow {
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    rgb(16 185 129 / 0.22),
+    transparent 70%
+  );
 }

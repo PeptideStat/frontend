@@ -1,4 +1,4 @@
-# 2026-05-15 — Homepage redesign (peptide-db.com pattern)
+# 2026-05-15 — Homepage redesign (peptide-db.com pattern) + dark theme
 
 **Status:** Implemented and pushed
 **Reference:** [peptide-db.com](https://peptide-db.com)
@@ -6,23 +6,55 @@
 ## Goal
 
 Adopt peptide-db.com's structural vocabulary for the PeptideStat homepage —
-clean clinical-modern aesthetic, scannable sections, credibility signals up
-top — while keeping the blog content model intact. The reference site is a
-**database / tool suite**; PeptideStat is an **affiliate blog**. The redesign
-copies the *visual system* and adapts the *layout* to fit blog content.
+scannable sections, credibility signals up top — while keeping the blog
+content model intact and ship our own dark visual identity rather than
+copying their light palette. The reference site is a **database / tool
+suite**; PeptideStat is an **affiliate blog**. The redesign copies the
+*structural grammar* and adapts the *layout* to fit blog content; the
+color system is original.
+
+## Color system — dark, cool, vivid green
+
+Original palette (not from the reference). Cool near-black canvas with
+stepped elevation, near-white cool text scale, and a vivid emerald accent
+that pops against the dark.
+
+| Token | Hex | Use |
+|---|---|---|
+| `--color-canvas` | `#0b0f14` | Page background (darkest) |
+| `--color-surface` | `#11161d` | Section bg accent |
+| `--color-surface-2` | `#18202a` | Cards / elevated panels |
+| `--color-line` | `#1f2937` | Subtle borders |
+| `--color-line-strong` | `#2e3a4d` | Strong borders / focus |
+| `--color-ink` | `#e6edf3` | Primary text |
+| `--color-ink-soft` | `#b9c4d0` | Secondary text |
+| `--color-muted` | `#7d8a99` | Tertiary text |
+| `--color-muted-soft` | `#586374` | Quaternary / hints |
+| `--color-accent-bright` | `#34d399` | Hover / active accent |
+| `--color-accent` | `#10b981` | Default accent |
+| `--color-accent-dark` | `#047857` | Strong borders / logo chip end |
+| `--color-accent-soft` | `#062a1d` | Tinted bg (badges, gradients) |
+
+Plus six paired category tints (emerald / sky / amber / violet / rose /
+slate) — each token has a dark bg + bright ink variant.
+
+**Effects:**
+- `bg-hero-glow` — radial emerald glow behind the hero headline
+- `bg-grid` — light 32px grid pattern (1px white at 4% opacity)
+- `shadow-card` / `shadow-card-hover` — dark drop + faint inner highlight,
+  with a hint of accent glow on hover
+
+`color-scheme: dark` is set on `<html>` so native form controls and
+scrollbars match.
 
 ## What changed
 
 ### Visual system (`app/globals.css`)
 
-- Refined token palette: `--color-canvas`, `--color-surface`, `--color-line`
-  (+ stronger variant), `--color-ink` / `--color-ink-soft` / `--color-muted`
-  (+ soft variant), `--color-accent` / dark / soft.
-- New category tints (`--color-tint-emerald|sky|amber|violet|rose|slate`) each
-  with a paired `-ink` foreground — drives the category grid icons.
-- Custom utilities: `shadow-card`, `shadow-card-hover`, `bg-grid` (subtle hero
-  pattern).
-- `--section-pad-y` rhythm token.
+- Dark token palette (see "Color system" above) + paired category tints
+- Custom utilities: `shadow-card`, `shadow-card-hover`, `bg-grid`,
+  `bg-hero-glow`
+- `--section-pad-y` rhythm token, `color-scheme: dark` on `<html>`
 
 ### Homepage (`app/page.tsx`) — section-by-section
 
@@ -99,13 +131,16 @@ package.json                        (dev/start scripts → port 3002)
    no auth, no Browse/Tools/Compounds/Calculators, no AI Assistant. We took
    the *grammar* (hero → stats → sources → categories → guides → disclaimer)
    and filled it with blog content.
-2. **No third-party logos.** peptide-db.com puts university/partner logos in
+2. **Dark theme, original palette.** The reference site is light; per user
+   direction we shipped a dark theme with an original cool-dark + emerald
+   palette rather than copying their colors.
+3. **No third-party logos.** peptide-db.com puts university/partner logos in
    its credibility row. We use plain text wordmarks (NEJM, PubMed Central, …)
    to avoid hosting third-party marks without permission.
-3. **No fake features.** Skipped Sign In / Register, "Browse Compounds",
+4. **No fake features.** Skipped Sign In / Register, "Browse Compounds",
    tools that don't exist (calculators, AI assistant, stack builder). Will
    come back when those features actually exist.
-4. **Dev port.** Scripts default to `3002` — `3000` is privage-app, `3001` is
+5. **Dev port.** Scripts default to `3002` — `3000` is privage-app, `3001` is
    cryptostat/frontend. Both confirmed running on this machine.
 
 ## Future work (not in this pass)

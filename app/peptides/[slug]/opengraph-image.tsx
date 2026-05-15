@@ -31,7 +31,8 @@ export default async function Image({
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px",
-          background: "linear-gradient(135deg, #ffffff 0%, #e7f6ef 100%)",
+          background:
+            "radial-gradient(ellipse 70% 50% at 80% 100%, rgba(16,185,129,0.25), transparent 70%), #0b0f14",
           fontFamily: "sans-serif",
         }}
       >
@@ -40,7 +41,7 @@ export default async function Image({
             display: "flex",
             alignItems: "center",
             gap: 14,
-            color: "#0a7d57",
+            color: "#34d399",
             fontSize: 30,
             fontWeight: 700,
           }}
@@ -50,7 +51,7 @@ export default async function Image({
               width: 50,
               height: 50,
               borderRadius: 12,
-              background: "#0f9d6e",
+              background: "linear-gradient(135deg, #10b981, #047857)",
               color: "white",
               display: "flex",
               alignItems: "center",
@@ -70,7 +71,7 @@ export default async function Image({
               fontWeight: 600,
               textTransform: "uppercase",
               letterSpacing: 2,
-              color: "#0f9d6e",
+              color: "#34d399",
             }}
           >
             {eyebrow}
@@ -80,7 +81,7 @@ export default async function Image({
               marginTop: 20,
               fontSize: 62,
               fontWeight: 800,
-              color: "#0d1714",
+              color: "#e6edf3",
               lineHeight: 1.15,
             }}
           >
@@ -88,7 +89,7 @@ export default async function Image({
           </div>
         </div>
 
-        <div style={{ fontSize: 26, color: "#5f6f68" }}>
+        <div style={{ fontSize: 26, color: "#7d8a99" }}>
           {siteConfig.url.replace(/^https?:\/\//, "")}
         </div>
       </div>

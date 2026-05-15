@@ -49,7 +49,7 @@ export function Header() {
           <SearchTrigger items={items} />
           <Link
             href="/peptides"
-            className="hidden h-9 items-center rounded-md bg-ink px-4 text-sm font-medium text-canvas transition-colors hover:bg-ink-soft sm:inline-flex"
+            className="hidden h-9 items-center rounded-md bg-accent px-4 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright sm:inline-flex"
           >
             Browse peptides
           </Link>

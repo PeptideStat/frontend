@@ -67,7 +67,7 @@ export function Footer() {
                 <Link
                   key={`${column.heading}-${link.label}`}
                   href={link.href}
-                  className="text-ink-soft transition-colors hover:text-accent-dark"
+                  className="text-ink-soft transition-colors hover:text-accent-bright"
                 >
                   {link.label}
                 </Link>

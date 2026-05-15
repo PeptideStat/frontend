@@ -19,9 +19,10 @@ export default function PeptidesIndexPage() {
 
   return (
     <>
-      <section className="border-b border-line bg-gradient-to-b from-accent-soft/40 to-canvas">
-        <div className="mx-auto max-w-6xl px-5 py-20">
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent-dark">
+      <section className="relative overflow-hidden border-b border-line bg-canvas">
+        <div className="pointer-events-none absolute inset-0 bg-hero-glow opacity-70" aria-hidden />
+        <div className="relative mx-auto max-w-6xl px-5 py-20">
+          <p className="text-xs font-semibold uppercase tracking-wider text-accent">
             All guides
           </p>
           <h1 className="mt-3 max-w-2xl text-balance text-4xl font-bold tracking-tight text-ink sm:text-5xl">
