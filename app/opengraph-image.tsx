@@ -16,9 +16,8 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          // Match the site's dark canvas + radial accent glow
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(16,185,129,0.28), transparent 70%), #0b0f14",
+          // Match the site's flat dark canvas.
+          background: "#161b24",
           fontFamily: "sans-serif",
         }}
       >

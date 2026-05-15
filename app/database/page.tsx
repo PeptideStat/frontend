@@ -36,9 +36,8 @@ export default async function DatabasePage(
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-line bg-canvas">
-        <div className="pointer-events-none absolute inset-0 bg-hero-glow opacity-70" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-5 py-20">
+      <section className="border-b border-line bg-canvas">
+        <div className="mx-auto max-w-6xl px-5 py-20">
           <p className="text-xs font-semibold uppercase tracking-wider text-accent">
             Reference
           </p>

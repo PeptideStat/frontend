@@ -31,8 +31,7 @@ export default async function Image({
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px",
-          background:
-            "radial-gradient(ellipse 70% 50% at 80% 100%, rgba(16,185,129,0.25), transparent 70%), #0b0f14",
+          background: "#161b24",
           fontFamily: "sans-serif",
         }}
       >

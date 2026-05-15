@@ -5,22 +5,12 @@ import { ArrowRightIcon } from "@/components/icons";
 import { siteConfig } from "@/site.config";
 
 /**
- * Landing hero on dark canvas.
- * Layered effects (bottom → top): solid canvas, light grid pattern, radial
- * accent glow behind the headline. The glow is the signature "premium dark"
- * touch — soft emerald light spilling down from the top of the section.
+ * Landing hero on a flat dark canvas — no gradient layers, no glow.
  */
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden border-b border-line bg-canvas">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 bg-hero-glow" aria-hidden />
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-canvas to-transparent"
-        aria-hidden
-      />
-
-      <div className="relative mx-auto max-w-6xl px-5 py-24 sm:py-32">
+    <section className="border-b border-line bg-canvas">
+      <div className="mx-auto max-w-6xl px-5 py-24 sm:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface-2/80 px-3 py-1 text-xs font-medium text-ink-soft backdrop-blur">
             <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" aria-hidden />

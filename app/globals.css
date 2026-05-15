@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* Surfaces — deep cool dark with stepped elevation.
-     canvas = page background (darkest)
+  /* Surfaces — soft mid-dark with stepped elevation.
+     Bumped lighter from the original near-black so the page reads as
+     "comfortable dark" rather than "blacked out".
+     canvas = page background
      surface = subtle section accent
-     surface-2 = cards and elevated panels (lightest) */
-  --color-canvas: #0b0f14;
-  --color-surface: #11161d;
-  --color-surface-2: #18202a;
-  --color-line: #1f2937;
-  --color-line-strong: #2e3a4d;
+     surface-2 = cards and elevated panels */
+  --color-canvas: #161b24;
+  --color-surface: #1d2330;
+  --color-surface-2: #252c3b;
+  --color-line: #2d3545;
+  --color-line-strong: #3d4658;
 
   /* Text — cool near-white scale */
-  --color-ink: #e6edf3;
-  --color-ink-soft: #b9c4d0;
-  --color-muted: #7d8a99;
-  --color-muted-soft: #586374;
+  --color-ink: #e8eef5;
+  --color-ink-soft: #c1ccd9;
+  --color-muted: #8693a3;
+  --color-muted-soft: #5e6a79;
 
   /* Brand accent — vivid emerald on dark.
      accent-bright = hover / active (gets lighter on dark)
