@@ -17,56 +17,53 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTENT_DIR = ROOT / "content" / "peptides"
 
 # Drip-publishing plan for the GLP-1 cluster.
-# Week 1 (already published): pillar + sub-pillar + 1 high-value buyer + 1 safety + 1 access
-# Weeks 2-8: 4 articles per week, paired Mon/Thu cadence
+# 5 articles per day starting the day after launch — full cluster live by 2026-05-22.
 SCHEDULE = {
-    # ---- Week 1 — LIVE on launch (2026-05-15) ----
+    # ---- Day 0 — LIVE on launch (2026-05-15) ----
     "what-is-glp-1": "2026-05-15",
     "glp-1-for-weight-loss": "2026-05-15",
     "best-glp-1-for-weight-loss": "2026-05-15",
     "where-to-get-glp-1-online": "2026-05-15",
     "glp-1-side-effects": "2026-05-15",
 
-    # ---- Week 2 ----
-    "cheapest-glp-1-for-weight-loss": "2026-05-19",
-    "ro-glp-1-review": "2026-05-19",
-    "glp-1-cost": "2026-05-22",
-    "glp-1-coupon": "2026-05-22",
+    # ---- Day 1 (2026-05-17) — buyer-intent anchors ----
+    "cheapest-glp-1-for-weight-loss": "2026-05-17",
+    "ro-glp-1-review": "2026-05-17",
+    "glp-1-cost": "2026-05-17",
+    "glp-1-coupon": "2026-05-17",
+    "glp-1-drugs-list": "2026-05-17",
 
-    # ---- Week 3 ----
-    "glp-1-drugs-list": "2026-05-26",
-    "glp-1-dosage-for-weight-loss": "2026-05-26",
-    "mounjaro-tirzepatide-glp-1": "2026-05-29",
-    "semaglutide-as-glp-1": "2026-05-29",
+    # ---- Day 2 (2026-05-18) — dosing + brand explainers ----
+    "glp-1-dosage-for-weight-loss": "2026-05-18",
+    "mounjaro-tirzepatide-glp-1": "2026-05-18",
+    "semaglutide-as-glp-1": "2026-05-18",
+    "glp-1-receptor-agonists": "2026-05-18",
+    "compounded-glp-1": "2026-05-18",
 
-    # ---- Week 4 ----
-    "glp-1-receptor-agonists": "2026-06-02",
-    "compounded-glp-1": "2026-06-02",
-    "glp-1-vs-sglt2-inhibitors": "2026-06-05",
-    "glp-1-on-amazon": "2026-06-05",
+    # ---- Day 3 (2026-05-19) — comparison + access ----
+    "glp-1-vs-sglt2-inhibitors": "2026-05-19",
+    "glp-1-on-amazon": "2026-05-19",
+    "glp-1-weight-loss-near-me": "2026-05-19",
+    "fda-approved-glp-1-for-weight-loss": "2026-05-19",
+    "eli-lilly-glp-1": "2026-05-19",
 
-    # ---- Week 5 ----
-    "glp-1-weight-loss-near-me": "2026-06-09",
-    "fda-approved-glp-1-for-weight-loss": "2026-06-09",
-    "eli-lilly-glp-1": "2026-06-12",
-    "novo-nordisk-glp-1": "2026-06-12",
+    # ---- Day 4 (2026-05-20) — manufacturer + advanced topics ----
+    "novo-nordisk-glp-1": "2026-05-20",
+    "retatrutide-vs-glp-1": "2026-05-20",
+    "glp-1-weight-loss-before-and-after": "2026-05-20",
+    "glp-1-microdosing": "2026-05-20",
+    "glp-1-and-alcohol": "2026-05-20",
 
-    # ---- Week 6 ----
-    "retatrutide-vs-glp-1": "2026-06-16",
-    "glp-1-weight-loss-before-and-after": "2026-06-16",
-    "glp-1-microdosing": "2026-06-19",
-    "glp-1-and-alcohol": "2026-06-19",
+    # ---- Day 5 (2026-05-21) — depth + sermorelin pillar ----
+    "glp-1-treatment-guide": "2026-05-21",
+    "glp-1-hormone-explained": "2026-05-21",
+    "saxenda-liraglutide-glp-1": "2026-05-21",
+    "sermorelin-complete-guide": "2026-05-21",
+    "amgen-sanofi-glp-1-pipeline": "2026-05-21",
 
-    # ---- Week 7 ----
-    "glp-1-treatment-guide": "2026-06-23",
-    "glp-1-hormone-explained": "2026-06-23",
-    "saxenda-liraglutide-glp-1": "2026-06-26",
-    "sermorelin-complete-guide": "2026-06-26",
-
-    # ---- Week 8 ----
-    "amgen-sanofi-glp-1-pipeline": "2026-06-30",
-    "glp-1-reddit-insights": "2026-06-30",
-    "glp-1-glossary": "2026-07-03",
+    # ---- Day 6 (2026-05-22) — tail ----
+    "glp-1-reddit-insights": "2026-05-22",
+    "glp-1-glossary": "2026-05-22",
 }
 
 
