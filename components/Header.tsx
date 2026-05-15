@@ -48,7 +48,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <SearchTrigger items={items} />
           <Link
-            href="/peptides"
+            href="/database"
             className="hidden h-9 items-center rounded-md bg-accent px-4 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright sm:inline-flex"
           >
             Browse peptides

@@ -16,7 +16,8 @@ const columns: FooterColumn[] = [
   {
     heading: "Browse",
     links: [
-      { label: "All peptides", href: "/peptides" },
+      { label: "Peptide database", href: "/database" },
+      { label: "All guides", href: "/peptides" },
       { label: "Retatrutide", href: "/peptides/retatrutide" },
       { label: "BPC-157", href: "/peptides/bpc-157" },
     ],
