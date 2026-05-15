@@ -1,25 +1,44 @@
 @import "tailwindcss";
 
 @theme {
-  /* Surfaces */
+  /* Surfaces — clinical, low-contrast neutrals */
   --color-canvas: #ffffff;
-  --color-surface: #f6f8f7;
-  --color-surface-2: #eef2f0;
-  --color-line: #e2e8e5;
+  --color-surface: #f7faf9;
+  --color-surface-2: #eef2f1;
+  --color-line: #e3e8e6;
+  --color-line-strong: #cdd5d2;
 
   /* Text */
-  --color-ink: #0d1714;
-  --color-ink-soft: #344039;
-  --color-muted: #5f6f68;
+  --color-ink: #0b1411;
+  --color-ink-soft: #2a3631;
+  --color-muted: #5d6b65;
+  --color-muted-soft: #8b9994;
 
-  /* Brand accent — health / research green */
+  /* Brand accent — research-green */
   --color-accent: #0f9d6e;
   --color-accent-dark: #0a7d57;
-  --color-accent-soft: #e7f6ef;
+  --color-accent-soft: #e5f5ec;
+
+  /* Category-card tints — paired soft bg + ink */
+  --color-tint-emerald: #e5f5ec;
+  --color-tint-emerald-ink: #0a7d57;
+  --color-tint-sky: #e5f1fa;
+  --color-tint-sky-ink: #0b6cb1;
+  --color-tint-amber: #fbf1dc;
+  --color-tint-amber-ink: #976308;
+  --color-tint-violet: #efeaf9;
+  --color-tint-violet-ink: #5b3aa6;
+  --color-tint-rose: #fbe7ec;
+  --color-tint-rose-ink: #b4314f;
+  --color-tint-slate: #e9eef1;
+  --color-tint-slate-ink: #3d4a52;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
     sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* Section rhythm */
+  --section-pad-y: clamp(3rem, 5vw, 5rem);
 }
 
 * {
@@ -41,4 +60,25 @@ body {
 ::selection {
   background: var(--color-accent-soft);
   color: var(--color-accent-dark);
+}
+
+/* Subtle elevation utility for cards */
+@utility shadow-card {
+  box-shadow:
+    0 1px 0 0 rgb(15 23 22 / 0.03),
+    0 1px 2px 0 rgb(15 23 22 / 0.04);
+}
+
+@utility shadow-card-hover {
+  box-shadow:
+    0 1px 0 0 rgb(15 23 22 / 0.04),
+    0 8px 24px -8px rgb(15 23 22 / 0.1);
+}
+
+/* Faint grid pattern used on the hero */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(15 23 22 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 22 / 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
 }

@@ -4,7 +4,7 @@
  */
 export const siteConfig = {
   name: "PeptideStat",
-  tagline: "Evidence-based peptide guides & reviews",
+  tagline: "Evidence-based peptide research, decoded",
   title: "PeptideStat — Evidence-Based Peptide Guides & Reviews",
   description:
     "In-depth, research-backed guides on peptides — dosing, benefits, side effects and how they compare. Clear answers for people researching peptides.",

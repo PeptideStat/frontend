@@ -1,34 +1,59 @@
 import Link from "next/link";
 import { siteConfig } from "@/site.config";
+import { getAllArticles } from "@/lib/content";
+import { SearchTrigger, type SearchItem } from "@/components/SearchTrigger";
 
+/**
+ * Top-of-page header with logo, primary nav and the ⌘K search trigger.
+ *
+ * The article list is fetched on the server here and passed to the client-
+ * side `SearchTrigger` as plain data — that keeps the MDX content layer
+ * out of the client bundle.
+ */
 export function Header() {
-  return (
-    <header className="sticky top-0 z-50 border-b border-line bg-canvas/85 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-semibold tracking-tight"
-        >
-          <span
-            aria-hidden
-            className="flex h-7 w-7 items-center justify-center rounded-md bg-accent text-sm font-bold text-white"
-          >
-            P
-          </span>
-          <span className="text-lg">{siteConfig.name}</span>
-        </Link>
+  const items: SearchItem[] = getAllArticles().map((article) => ({
+    slug: article.slug,
+    title: article.title,
+    description: article.description,
+    cluster: article.cluster,
+  }));
 
-        <nav className="flex items-center gap-1 text-sm font-medium">
-          {siteConfig.nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-md px-3 py-2 text-ink-soft transition-colors hover:bg-surface hover:text-ink"
+  return (
+    <header className="sticky top-0 z-50 border-b border-line bg-canvas/90 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5">
+        <div className="flex items-center gap-8">
+          <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
+            <span
+              aria-hidden
+              className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-accent to-accent-dark text-sm font-bold text-white"
             >
-              {item.title}
-            </Link>
-          ))}
-        </nav>
+              P
+            </span>
+            <span className="text-[15px]">{siteConfig.name}</span>
+          </Link>
+
+          <nav className="hidden items-center gap-1 text-sm font-medium md:flex">
+            {siteConfig.nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-md px-3 py-2 text-ink-soft transition-colors hover:bg-surface hover:text-ink"
+              >
+                {item.title}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <SearchTrigger items={items} />
+          <Link
+            href="/peptides"
+            className="hidden h-9 items-center rounded-md bg-ink px-4 text-sm font-medium text-canvas transition-colors hover:bg-ink-soft sm:inline-flex"
+          >
+            Browse peptides
+          </Link>
+        </div>
       </div>
     </header>
   );
