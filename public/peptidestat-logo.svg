@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">PeptideStat logo</title>
+  <desc id="desc">Periodic-table inspired Ps logo with laboratory flask and peptide molecule motif.</desc>
+  <defs>
+    <style>
+      .ink{fill:#031a34}.stroke{stroke:#031a34;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;fill:none}.thin{stroke:#031a34;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;fill:none}.white{fill:#fff}.label{font-family:Arial, Helvetica, sans-serif;font-weight:700;letter-spacing:11px;fill:#031a34}.num{font-family:Arial, Helvetica, sans-serif;font-weight:500;fill:#031a34}.ps{font-family:Arial Black, Arial, Helvetica, sans-serif;font-weight:900;fill:#031a34}
+    </style>
+  </defs>
+  <rect width="1000" height="620" fill="#fff"/>
+
+  <!-- periodic table frame -->
+  <path class="stroke" d="M152 72H630V412"/>
+  <path class="stroke" d="M152 72V548H722"/>
+  <path class="stroke" d="M630 72V171"/>
+  <path class="stroke" d="M152 548H722"/>
+
+  <!-- number + Ps -->
+  <text class="num" x="204" y="170" font-size="62">16</text>
+  <text class="ps" x="225" y="392" font-size="235">Ps</text>
+  <text class="label" x="205" y="492" font-size="34">PEPTIDESTAT</text>
+
+  <!-- flask outline -->
+  <path class="stroke" d="M668 171H781"/>
+  <path class="stroke" d="M690 171V315L595 522"/>
+  <path class="stroke" d="M759 171V315L854 522"/>
+  <path class="stroke" d="M595 522C584 548 602 575 632 575H817C847 575 866 548 854 522"/>
+  <path class="stroke" d="M672 202H689"/>
+  <path class="stroke" d="M672 246H689"/>
+
+  <!-- flask liquid -->
+  <path class="ink" d="M634 533C629 544 637 555 650 555H799C812 555 820 544 815 533L778 452C747 430 712 430 682 452L634 533Z"/>
+  <path d="M635 533C630 544 638 555 651 555H799C812 555 820 544 815 533" stroke="#031a34" stroke-width="10" stroke-linecap="round" fill="none"/>
+
+  <!-- molecule inside flask -->
+  <g transform="translate(0,0)">
+    <path d="M654 504L704 540L748 500L798 536" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M748 500L765 445" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="654" cy="504" r="20" fill="#031a34" stroke="#fff" stroke-width="10"/>
+    <circle cx="704" cy="540" r="20" fill="#031a34" stroke="#fff" stroke-width="10"/>
+    <circle cx="748" cy="500" r="20" fill="#fff"/>
+    <circle cx="798" cy="536" r="22" fill="#031a34" stroke="#fff" stroke-width="10"/>
+    <circle cx="765" cy="445" r="20" fill="#031a34" stroke="#fff" stroke-width="10"/>
+  </g>
+
+  <!-- bubbles -->
+  <circle class="ink" cx="723" cy="66" r="15"/>
+  <circle class="ink" cx="694" cy="111" r="20"/>
+  <circle class="ink" cx="656" cy="147" r="15"/>
+</svg>

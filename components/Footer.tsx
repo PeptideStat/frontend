@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/site.config";
+import { Logo } from "@/components/Logo";
 
 /**
  * Multi-column footer modelled on peptide-db.com's grouping:
@@ -45,14 +46,12 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-10 sm:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div className="max-w-sm">
-            <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-              <span
-                aria-hidden
-                className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-accent to-accent-dark text-sm font-bold text-white"
-              >
-                P
-              </span>
-              <span>{siteConfig.name}</span>
+            <Link
+              href="/"
+              aria-label={siteConfig.name}
+              className="inline-flex items-center text-ink transition-colors hover:text-accent-bright"
+            >
+              <Logo className="h-12 w-auto" />
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-muted">
               {siteConfig.description}

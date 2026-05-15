@@ -2,6 +2,7 @@ import Link from "next/link";
 import { siteConfig } from "@/site.config";
 import { getAllArticles } from "@/lib/content";
 import { SearchTrigger, type SearchItem } from "@/components/SearchTrigger";
+import { Logo } from "@/components/Logo";
 
 /**
  * Top-of-page header with logo, primary nav and the ⌘K search trigger.
@@ -22,14 +23,12 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-line bg-canvas/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5">
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-            <span
-              aria-hidden
-              className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-accent to-accent-dark text-sm font-bold text-white"
-            >
-              P
-            </span>
-            <span className="text-[15px]">{siteConfig.name}</span>
+          <Link
+            href="/"
+            aria-label={siteConfig.name}
+            className="flex items-center text-ink transition-colors hover:text-accent-bright"
+          >
+            <Logo className="h-9 w-auto" />
           </Link>
 
           <nav className="hidden items-center gap-1 text-sm font-medium md:flex">
