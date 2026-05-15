@@ -37,6 +37,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Local research artifacts (SERP responses, extracted page content).
+# Kept out of git: they can be regenerated and they're large.
+scripts/glp1_serps.json
+scripts/glp1_extracted.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
