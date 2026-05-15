@@ -18,6 +18,8 @@ export const siteConfig = {
   // Social handle (without @) — used for Twitter/X card metadata.
   twitter: "peptidestat",
   nav: [
+    { title: "Shop Peptides", href: "/shop" },
+    { title: "Calculators", href: "/calculators" },
     { title: "Database", href: "/database" },
     { title: "Guides", href: "/peptides" },
     { title: "About", href: "/about" },
