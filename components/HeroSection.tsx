@@ -17,13 +17,12 @@ export function HeroSection() {
             {siteConfig.tagline}
           </span>
           <h1 className="mt-5 text-balance text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-6xl">
-            Clear answers about peptides,{" "}
-            <span className="text-accent-bright">grounded in real research.</span>
+            Your hub for{" "}
+            <span className="text-accent-bright">everything peptides.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted sm:text-lg">
-            Dosing, side effects, head-to-head comparisons and what trials
-            actually show — written for people who want the truth without the
-            forum noise.
+            Clear guides to dosing, side effects, comparisons and the research
+            behind them.
           </p>
 
           <div className="mx-auto mt-8 flex max-w-lg flex-col gap-3 sm:flex-row">

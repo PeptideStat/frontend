@@ -22,6 +22,14 @@ export interface PopularQuestion {
 
 export const popularQuestions: PopularQuestion[] = [
   {
+    label: "Bryan Johnson hair protocol",
+    href: "/peptides/bryan-johnson-hair-protocol",
+  },
+  {
+    label: "Bryan Johnson discount code",
+    href: "/bryan-johnson-discount-code",
+  },
+  {
     label: "How does Retatrutide compare to Tirzepatide?",
     href: "/peptides/retatrutide",
   },

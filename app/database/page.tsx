@@ -7,6 +7,7 @@ import {
 import { PeptideDatabase } from "@/components/PeptideDatabase";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
 import { buildMetadata } from "@/lib/seo";
+import { shopUrl } from "@/site.config";
 
 const title = "Peptide database";
 const description =
@@ -55,7 +56,11 @@ export default async function DatabasePage(
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-12">
-        <PeptideDatabase peptides={peptides} initialCategory={initialCategory} />
+        <PeptideDatabase
+          peptides={peptides}
+          shopHref={shopUrl}
+          initialCategory={initialCategory}
+        />
       </section>
 
       <DisclaimerBanner />

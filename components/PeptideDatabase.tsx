@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
@@ -9,10 +10,15 @@ import {
   type PeptideCategory,
   type PeptideStatus,
 } from "@/data/peptides";
-import { SearchIcon, CloseIcon, ArrowRightIcon } from "@/components/icons";
+import {
+  SearchIcon,
+  CloseIcon,
+  ArrowRightIcon,
+  ExternalLinkIcon,
+} from "@/components/icons";
 
 /**
- * Filterable / sortable peptide database table.
+ * Filterable / sortable peptide database cards.
  *
  * Client component because every interaction (search, filter toggles, column
  * sort) is local UI state. The full peptide list is passed in from the page
@@ -26,6 +32,14 @@ import { SearchIcon, CloseIcon, ArrowRightIcon } from "@/components/icons";
 type SortKey = "name" | "category" | "drugClass" | "status" | "halfLife";
 type SortDir = "asc" | "desc";
 
+const SORT_OPTIONS: { key: SortKey; label: string }[] = [
+  { key: "name", label: "Name" },
+  { key: "category", label: "Category" },
+  { key: "drugClass", label: "Class" },
+  { key: "status", label: "Status" },
+  { key: "halfLife", label: "Half-life" },
+];
+
 const STATUS_BADGE: Record<PeptideStatus, string> = {
   approved: "border-tint-emerald-ink/40 bg-tint-emerald text-tint-emerald-ink",
   investigational: "border-tint-amber-ink/40 bg-tint-amber text-tint-amber-ink",
@@ -34,9 +48,11 @@ const STATUS_BADGE: Record<PeptideStatus, string> = {
 
 export function PeptideDatabase({
   peptides,
+  shopHref,
   initialCategory = null,
 }: {
   peptides: Peptide[];
+  shopHref: string;
   initialCategory?: PeptideCategory | null;
 }) {
   const [query, setQuery] = useState("");
@@ -159,119 +175,166 @@ export function PeptideDatabase({
         </FilterRow>
       </div>
 
-      {/* Result summary + clear */}
-      <div className="flex items-center justify-between text-sm text-muted">
-        <span>
-          {visible.length} of {peptides.length} peptides
-        </span>
-        {hasFilters && (
-          <button
-            type="button"
-            onClick={clearAll}
-            className="text-accent transition-colors hover:text-accent-bright"
-          >
-            Clear filters
-          </button>
-        )}
-      </div>
-
-      {/* Table */}
-      <div className="overflow-hidden rounded-xl border border-line bg-surface-2 shadow-card">
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[860px] text-left text-sm">
-            <thead className="border-b border-line bg-surface text-xs uppercase tracking-wider text-muted">
-              <tr>
-                <Th onClick={() => clickSort("name")} active={sortKey === "name"} dir={sortDir}>
-                  Peptide
-                </Th>
-                <Th
-                  onClick={() => clickSort("category")}
-                  active={sortKey === "category"}
-                  dir={sortDir}
-                >
-                  Category
-                </Th>
-                <Th
-                  onClick={() => clickSort("drugClass")}
-                  active={sortKey === "drugClass"}
-                  dir={sortDir}
-                >
-                  Class
-                </Th>
-                <Th
-                  onClick={() => clickSort("status")}
-                  active={sortKey === "status"}
-                  dir={sortDir}
-                >
-                  Status
-                </Th>
-                <Th
-                  onClick={() => clickSort("halfLife")}
-                  active={sortKey === "halfLife"}
-                  dir={sortDir}
-                >
-                  Half-life
-                </Th>
-                <th className="px-4 py-3 text-right font-semibold">
-                  <span className="sr-only">Link</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {visible.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="px-4 py-16 text-center text-muted">
-                    No peptides match the current filters.
-                  </td>
-                </tr>
-              ) : (
-                visible.map((peptide) => (
-                  <tr
-                    key={peptide.slug}
-                    className="border-t border-line/70 transition-colors hover:bg-surface/60"
-                  >
-                    <td className="px-4 py-4">
-                      <div className="font-semibold text-ink">{peptide.name}</div>
-                      {peptide.aliases && (
-                        <div className="mt-0.5 text-xs text-muted">
-                          {peptide.aliases}
-                        </div>
-                      )}
-                    </td>
-                    <td className="px-4 py-4 text-ink-soft">
-                      {CATEGORY_LABELS[peptide.category]}
-                    </td>
-                    <td className="px-4 py-4 text-ink-soft">{peptide.drugClass}</td>
-                    <td className="px-4 py-4">
-                      <span
-                        className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${STATUS_BADGE[peptide.status]}`}
-                      >
-                        {STATUS_LABELS[peptide.status]}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4 font-mono text-xs text-ink-soft">
-                      {peptide.halfLife}
-                    </td>
-                    <td className="px-4 py-4 text-right">
-                      {peptide.articleSlug ? (
-                        <Link
-                          href={`/peptides/${peptide.articleSlug}`}
-                          className="inline-flex items-center gap-1 text-sm font-medium text-accent transition-colors hover:text-accent-bright"
-                        >
-                          Guide
-                          <ArrowRightIcon className="h-3.5 w-3.5" />
-                        </Link>
-                      ) : (
-                        <span className="text-xs text-muted-soft">No guide yet</span>
-                      )}
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+      {/* Result summary + sort */}
+      <div className="flex flex-col gap-3 border-y border-line py-4 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-3">
+          <span>
+            {visible.length} of {peptides.length} peptides
+          </span>
+          {hasFilters && (
+            <button
+              type="button"
+              onClick={clearAll}
+              className="text-accent transition-colors hover:text-accent-bright"
+            >
+              Clear filters
+            </button>
+          )}
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-semibold uppercase tracking-wider text-muted">
+            Sort
+          </span>
+          {SORT_OPTIONS.map((option) => (
+            <SortPill
+              key={option.key}
+              active={sortKey === option.key}
+              dir={sortDir}
+              onClick={() => clickSort(option.key)}
+            >
+              {option.label}
+            </SortPill>
+          ))}
         </div>
       </div>
+
+      {/* Cards */}
+      {visible.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-line bg-surface-2 px-4 py-16 text-center text-muted">
+          No peptides match the current filters.
+        </div>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {visible.map((peptide) => {
+            const guideHref = peptide.articleSlug
+              ? `/peptides/${peptide.articleSlug}`
+              : "/peptides";
+            const guideLabel = peptide.articleSlug ? "Guide" : "Guides";
+            const buyHref = peptide.productUrl ?? shopHref;
+
+            return (
+              <article
+                key={peptide.slug}
+                className="flex min-h-full flex-col rounded-lg border border-line bg-surface-2 p-4 shadow-card transition-colors hover:border-accent/40"
+              >
+                <div className="mb-4 overflow-hidden rounded-md border border-line bg-white">
+                  {peptide.productImageUrl ? (
+                    <Image
+                      src={peptide.productImageUrl}
+                      alt={`${peptide.name} product image`}
+                      width={420}
+                      height={315}
+                      loading="lazy"
+                      unoptimized
+                      className="aspect-[4/3] w-full object-contain p-3"
+                    />
+                  ) : (
+                    <div className="flex aspect-[4/3] w-full items-center justify-center bg-surface px-4 text-center">
+                      <span className="text-sm font-semibold text-muted">
+                        {peptide.name}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <h2 className="text-lg font-semibold tracking-tight text-ink">
+                      {peptide.name}
+                    </h2>
+                    {peptide.aliases && (
+                      <p className="mt-1 text-xs leading-relaxed text-muted">
+                        {peptide.aliases}
+                      </p>
+                    )}
+                  </div>
+                  <span
+                    className={`shrink-0 rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${STATUS_BADGE[peptide.status]}`}
+                  >
+                    {STATUS_LABELS[peptide.status]}
+                  </span>
+                </div>
+
+                <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                  <span className="rounded-full border border-line bg-surface px-2.5 py-1 text-ink-soft">
+                    {CATEGORY_LABELS[peptide.category]}
+                  </span>
+                  <span className="rounded-full border border-line bg-surface px-2.5 py-1 text-ink-soft">
+                    {peptide.routeOfAdministration}
+                  </span>
+                </div>
+
+                <p className="mt-4 text-sm leading-relaxed text-ink-soft">
+                  {peptide.mechanism}
+                </p>
+
+                <dl className="mt-4 space-y-3 text-xs">
+                  <div>
+                    <dt className="font-semibold uppercase tracking-wider text-muted">
+                      Class
+                    </dt>
+                    <dd className="mt-1 text-ink-soft">{peptide.drugClass}</dd>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <dt className="font-semibold uppercase tracking-wider text-muted">
+                        Dose ref
+                      </dt>
+                      <dd className="mt-1 text-ink-soft">{peptide.typicalDose}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-semibold uppercase tracking-wider text-muted">
+                        Half-life
+                      </dt>
+                      <dd className="mt-1 font-mono text-ink-soft">
+                        {peptide.halfLife}
+                      </dd>
+                    </div>
+                  </div>
+                  <div>
+                    <dt className="font-semibold uppercase tracking-wider text-muted">
+                      Targets
+                    </dt>
+                    <dd className="mt-1 text-ink-soft">
+                      {peptide.targets.join(", ")}
+                    </dd>
+                  </div>
+                </dl>
+
+                <div className="mt-auto flex gap-2 pt-5">
+                  <Link
+                    href={guideHref}
+                    className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink-soft transition-colors hover:border-accent/40 hover:text-accent-bright"
+                  >
+                    {guideLabel}
+                    <ArrowRightIcon className="h-3.5 w-3.5" />
+                  </Link>
+                  <a
+                    href={buyHref}
+                    target="_blank"
+                    rel="noopener sponsored"
+                    aria-label={`Buy ${peptide.name}`}
+                    className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-md bg-accent px-3 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright"
+                  >
+                    Buy
+                    <ExternalLinkIcon className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -319,31 +382,34 @@ function FilterPill({
   );
 }
 
-function Th({
-  onClick,
+function SortPill({
   active,
   dir,
+  onClick,
   children,
 }: {
-  onClick: () => void;
   active: boolean;
   dir: SortDir;
+  onClick: () => void;
   children: React.ReactNode;
 }) {
   return (
-    <th className="px-4 py-3 font-semibold">
-      <button
-        type="button"
-        onClick={onClick}
-        className={`inline-flex items-center gap-1 transition-colors ${active ? "text-accent" : "hover:text-ink"}`}
-      >
-        {children}
-        {active && (
-          <span aria-hidden className="text-[10px]">
-            {dir === "asc" ? "▲" : "▼"}
-          </span>
-        )}
-      </button>
-    </th>
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+        active
+          ? "border-accent bg-accent-soft text-accent-bright"
+          : "border-line bg-surface-2 text-ink-soft hover:border-accent/40 hover:text-ink"
+      }`}
+    >
+      {children}
+      {active && (
+        <span aria-hidden className="text-[10px] uppercase">
+          {dir}
+        </span>
+      )}
+    </button>
   );
 }

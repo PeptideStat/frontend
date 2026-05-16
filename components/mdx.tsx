@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 /**
  * Component map passed to <MDXRemote />. Styles raw markdown elements so
@@ -10,6 +10,18 @@ import type { ComponentPropsWithoutRef } from "react";
  */
 
 type AnchorProps = ComponentPropsWithoutRef<"a">;
+
+interface ProtocolProductProps {
+  badge?: string;
+  children: ReactNode;
+  ctaHref?: string;
+  ctaLabel?: string;
+  description?: string;
+  imageAlt: string;
+  imageSrc: string;
+  label: string;
+  title: string;
+}
 
 function MdxLink({ href = "", children, ...props }: AnchorProps) {
   const isInternal = href.startsWith("/") || href.startsWith("#");
@@ -25,12 +37,12 @@ function MdxLink({ href = "", children, ...props }: AnchorProps) {
     );
   }
 
-  // External links — nofollow/sponsored keeps affiliate links policy-safe.
+  // External links - nofollow/sponsored keeps affiliate links policy-safe.
   return (
     <a
       href={href}
       target="_blank"
-      rel="nofollow noopener noreferrer"
+      rel="nofollow sponsored noopener noreferrer"
       className="font-medium text-accent underline underline-offset-2 hover:text-accent-bright"
       {...props}
     >
@@ -39,7 +51,75 @@ function MdxLink({ href = "", children, ...props }: AnchorProps) {
   );
 }
 
+function ProtocolProduct({
+  badge,
+  children,
+  ctaHref,
+  ctaLabel = "View product",
+  description,
+  imageAlt,
+  imageSrc,
+  label,
+  title,
+}: ProtocolProductProps) {
+  return (
+    <section className="mt-10 overflow-hidden rounded-xl border border-line bg-surface-2">
+      <div className="grid gap-5 p-5 sm:grid-cols-[180px_minmax(0,1fr)] sm:items-center">
+        <div className="mx-auto flex h-52 w-full max-w-48 items-center justify-center rounded-lg border border-line bg-white p-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            loading="lazy"
+            className="max-h-44 w-auto max-w-full object-contain"
+          />
+        </div>
+
+        <div className="min-w-0">
+          <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+            {label}
+          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <h3 className="text-2xl font-semibold leading-tight tracking-tight text-ink">
+              {title}
+            </h3>
+            {badge && (
+              <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent-bright">
+                {badge}
+              </span>
+            )}
+          </div>
+          {description && (
+            <p className="mt-3 max-w-2xl leading-7 text-ink-soft">
+              {description}
+            </p>
+          )}
+          {ctaHref && (
+            <a
+              href={ctaHref}
+              target="_blank"
+              rel="nofollow sponsored noopener noreferrer"
+              className="mt-4 inline-flex min-h-10 items-center rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-bright"
+            >
+              {ctaLabel}
+            </a>
+          )}
+        </div>
+      </div>
+
+      <div className="border-t border-line p-5">{children}</div>
+    </section>
+  );
+}
+
 export const mdxComponents = {
+  ProtocolProduct,
+  References: (props: ComponentPropsWithoutRef<"ol">) => (
+    <ol
+      className="mt-4 space-y-3 rounded-xl border border-line bg-surface-2 p-5 pl-10 text-sm leading-6 text-ink-soft [&_a]:font-semibold [&_a]:text-accent-bright [&_a]:underline [&_a]:underline-offset-4"
+      {...props}
+    />
+  ),
   h2: (props: ComponentPropsWithoutRef<"h2">) => (
     <h2
       className="mt-12 scroll-mt-24 text-2xl font-semibold tracking-tight text-ink"
@@ -116,7 +196,7 @@ export const mdxComponents = {
   img: (props: ComponentPropsWithoutRef<"img">) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      className="mt-6 rounded-lg border border-line"
+      className="mx-auto mt-6 max-h-[420px] w-auto max-w-full rounded-lg border border-line object-contain"
       alt={props.alt ?? ""}
       {...props}
     />
