@@ -42,6 +42,10 @@ export const popularQuestions: PopularQuestion[] = [
     href: "/peptides/best-peptides-for-hair-growth",
   },
   {
+    label: "Peptide shampoo",
+    href: "/peptides/peptide-shampoo",
+  },
+  {
     label: "How does Retatrutide compare to Tirzepatide?",
     href: "/peptides/retatrutide",
   },
