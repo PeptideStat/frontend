@@ -212,7 +212,7 @@ export const peptides: Peptide[] = [
     status: "research-only",
     developer: "RegeneRx (related TB4 program)",
     year: 1981,
-    articleSlug: null,
+    articleSlug: "bpc-157-vs-tb-500",
     productUrl:
       "https://ascensionpeptides.com/product/tb-500-5mg/?ref=mihaita&campaign=rand",
     productImageUrl:
@@ -233,7 +233,7 @@ export const peptides: Peptide[] = [
     status: "research-only",
     developer: "Novo Nordisk (original)",
     year: 1998,
-    articleSlug: null,
+    articleSlug: "ipamorelin-vs-sermorelin",
     productUrl:
       "https://ascensionpeptides.com/product/ipamorelin-5mg/?ref=mihaita&campaign=rand",
     productImageUrl:
@@ -297,7 +297,7 @@ export const peptides: Peptide[] = [
     status: "research-only",
     developer: "Pickart (discovery)",
     year: 1973,
-    articleSlug: null,
+    articleSlug: "ghk-cu-for-hair-growth",
     productUrl:
       "https://ascensionpeptides.com/product/ghk-cu-100mg/?ref=mihaita&campaign=rand",
     productImageUrl:

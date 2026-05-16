@@ -30,6 +30,14 @@ export const popularQuestions: PopularQuestion[] = [
     href: "/bryan-johnson-discount-code",
   },
   {
+    label: "BPC-157 vs TB-500",
+    href: "/peptides/bpc-157-vs-tb-500",
+  },
+  {
+    label: "GHK-Cu for hair growth",
+    href: "/peptides/ghk-cu-for-hair-growth",
+  },
+  {
     label: "How does Retatrutide compare to Tirzepatide?",
     href: "/peptides/retatrutide",
   },
