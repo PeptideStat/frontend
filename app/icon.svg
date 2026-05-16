@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">PeptideStat icon</title>
+  <desc id="desc">Compact Ps mark with laboratory beaker motif.</desc>
+  <rect width="512" height="512" rx="96" fill="#031a34"/>
+  <path d="M78 74h232v364H78z" fill="none" stroke="#ffffff" stroke-width="22" stroke-linejoin="round"/>
+  <text x="116" y="316" fill="#ffffff" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="160" font-weight="900">Ps</text>
+  <path d="M338 118h82M358 118v112L302 370c-8 22 8 46 32 46h90c24 0 40-24 32-46l-56-140V118" fill="none" stroke="#ffffff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M336 376c-4 10 4 20 15 20h58c11 0 19-10 15-20l-24-62c-18-12-40-12-58 0l-26 62z" fill="#17c7b2"/>
+  <path d="M346 350l28 20 30-26" fill="none" stroke="#031a34" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="376" cy="64" r="14" fill="#17c7b2"/>
+  <circle cx="424" cy="82" r="20" fill="#17c7b2"/>
+  <circle cx="332" cy="90" r="10" fill="#17c7b2"/>
+</svg>

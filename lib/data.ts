@@ -61,10 +61,6 @@ export const popularQuestions: PopularQuestion[] = [
     label: "Is Retatrutide FDA approved?",
     href: "/peptides/retatrutide",
   },
-  {
-    label: "BPC-157 vs TB-500",
-    href: "/peptides/bpc-157",
-  },
 ];
 
 /** ------------------------------------------------------------------ */
