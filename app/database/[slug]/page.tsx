@@ -21,11 +21,13 @@ import {
   type PeptideEvidence,
 } from "@/data/peptideEvidence";
 import { PeptideCategoryHub } from "@/components/PeptideCategoryHub";
+import { CalculatorPresetLinks } from "@/components/CalculatorPresetLinks";
 import {
   RelatedCategoryHubs,
   RelatedDatabaseEntries,
   RelatedGuides,
 } from "@/components/InternalLinkBlocks";
+import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
@@ -395,6 +397,18 @@ export default async function PeptideDetailPage(
             articles={relatedGuides}
             title={`${peptide.name} guides`}
             description="Read the matching guide or adjacent research pages for more context."
+          />
+
+          <CalculatorPresetLinks
+            peptides={[peptide]}
+            title={`${peptide.name} calculator shortcuts`}
+            description={`Open peptide calculators with editable ${peptide.name} example values already filled in.`}
+            limit={3}
+          />
+
+          <RelatedCalculators
+            title="Peptide calculators"
+            description="Use calculators for concentration, unit conversion and repeated-dose accumulation math."
           />
 
           <RelatedDatabaseEntries

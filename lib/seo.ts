@@ -73,6 +73,31 @@ export function websiteJsonLd() {
   };
 }
 
+export function webApplicationJsonLd({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name,
+    description,
+    url: absoluteUrl(path),
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  };
+}
+
 /** schema.org Article — rendered on each article page. */
 export function articleJsonLd(article: ArticleMeta) {
   const url = absoluteUrl(`/peptides/${article.slug}`);

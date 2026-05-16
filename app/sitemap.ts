@@ -6,71 +6,84 @@ import { absoluteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles();
+  const siteUpdatedAt = new Date("2026-05-17");
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: absoluteUrl("/"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: absoluteUrl("/bryan-johnson-discount-code"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: absoluteUrl("/shop"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "weekly",
       priority: 0.95,
     },
     {
       url: absoluteUrl("/calculators"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
+      url: absoluteUrl("/calculators/accumulation"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: absoluteUrl("/calculators/unit-converter"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
       url: absoluteUrl("/database"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: absoluteUrl("/peptides"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "weekly",
       priority: 0.85,
     },
     {
       url: absoluteUrl("/about"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "yearly",
       priority: 0.5,
     },
     {
       url: absoluteUrl("/editorial-policy"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "yearly",
       priority: 0.5,
     },
     {
       url: absoluteUrl("/authors/peptidestat-editorial-team"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: absoluteUrl("/disclaimer"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: absoluteUrl("/privacy"),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "yearly",
       priority: 0.3,
     },
@@ -85,7 +98,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const databaseRoutes: MetadataRoute.Sitemap = peptides.map((peptide) => ({
     url: absoluteUrl(`/database/${peptide.slug}`),
-    lastModified: new Date(),
+    lastModified: siteUpdatedAt,
     changeFrequency: "monthly" as const,
     priority: 0.65,
   }));
@@ -93,7 +106,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const databaseCategoryRoutes: MetadataRoute.Sitemap = peptideCategoryHubs.map(
     (hub) => ({
       url: absoluteUrl(`/database/${hub.slug}`),
-      lastModified: new Date(),
+      lastModified: siteUpdatedAt,
       changeFrequency: "monthly" as const,
       priority: 0.75,
     }),

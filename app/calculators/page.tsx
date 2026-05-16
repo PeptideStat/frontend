@@ -1,17 +1,31 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { CalculatorFallback } from "@/components/CalculatorFallback";
+import { JsonLd } from "@/components/JsonLd";
 import { ReconstitutionCalculator } from "@/components/ReconstitutionCalculator";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
-import { buildMetadata } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  webApplicationJsonLd,
+} from "@/lib/seo";
 import { CATEGORY_ICONS, ArrowRightIcon } from "@/components/icons";
+import { Suspense } from "react";
 
-const title = "Peptide Calculators & Tools";
+const title = "Peptide Reconstitution Calculator";
 const description =
-  "Free peptide calculators: reconstitution math, dosage tracking, cost comparison, stack planning. All client-side — your values never leave your browser.";
+  "Calculate peptide concentration, dose volume and syringe units from vial strength, BAC water and target dose. Optional peptide shortcuts included.";
+const path = "/calculators";
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Calculators", path },
+];
 
 export const metadata: Metadata = buildMetadata({
   title,
   description,
-  path: "/calculators",
+  path,
 });
 
 interface CalculatorEntry {
@@ -19,6 +33,7 @@ interface CalculatorEntry {
   title: string;
   description: string;
   status: "live" | "soon";
+  href: string;
   icon: keyof typeof CATEGORY_ICONS;
   tint: "emerald" | "sky" | "violet" | "amber" | "rose" | "slate";
 }
@@ -28,52 +43,29 @@ const CALCULATORS: CalculatorEntry[] = [
     slug: "reconstitution",
     title: "Reconstitution calculator",
     description:
-      "Vial mg + BAC water mL → concentration, dose volume and units to draw on a syringe.",
+      "Vial mg, BAC water mL and target dose into concentration, dose volume and syringe units.",
     status: "live",
+    href: "#reconstitution",
     icon: "molecule",
     tint: "emerald",
   },
   {
-    slug: "dosage-tracker",
-    title: "Dosage & titration tracker",
+    slug: "accumulation",
+    title: "Accumulation calculator",
     description:
-      "Plan a Wegovy / Zepbound / Saxenda titration schedule with side-effect notes per week.",
-    status: "soon",
+      "Model repeated dosing over time: peak, trough, accumulation factor and steady-state timing.",
+    status: "live",
+    href: "/calculators/accumulation",
     icon: "pulse",
     tint: "sky",
   },
   {
-    slug: "cost-calculator",
-    title: "Cost calculator",
-    description:
-      "Compare monthly cost across brand-name, compounded, telehealth bundle and insurance copay paths.",
-    status: "soon",
-    icon: "flame",
-    tint: "amber",
-  },
-  {
-    slug: "weight-loss-projector",
-    title: "Weight-loss projector",
-    description:
-      "Estimate your trajectory based on starting weight, drug, dose and trial-average response curve.",
-    status: "soon",
-    icon: "weight",
-    tint: "violet",
-  },
-  {
-    slug: "stack-builder",
-    title: "Stack builder",
-    description:
-      "Plan multi-peptide stacks with interaction warnings (GLP-1 + GH + healing-recovery combinations).",
-    status: "soon",
-    icon: "spark",
-    tint: "rose",
-  },
-  {
     slug: "unit-converter",
     title: "Unit converter",
-    description: "Convert mg ↔ mcg ↔ IU ↔ syringe units. Common peptide presets included.",
-    status: "soon",
+    description:
+      "Convert mg, mcg, optional IU and syringe units from one reconstituted vial setup.",
+    status: "live",
+    href: "/calculators/unit-converter",
     icon: "leaf",
     tint: "slate",
   },
@@ -91,8 +83,12 @@ const TINT_BG: Record<string, string> = {
 export default function CalculatorsPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd(crumbs)} />
+      <JsonLd data={webApplicationJsonLd({ name: title, description, path })} />
+
       <section className="border-b border-line bg-canvas">
-        <div className="mx-auto max-w-6xl px-5 py-20">
+        <div className="mx-auto max-w-6xl px-5 py-16">
+          <Breadcrumbs crumbs={crumbs} className="mb-6" />
           <p className="text-xs font-semibold uppercase tracking-wider text-accent">
             Tools
           </p>
@@ -106,7 +102,7 @@ export default function CalculatorsPage() {
       </section>
 
       {/* Reconstitution Calculator — live */}
-      <section id="reconstitution" className="mx-auto max-w-3xl px-5 pt-16 scroll-mt-24">
+      <section id="reconstitution" className="mx-auto max-w-6xl px-5 pt-12 scroll-mt-24">
         <div className="mb-6 flex items-center justify-between gap-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-accent">
@@ -116,12 +112,74 @@ export default function CalculatorsPage() {
               Reconstitution calculator
             </h2>
             <p className="mt-1 text-sm text-muted">
-              The most-asked peptide math: how many syringe units for a target
-              dose, given a vial size and the water you added.
+              Enter the numbers from your vial and syringe. The tool returns
+              concentration, volume and the unit mark to draw to.
             </p>
           </div>
         </div>
-        <ReconstitutionCalculator />
+        <Suspense fallback={<CalculatorFallback />}>
+          <ReconstitutionCalculator />
+        </Suspense>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-12">
+        <div className="grid gap-4 lg:grid-cols-3">
+          <article className="rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+            <h2 className="text-xl font-semibold tracking-tight text-ink">
+              What it calculates
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-ink-soft">
+              Enter vial strength and BAC water volume to get concentration in
+              mg/mL, then add a target dose to calculate mL and syringe units.
+            </p>
+          </article>
+          <article className="rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+            <h2 className="text-xl font-semibold tracking-tight text-ink">
+              Best for
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-ink-soft">
+              Quick reconstitution math for research notes, comparison tables
+              and checking whether a draw volume matches the syringe scale.
+            </p>
+          </article>
+          <article className="rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+            <h2 className="text-xl font-semibold tracking-tight text-ink">
+              Common searches
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-ink-soft">
+              Peptide reconstitution calculator, BAC water calculator, peptide
+              syringe units calculator and mg to units calculator.
+            </p>
+          </article>
+        </div>
+
+        <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+          <h2 className="text-xl font-semibold tracking-tight text-ink">
+            Reconstitution FAQ
+          </h2>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <div>
+              <h3 className="text-sm font-semibold text-ink-soft">
+                Is this a dosing recommendation?
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-muted">
+                No. It is only a unit and concentration calculator. The target
+                dose must come from an appropriate research protocol or licensed
+                clinician.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-ink-soft">
+                Why do syringe units change?
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-muted">
+                Units depend on concentration and syringe scale. The same mg
+                dose can require a different draw if the vial is mixed with a
+                different BAC water volume.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Calculator index */}
@@ -131,8 +189,8 @@ export default function CalculatorsPage() {
             All calculators
           </h2>
           <p className="mt-1 text-sm text-muted">
-            More tools in development. Each will be a self-contained, no-signup
-            client-side calculator — same as the one above.
+            Live, no-signup tools for peptide concentration, unit conversion
+            and repeated-dose accumulation math.
           </p>
         </div>
 
@@ -172,13 +230,13 @@ export default function CalculatorsPage() {
                   {calc.description}
                 </p>
                 {isLive ? (
-                  <a
-                    href="#reconstitution"
+                  <Link
+                    href={calc.href}
                     className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
                   >
                     Use it
                     <ArrowRightIcon className="h-3.5 w-3.5" />
-                  </a>
+                  </Link>
                 ) : (
                   <span className="mt-auto text-xs text-muted-soft">
                     In development

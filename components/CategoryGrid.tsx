@@ -1,10 +1,12 @@
+import Image from "next/image";
 import Link from "next/link";
 import { categories } from "@/lib/data";
 import { CATEGORY_ICONS } from "@/components/icons";
 
 /**
  * "Explore by category" — the 8-card grid pattern from peptide-db.com.
- * Each card has a tinted icon chip + title + one-line description.
+ * Each card has a generated category image, tinted icon chip, title and
+ * one-line description.
  *
  * Tints come from `--color-tint-*` CSS variables defined in globals.css
  * and are mapped here so the data layer stays clean. We do not pass raw
@@ -46,21 +48,32 @@ export function CategoryGrid() {
             <Link
               key={category.slug}
               href={category.href}
-              className="group flex flex-col gap-3 rounded-xl border border-line bg-surface-2 p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card-hover"
+              className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface-2 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-card-hover"
             >
-              <span
-                className={`flex h-10 w-10 items-center justify-center rounded-lg ${tintClasses}`}
-                aria-hidden
-              >
-                <Icon className="h-5 w-5" />
-              </span>
-              <div>
-                <h3 className="text-base font-semibold tracking-tight text-ink transition-colors group-hover:text-accent-bright">
-                  {category.title}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted">
-                  {category.description}
-                </p>
+              <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-line bg-surface">
+                <Image
+                  src={category.imageSrc}
+                  alt={category.imageAlt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div className="flex flex-1 flex-col gap-3 p-5">
+                <span
+                  className={`flex h-10 w-10 items-center justify-center rounded-lg ${tintClasses}`}
+                  aria-hidden
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <h3 className="text-base font-semibold tracking-tight text-ink transition-colors group-hover:text-accent-bright">
+                    {category.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                    {category.description}
+                  </p>
+                </div>
               </div>
             </Link>
           );

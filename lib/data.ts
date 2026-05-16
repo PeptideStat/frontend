@@ -95,6 +95,8 @@ export interface Category {
   title: string;
   description: string;
   href: string;
+  imageSrc: string;
+  imageAlt: string;
   /** Inline SVG paint, used for the icon tint. */
   tint: "emerald" | "sky" | "amber" | "violet" | "rose" | "slate";
   /** SVG icon name from `components/icons.tsx`. */
@@ -115,6 +117,8 @@ export const categories: Category[] = [
     title: "Weight loss",
     description: "GLP-1, GIP and triple agonists — what works and what's hype.",
     href: "/database/weight-loss-peptides",
+    imageSrc: "/images/categories/weight-loss-category.jpg",
+    imageAlt: "Peptide research visual for weight loss and metabolic agonists",
     tint: "emerald",
     icon: "weight",
   },
@@ -123,6 +127,8 @@ export const categories: Category[] = [
     title: "Healing & recovery",
     description: "Tissue repair, tendon and gut peptides — research vs claims.",
     href: "/database/healing-peptides",
+    imageSrc: "/images/categories/healing-recovery-category.jpg",
+    imageAlt: "Peptide research visual for tissue healing and recovery",
     tint: "sky",
     icon: "spark",
   },
@@ -131,6 +137,8 @@ export const categories: Category[] = [
     title: "Growth hormone",
     description: "GH secretagogues and analogs — how they actually work.",
     href: "/database/growth-hormone-peptides",
+    imageSrc: "/images/categories/growth-hormone-category.jpg",
+    imageAlt: "Peptide research visual for growth hormone secretagogues",
     tint: "violet",
     icon: "molecule",
   },
@@ -139,6 +147,8 @@ export const categories: Category[] = [
     title: "Longevity",
     description: "Peptides marketed for healthspan — what the evidence shows.",
     href: "/database/longevity-peptides",
+    imageSrc: "/images/categories/longevity-category.jpg",
+    imageAlt: "Peptide research visual for longevity and healthspan",
     tint: "amber",
     icon: "pulse",
   },
@@ -147,6 +157,8 @@ export const categories: Category[] = [
     title: "Cognitive",
     description: "Nootropic peptides and the neuroscience behind them.",
     href: "/database/cognitive-peptides",
+    imageSrc: "/images/categories/cognitive-category.jpg",
+    imageAlt: "Peptide research visual for cognitive and neuroscience topics",
     tint: "rose",
     icon: "brain",
   },
@@ -155,6 +167,8 @@ export const categories: Category[] = [
     title: "Metabolic health",
     description: "Glucose control, insulin sensitivity, lipid markers.",
     href: "/database",
+    imageSrc: "/images/categories/metabolic-health-category.jpg",
+    imageAlt: "Peptide research visual for glucose and metabolic health",
     tint: "slate",
     icon: "flame",
   },
@@ -163,6 +177,8 @@ export const categories: Category[] = [
     title: "Safety & side effects",
     description: "Common, dose-related and long-term risk profiles.",
     href: "/peptides",
+    imageSrc: "/images/categories/safety-category.jpg",
+    imageAlt: "Peptide research visual for safety and side effects",
     tint: "rose",
     icon: "shield",
   },
@@ -171,6 +187,8 @@ export const categories: Category[] = [
     title: "Comparisons",
     description: "Peptide-vs-peptide breakdowns — efficacy, side effects, cost.",
     href: "/peptides",
+    imageSrc: "/images/categories/comparisons-category.jpg",
+    imageAlt: "Peptide research visual comparing two peptide options",
     tint: "sky",
     icon: "leaf",
   },

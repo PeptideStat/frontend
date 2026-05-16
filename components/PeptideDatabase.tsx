@@ -16,6 +16,12 @@ import {
   CloseIcon,
   ExternalLinkIcon,
 } from "@/components/icons";
+import {
+  buildAccumulationCalculatorHref,
+  buildReconstitutionCalculatorHref,
+  buildUnitConverterHref,
+  getCalculatorPreset,
+} from "@/lib/calculatorPresets";
 
 /**
  * Filterable / sortable peptide database cards.
@@ -223,6 +229,12 @@ export function PeptideDatabase({
             const detailHref = `/database/${peptide.slug}`;
             const buyHref = peptide.productUrl ?? shopHref;
             const evidence = getPeptideEvidence(peptide.slug);
+            const preset = getCalculatorPreset(peptide.slug);
+            const calculatorHref = preset
+              ? (buildReconstitutionCalculatorHref(preset) ??
+                buildAccumulationCalculatorHref(preset) ??
+                buildUnitConverterHref(preset))
+              : null;
 
             return (
               <article
@@ -323,7 +335,11 @@ export function PeptideDatabase({
                   </div>
                 </dl>
 
-                <div className="mt-auto grid grid-cols-3 gap-2 pt-5">
+                <div
+                  className={`mt-auto grid gap-2 pt-5 ${
+                    calculatorHref ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3"
+                  }`}
+                >
                   <Link
                     href={detailHref}
                     className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md border border-line bg-surface px-2 text-sm font-semibold text-ink-soft transition-colors hover:border-accent/40 hover:text-accent-bright"
@@ -336,6 +352,15 @@ export function PeptideDatabase({
                   >
                     {guideLabel}
                   </Link>
+                  {calculatorHref && (
+                    <Link
+                      href={calculatorHref}
+                      aria-label={`${peptide.name} calculator shortcut`}
+                      className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md border border-line bg-surface px-2 text-sm font-semibold text-ink-soft transition-colors hover:border-accent/40 hover:text-accent-bright"
+                    >
+                      Calc
+                    </Link>
+                  )}
                   <a
                     href={buyHref}
                     target="_blank"

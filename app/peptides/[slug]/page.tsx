@@ -9,11 +9,13 @@ import {
   getRelatedArticles,
 } from "@/lib/content";
 import { mdxComponents } from "@/components/mdx";
+import { CalculatorPresetLinks } from "@/components/CalculatorPresetLinks";
 import {
   RelatedCategoryHubs,
   RelatedDatabaseEntries,
   RelatedGuides,
 } from "@/components/InternalLinkBlocks";
+import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Disclaimer } from "@/components/Disclaimer";
 import { JsonLd } from "@/components/JsonLd";
 import { articleJsonLd, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
@@ -193,6 +195,19 @@ export default async function ArticlePage(
         title="Related database entries"
         description="Jump from this guide into structured peptide database pages with evidence scores, status and mechanism notes."
         currentArticleSlug={article.slug}
+        className="mx-auto max-w-5xl px-5 py-8"
+      />
+
+      <RelatedCalculators
+        title="Peptide calculators"
+        description="Use these tools for reconstitution math, unit conversion and repeated-dose accumulation estimates."
+        className="mx-auto max-w-5xl px-5 py-8"
+      />
+
+      <CalculatorPresetLinks
+        peptides={relatedPeptides}
+        title="Prefilled calculator shortcuts"
+        description="Open calculators with editable example values for peptides mentioned around this guide."
         className="mx-auto max-w-5xl px-5 py-8"
       />
 
