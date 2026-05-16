@@ -13,7 +13,6 @@ import {
 import {
   SearchIcon,
   CloseIcon,
-  ArrowRightIcon,
   ExternalLinkIcon,
 } from "@/components/icons";
 
@@ -220,6 +219,7 @@ export function PeptideDatabase({
               ? `/peptides/${peptide.articleSlug}`
               : "/peptides";
             const guideLabel = peptide.articleSlug ? "Guide" : "Guides";
+            const detailHref = `/database/${peptide.slug}`;
             const buyHref = peptide.productUrl ?? shopHref;
 
             return (
@@ -250,7 +250,12 @@ export function PeptideDatabase({
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h2 className="text-lg font-semibold tracking-tight text-ink">
-                      {peptide.name}
+                      <Link
+                        href={detailHref}
+                        className="transition-colors hover:text-accent-bright"
+                      >
+                        {peptide.name}
+                      </Link>
                     </h2>
                     {peptide.aliases && (
                       <p className="mt-1 text-xs leading-relaxed text-muted">
@@ -311,20 +316,25 @@ export function PeptideDatabase({
                   </div>
                 </dl>
 
-                <div className="mt-auto flex gap-2 pt-5">
+                <div className="mt-auto grid grid-cols-3 gap-2 pt-5">
+                  <Link
+                    href={detailHref}
+                    className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md border border-line bg-surface px-2 text-sm font-semibold text-ink-soft transition-colors hover:border-accent/40 hover:text-accent-bright"
+                  >
+                    Details
+                  </Link>
                   <Link
                     href={guideHref}
-                    className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink-soft transition-colors hover:border-accent/40 hover:text-accent-bright"
+                    className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md border border-line bg-surface px-2 text-sm font-semibold text-ink-soft transition-colors hover:border-accent/40 hover:text-accent-bright"
                   >
                     {guideLabel}
-                    <ArrowRightIcon className="h-3.5 w-3.5" />
                   </Link>
                   <a
                     href={buyHref}
                     target="_blank"
-                    rel="noopener sponsored"
+                    rel="nofollow sponsored noopener noreferrer"
                     aria-label={`Buy ${peptide.name}`}
-                    className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-md bg-accent px-3 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright"
+                    className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md bg-accent px-2 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright"
                   >
                     Buy
                     <ExternalLinkIcon className="h-3.5 w-3.5" />

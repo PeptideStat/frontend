@@ -118,7 +118,12 @@ export default async function ArticlePage(
             {article.description}
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-muted">
-            <span>{article.author ?? siteConfig.author.name}</span>
+            <Link
+              href={siteConfig.author.url}
+              className="transition-colors hover:text-accent-bright"
+            >
+              {article.author ?? siteConfig.author.name}
+            </Link>
             <span aria-hidden>·</span>
             <time dateTime={article.date}>{formatDate(article.date)}</time>
             <span aria-hidden>·</span>

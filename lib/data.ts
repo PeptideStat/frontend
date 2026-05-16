@@ -178,6 +178,13 @@ export interface FeaturedGuide {
 
 export const featuredGuides: FeaturedGuide[] = [
   {
+    kicker: "Hair protocol",
+    title: "Bryan Johnson hair protocol",
+    description:
+      "Product-by-product breakdown of the Blueprint peptide shampoo, serum, laser cap, minoxidil layer and ingredient roles.",
+    href: "/peptides/bryan-johnson-hair-protocol",
+  },
+  {
     kicker: "Triple agonist",
     title: "Retatrutide: the complete guide",
     description:
@@ -190,13 +197,6 @@ export const featuredGuides: FeaturedGuide[] = [
     description:
       "Promising preclinical work, almost no human data. Separating what the research shows from what the marketing claims.",
     href: "/peptides/bpc-157",
-  },
-  {
-    kicker: "Dosing",
-    title: "Retatrutide dosing in clinical trials",
-    description:
-      "How researchers structured the 1 mg → 12 mg escalation, and why titration matters.",
-    href: "/peptides/retatrutide-dosage",
   },
 ];
 

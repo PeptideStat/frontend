@@ -64,6 +64,15 @@ const SHOP_CATEGORIES: ShopCategory[] = [
     featuredSlugs: ["ipamorelin", "cjc-1295", "tesamorelin"],
   },
   {
+    slug: "hair-growth",
+    title: "Hair growth",
+    description: "Bryan Johnson-style protocol, GHK-Cu and scalp support.",
+    icon: "leaf",
+    tint: "emerald",
+    buyingGuideSlug: "bryan-johnson-hair-protocol",
+    featuredSlugs: ["ghk-cu"],
+  },
+  {
     slug: "longevity",
     title: "Longevity",
     description: "Peptides marketed for healthspan and skin remodeling.",

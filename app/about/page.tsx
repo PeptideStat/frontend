@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/site.config";
 
@@ -34,6 +35,29 @@ export default function AboutPage() {
           prioritise peer-reviewed studies, regulatory filings and manufacturer
           data over anecdote, and we cite sources so you can check the work.
           Articles are dated and reviewed for accuracy as new evidence emerges.
+          Read the full{" "}
+          <Link
+            href="/editorial-policy"
+            className="font-semibold text-accent-bright underline underline-offset-4"
+          >
+            editorial policy
+          </Link>
+          .
+        </p>
+
+        <h2 className="pt-4 text-xl font-semibold tracking-tight text-ink">
+          Editorial team
+        </h2>
+        <p>
+          PeptideStat guides are published by the{" "}
+          <Link
+            href="/authors/peptidestat-editorial-team"
+            className="font-semibold text-accent-bright underline underline-offset-4"
+          >
+            PeptideStat Editorial Team
+          </Link>
+          . Our pages are source-led and written to distinguish approved drugs,
+          investigational compounds and research-only peptides.
         </p>
 
         <h2 className="pt-4 text-xl font-semibold tracking-tight text-ink">

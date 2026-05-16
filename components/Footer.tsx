@@ -19,6 +19,14 @@ const columns: FooterColumn[] = [
     links: [
       { label: "Peptide database", href: "/database" },
       { label: "All guides", href: "/peptides" },
+      {
+        label: "Bryan Johnson hair protocol",
+        href: "/peptides/bryan-johnson-hair-protocol",
+      },
+      {
+        label: "Bryan Johnson discount code",
+        href: "/bryan-johnson-discount-code",
+      },
       { label: "Retatrutide", href: "/peptides/retatrutide" },
       { label: "BPC-157", href: "/peptides/bpc-157" },
     ],
@@ -26,9 +34,10 @@ const columns: FooterColumn[] = [
   {
     heading: "About",
     links: [
-      { label: "How we research", href: "/about" },
-      { label: "Editorial standards", href: "/about" },
-      { label: "Affiliate disclosure", href: "/about" },
+      { label: "About PeptideStat", href: "/about" },
+      { label: "Editorial policy", href: "/editorial-policy" },
+      { label: "Editorial team", href: "/authors/peptidestat-editorial-team" },
+      { label: "Affiliate disclosure", href: "/disclaimer" },
     ],
   },
   {

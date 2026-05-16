@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { peptides } from "@/data/peptides";
 import { getAllArticles } from "@/lib/content";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -49,6 +50,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
+      url: absoluteUrl("/editorial-policy"),
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: absoluteUrl("/authors/peptidestat-editorial-team"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
       url: absoluteUrl("/disclaimer"),
       lastModified: new Date(),
       changeFrequency: "yearly",
@@ -69,5 +82,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: article.pillar ? 0.9 : 0.7,
   }));
 
-  return [...staticRoutes, ...articleRoutes];
+  const databaseRoutes: MetadataRoute.Sitemap = peptides.map((peptide) => ({
+    url: absoluteUrl(`/database/${peptide.slug}`),
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.65,
+  }));
+
+  return [...staticRoutes, ...articleRoutes, ...databaseRoutes];
 }

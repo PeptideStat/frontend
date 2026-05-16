@@ -19,7 +19,7 @@ export const siteConfig = {
   locale: "en_US",
   author: {
     name: "PeptideStat Editorial Team",
-    url: "/about",
+    url: "/authors/peptidestat-editorial-team",
   },
   // Social handle (without @) — used for Twitter/X card metadata.
   twitter: "peptidestat",
