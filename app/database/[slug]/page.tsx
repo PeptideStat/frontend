@@ -10,11 +10,16 @@ import {
   type PeptideStatus,
 } from "@/data/peptides";
 import {
+  getPeptideCategoryHub,
+  peptideCategoryHubs,
+} from "@/data/peptideCategoryHubs";
+import {
   EVIDENCE_SCORE_EXPLAINER,
   getPeptideEvidence,
   type EvidenceScore,
   type PeptideEvidence,
 } from "@/data/peptideEvidence";
+import { PeptideCategoryHub } from "@/components/PeptideCategoryHub";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
@@ -51,7 +56,10 @@ function getRelated(peptide: Peptide): Peptide[] {
 }
 
 export function generateStaticParams() {
-  return peptides.map((peptide) => ({ slug: peptide.slug }));
+  return [
+    ...peptides.map((peptide) => ({ slug: peptide.slug })),
+    ...peptideCategoryHubs.map((hub) => ({ slug: hub.slug })),
+  ];
 }
 
 export async function generateMetadata(
@@ -59,8 +67,17 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = await props.params;
   const peptide = getPeptide(slug);
+  const categoryHub = getPeptideCategoryHub(slug);
 
   if (!peptide) {
+    if (categoryHub) {
+      return buildMetadata({
+        title: categoryHub.metaTitle,
+        description: categoryHub.description,
+        path: `/database/${categoryHub.slug}`,
+      });
+    }
+
     return { title: "Peptide not found" };
   }
 
@@ -128,8 +145,13 @@ export default async function PeptideDetailPage(
 ) {
   const { slug } = await props.params;
   const peptide = getPeptide(slug);
+  const categoryHub = getPeptideCategoryHub(slug);
 
   if (!peptide) {
+    if (categoryHub) {
+      return <PeptideCategoryHub hub={categoryHub} />;
+    }
+
     notFound();
   }
 

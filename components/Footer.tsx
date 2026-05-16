@@ -18,6 +18,12 @@ const columns: FooterColumn[] = [
     heading: "Browse",
     links: [
       { label: "Peptide database", href: "/database" },
+      { label: "Weight loss peptides", href: "/database/weight-loss-peptides" },
+      { label: "Healing peptides", href: "/database/healing-peptides" },
+      {
+        label: "Growth hormone peptides",
+        href: "/database/growth-hormone-peptides",
+      },
       { label: "All guides", href: "/peptides" },
       {
         label: "Best peptides for hair growth",

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { peptides } from "@/data/peptides";
+import { peptideCategoryHubs } from "@/data/peptideCategoryHubs";
 import { getAllArticles } from "@/lib/content";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -89,5 +90,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.65,
   }));
 
-  return [...staticRoutes, ...articleRoutes, ...databaseRoutes];
+  const databaseCategoryRoutes: MetadataRoute.Sitemap = peptideCategoryHubs.map(
+    (hub) => ({
+      url: absoluteUrl(`/database/${hub.slug}`),
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    }),
+  );
+
+  return [
+    ...staticRoutes,
+    ...articleRoutes,
+    ...databaseCategoryRoutes,
+    ...databaseRoutes,
+  ];
 }
