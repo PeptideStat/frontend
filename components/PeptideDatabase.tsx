@@ -10,6 +10,7 @@ import {
   type PeptideCategory,
   type PeptideStatus,
 } from "@/data/peptides";
+import { getPeptideEvidence } from "@/data/peptideEvidence";
 import {
   SearchIcon,
   CloseIcon,
@@ -221,6 +222,7 @@ export function PeptideDatabase({
             const guideLabel = peptide.articleSlug ? "Guide" : "Guides";
             const detailHref = `/database/${peptide.slug}`;
             const buyHref = peptide.productUrl ?? shopHref;
+            const evidence = getPeptideEvidence(peptide.slug);
 
             return (
               <article
@@ -277,6 +279,11 @@ export function PeptideDatabase({
                   <span className="rounded-full border border-line bg-surface px-2.5 py-1 text-ink-soft">
                     {peptide.routeOfAdministration}
                   </span>
+                  {evidence && (
+                    <span className="rounded-full border border-accent/30 bg-accent-soft px-2.5 py-1 text-accent-bright">
+                      Evidence {evidence.score}/5
+                    </span>
+                  )}
                 </div>
 
                 <p className="mt-4 text-sm leading-relaxed text-ink-soft">

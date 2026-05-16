@@ -9,6 +9,12 @@ import {
   type Peptide,
   type PeptideStatus,
 } from "@/data/peptides";
+import {
+  EVIDENCE_SCORE_EXPLAINER,
+  getPeptideEvidence,
+  type EvidenceScore,
+  type PeptideEvidence,
+} from "@/data/peptideEvidence";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
@@ -21,6 +27,14 @@ const STATUS_BADGE: Record<PeptideStatus, string> = {
   approved: "border-tint-emerald-ink/40 bg-tint-emerald text-tint-emerald-ink",
   investigational: "border-tint-amber-ink/40 bg-tint-amber text-tint-amber-ink",
   "research-only": "border-tint-slate-ink/40 bg-tint-slate text-tint-slate-ink",
+};
+
+const EVIDENCE_BADGE: Record<EvidenceScore, string> = {
+  5: "border-tint-emerald-ink/50 bg-tint-emerald text-tint-emerald-ink",
+  4: "border-tint-sky-ink/50 bg-tint-sky text-tint-sky-ink",
+  3: "border-tint-amber-ink/50 bg-tint-amber text-tint-amber-ink",
+  2: "border-tint-violet-ink/50 bg-tint-violet text-tint-violet-ink",
+  1: "border-tint-slate-ink/50 bg-tint-slate text-tint-slate-ink",
 };
 
 function getPeptide(slug: string): Peptide | undefined {
@@ -76,6 +90,22 @@ function peptideJsonLd(peptide: Peptide) {
   };
 }
 
+function evidenceJsonLd(peptide: Peptide, evidence: PeptideEvidence | null) {
+  if (!evidence) return null;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${peptide.name} evidence references`,
+    itemListElement: evidence.references.map((reference, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: reference.url,
+      name: reference.title,
+    })),
+  };
+}
+
 function DetailRow({
   label,
   value,
@@ -104,6 +134,7 @@ export default async function PeptideDetailPage(
   }
 
   const related = getRelated(peptide);
+  const evidence = getPeptideEvidence(peptide.slug);
   const guideHref = peptide.articleSlug ? `/peptides/${peptide.articleSlug}` : "/peptides";
   const buyHref = peptide.productUrl ?? shopUrl;
   const crumbs = [
@@ -116,6 +147,7 @@ export default async function PeptideDetailPage(
     <>
       <JsonLd data={peptideJsonLd(peptide)} />
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
+      {evidence && <JsonLd data={evidenceJsonLd(peptide, evidence)!} />}
 
       <article>
         <section className="border-b border-line bg-canvas">
@@ -159,6 +191,13 @@ export default async function PeptideDetailPage(
                 <span className="rounded-full border border-line bg-surface px-2.5 py-1 text-xs font-medium text-ink-soft">
                   {peptide.routeOfAdministration}
                 </span>
+                {evidence && (
+                  <span
+                    className={`rounded-full border px-2.5 py-1 text-xs font-medium ${EVIDENCE_BADGE[evidence.score]}`}
+                  >
+                    Evidence {evidence.score}/5
+                  </span>
+                )}
               </div>
 
               <h1 className="mt-4 max-w-3xl text-balance text-4xl font-bold tracking-tight text-ink sm:text-5xl">
@@ -225,6 +264,12 @@ export default async function PeptideDetailPage(
             <DetailRow label="Half-life" value={peptide.halfLife} />
             <DetailRow label="Developer / origin" value={peptide.developer} />
             <DetailRow label="Reference year" value={peptide.year} />
+            {evidence && (
+              <DetailRow
+                label="Evidence score"
+                value={`${evidence.score}/5 - ${evidence.label}`}
+              />
+            )}
           </div>
 
           {peptide.approvedFor && peptide.approvedFor.length > 0 && (
@@ -237,6 +282,63 @@ export default async function PeptideDetailPage(
                   <li key={indication}>{indication}</li>
                 ))}
               </ul>
+            </div>
+          )}
+
+          {evidence && (
+            <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5">
+              <div className="flex flex-wrap items-center gap-2">
+                <span
+                  className={`rounded-full border px-3 py-1 text-sm font-semibold ${EVIDENCE_BADGE[evidence.score]}`}
+                >
+                  Evidence {evidence.score}/5
+                </span>
+                <h2 className="text-xl font-semibold tracking-tight text-ink">
+                  {evidence.label}
+                </h2>
+              </div>
+              <p className="mt-3 text-sm leading-6 text-ink-soft">
+                {evidence.summary}
+              </p>
+              <p className="mt-3 text-xs leading-5 text-muted">
+                {EVIDENCE_SCORE_EXPLAINER[evidence.score]}
+              </p>
+
+              <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                <div>
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
+                    Evidence basis
+                  </h3>
+                  <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-ink-soft">
+                    {evidence.basis.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
+                    Key references
+                  </h3>
+                  <ol className="mt-3 space-y-3 text-sm leading-6 text-ink-soft">
+                    {evidence.references.map((reference) => (
+                      <li key={reference.url}>
+                        <span className="mr-2 rounded bg-surface px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-muted">
+                          {reference.source}
+                        </span>
+                        <a
+                          href={reference.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold text-accent-bright underline underline-offset-4"
+                        >
+                          {reference.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
             </div>
           )}
 
