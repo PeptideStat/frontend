@@ -69,7 +69,7 @@ const SHOP_CATEGORIES: ShopCategory[] = [
     description: "Bryan Johnson-style protocol, GHK-Cu and scalp support.",
     icon: "leaf",
     tint: "emerald",
-    buyingGuideSlug: "bryan-johnson-hair-protocol",
+    buyingGuideSlug: "best-peptides-for-hair-growth",
     featuredSlugs: ["ghk-cu"],
   },
   {

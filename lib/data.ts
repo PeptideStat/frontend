@@ -38,6 +38,10 @@ export const popularQuestions: PopularQuestion[] = [
     href: "/peptides/ghk-cu-for-hair-growth",
   },
   {
+    label: "Best peptides for hair growth",
+    href: "/peptides/best-peptides-for-hair-growth",
+  },
+  {
     label: "How does Retatrutide compare to Tirzepatide?",
     href: "/peptides/retatrutide",
   },
@@ -187,10 +191,10 @@ export interface FeaturedGuide {
 export const featuredGuides: FeaturedGuide[] = [
   {
     kicker: "Hair protocol",
-    title: "Bryan Johnson hair protocol",
+    title: "Best peptides for hair growth",
     description:
-      "Product-by-product breakdown of the Blueprint peptide shampoo, serum, laser cap, minoxidil layer and ingredient roles.",
-    href: "/peptides/bryan-johnson-hair-protocol",
+      "Evidence-ranked hair-growth options: GHK-Cu, topical peptides, minoxidil baseline, adenosine, caffeine and laser therapy.",
+    href: "/peptides/best-peptides-for-hair-growth",
   },
   {
     kicker: "Triple agonist",

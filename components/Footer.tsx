@@ -20,6 +20,10 @@ const columns: FooterColumn[] = [
       { label: "Peptide database", href: "/database" },
       { label: "All guides", href: "/peptides" },
       {
+        label: "Best peptides for hair growth",
+        href: "/peptides/best-peptides-for-hair-growth",
+      },
+      {
         label: "Bryan Johnson hair protocol",
         href: "/peptides/bryan-johnson-hair-protocol",
       },

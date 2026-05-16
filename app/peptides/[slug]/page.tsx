@@ -16,11 +16,15 @@ import { articleJsonLd, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import { siteConfig } from "@/site.config";
 
-// Only build pages that exist as MDX files; unknown slugs 404.
+// Only build pages that exist as MDX files; unknown slugs 404. Include future
+// articles here so internal links never 404 while scheduled posts remain hidden
+// from listings/sitemap until their date.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getAllArticles().map((article) => ({ slug: article.slug }));
+  return getAllArticles({ includeFuture: true }).map((article) => ({
+    slug: article.slug,
+  }));
 }
 
 export async function generateMetadata(
