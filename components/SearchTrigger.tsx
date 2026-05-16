@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SearchIcon, CloseIcon } from "@/components/icons";
 
 /**
@@ -29,6 +29,12 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
   const [highlight, setHighlight] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const openSearch = useCallback(() => {
+    setQuery("");
+    setHighlight(0);
+    setOpen(true);
+  }, []);
+
   // Cmd/Ctrl-K opens, Esc closes. Other parts of the page can request the
   // dialog by dispatching the `peptidestat:open-search` event (used by the
   // hero search button).
@@ -36,13 +42,14 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
     function onKey(event: KeyboardEvent) {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
-        setOpen((value) => !value);
+        if (open) setOpen(false);
+        else openSearch();
       } else if (event.key === "Escape") {
         setOpen(false);
       }
     }
     function onOpenRequest() {
-      setOpen(true);
+      openSearch();
     }
     window.addEventListener("keydown", onKey);
     window.addEventListener("peptidestat:open-search", onOpenRequest);
@@ -50,13 +57,11 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("peptidestat:open-search", onOpenRequest);
     };
-  }, []);
+  }, [open, openSearch]);
 
-  // Focus the input + reset state whenever the dialog opens.
+  // Focus the input whenever the dialog opens.
   useEffect(() => {
     if (open) {
-      setQuery("");
-      setHighlight(0);
       // setTimeout lets the input mount before we focus it.
       const id = window.setTimeout(() => inputRef.current?.focus(), 0);
       return () => window.clearTimeout(id);
@@ -84,21 +89,21 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
       .slice(0, 12);
   }, [items, query]);
 
-  // Keep highlight in bounds when results shrink.
-  useEffect(() => {
-    if (highlight >= results.length) setHighlight(Math.max(0, results.length - 1));
-  }, [results.length, highlight]);
+  const activeHighlight = Math.min(
+    highlight,
+    Math.max(0, results.length - 1),
+  );
 
   function handleResultsKey(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "ArrowDown") {
       event.preventDefault();
-      setHighlight((value) => Math.min(value + 1, results.length - 1));
+      setHighlight(Math.min(activeHighlight + 1, results.length - 1));
     } else if (event.key === "ArrowUp") {
       event.preventDefault();
-      setHighlight((value) => Math.max(value - 1, 0));
+      setHighlight(Math.max(activeHighlight - 1, 0));
     } else if (event.key === "Enter") {
       event.preventDefault();
-      const target = results[highlight];
+      const target = results[activeHighlight];
       if (target) {
         window.location.href = `/peptides/${target.slug}`;
       }
@@ -109,7 +114,7 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={openSearch}
         className="hidden h-9 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm text-muted transition-colors hover:border-accent/50 hover:text-ink-soft sm:inline-flex"
         aria-label="Search articles"
       >
@@ -123,7 +128,7 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
       {/* Mobile: icon-only trigger */}
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={openSearch}
         className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted transition-colors hover:bg-surface hover:text-ink sm:hidden"
         aria-label="Search articles"
       >
@@ -181,7 +186,7 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
                         onClick={() => setOpen(false)}
                         onMouseEnter={() => setHighlight(index)}
                         className={`flex flex-col gap-0.5 rounded-md px-3 py-2.5 transition-colors ${
-                          index === highlight
+                          index === activeHighlight
                             ? "bg-accent-soft text-ink"
                             : "text-ink-soft hover:bg-surface"
                         }`}

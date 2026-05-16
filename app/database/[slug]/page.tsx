@@ -11,6 +11,7 @@ import {
 } from "@/data/peptides";
 import {
   getPeptideCategoryHub,
+  getPeptideCategoryHubByCategory,
   peptideCategoryHubs,
 } from "@/data/peptideCategoryHubs";
 import {
@@ -20,10 +21,16 @@ import {
   type PeptideEvidence,
 } from "@/data/peptideEvidence";
 import { PeptideCategoryHub } from "@/components/PeptideCategoryHub";
+import {
+  RelatedCategoryHubs,
+  RelatedDatabaseEntries,
+  RelatedGuides,
+} from "@/components/InternalLinkBlocks";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
 import { absoluteUrl, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
+import { getGuidesForPeptide } from "@/lib/internalLinks";
 import { shopUrl } from "@/site.config";
 
 export const dynamicParams = false;
@@ -67,14 +74,14 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = await props.params;
   const peptide = getPeptide(slug);
-  const categoryHub = getPeptideCategoryHub(slug);
+  const routeCategoryHub = getPeptideCategoryHub(slug);
 
   if (!peptide) {
-    if (categoryHub) {
+    if (routeCategoryHub) {
       return buildMetadata({
-        title: categoryHub.metaTitle,
-        description: categoryHub.description,
-        path: `/database/${categoryHub.slug}`,
+        title: routeCategoryHub.metaTitle,
+        description: routeCategoryHub.description,
+        path: `/database/${routeCategoryHub.slug}`,
       });
     }
 
@@ -145,11 +152,11 @@ export default async function PeptideDetailPage(
 ) {
   const { slug } = await props.params;
   const peptide = getPeptide(slug);
-  const categoryHub = getPeptideCategoryHub(slug);
+  const routeCategoryHub = getPeptideCategoryHub(slug);
 
   if (!peptide) {
-    if (categoryHub) {
-      return <PeptideCategoryHub hub={categoryHub} />;
+    if (routeCategoryHub) {
+      return <PeptideCategoryHub hub={routeCategoryHub} />;
     }
 
     notFound();
@@ -157,6 +164,8 @@ export default async function PeptideDetailPage(
 
   const related = getRelated(peptide);
   const evidence = getPeptideEvidence(peptide.slug);
+  const relatedGuides = getGuidesForPeptide(peptide, 4);
+  const peptideCategoryHub = getPeptideCategoryHubByCategory(peptide.category);
   const guideHref = peptide.articleSlug ? `/peptides/${peptide.articleSlug}` : "/peptides";
   const buyHref = peptide.productUrl ?? shopUrl;
   const crumbs = [
@@ -382,28 +391,24 @@ export default async function PeptideDetailPage(
             </p>
           </div>
 
-          {related.length > 0 && (
-            <div className="mt-10">
-              <h2 className="text-2xl font-semibold tracking-tight text-ink">
-                Related peptides
-              </h2>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {related.map((item) => (
-                  <Link
-                    key={item.slug}
-                    href={`/database/${item.slug}`}
-                    className="group rounded-lg border border-line bg-surface-2 p-4 transition-colors hover:border-accent/40"
-                  >
-                    <span className="font-semibold text-ink group-hover:text-accent-bright">
-                      {item.name}
-                    </span>
-                    <p className="mt-2 line-clamp-2 text-xs leading-5 text-muted">
-                      {item.drugClass}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </div>
+          <RelatedGuides
+            articles={relatedGuides}
+            title={`${peptide.name} guides`}
+            description="Read the matching guide or adjacent research pages for more context."
+          />
+
+          <RelatedDatabaseEntries
+            peptides={related}
+            title="Compare with related peptides"
+            description="Stay inside the same research category and compare mechanism, status and evidence quality."
+          />
+
+          {peptideCategoryHub && (
+            <RelatedCategoryHubs
+              hubs={[peptideCategoryHub]}
+              title="Category hub"
+              description="Open the category page for the full comparison table and FAQ."
+            />
           )}
         </section>
       </article>

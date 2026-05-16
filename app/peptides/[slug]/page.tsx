@@ -9,11 +9,19 @@ import {
   getRelatedArticles,
 } from "@/lib/content";
 import { mdxComponents } from "@/components/mdx";
-import { ArticleList } from "@/components/ArticleList";
+import {
+  RelatedCategoryHubs,
+  RelatedDatabaseEntries,
+  RelatedGuides,
+} from "@/components/InternalLinkBlocks";
 import { Disclaimer } from "@/components/Disclaimer";
 import { JsonLd } from "@/components/JsonLd";
 import { articleJsonLd, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import { formatDate } from "@/lib/format";
+import {
+  getArticleRelatedCategoryHubs,
+  getArticleRelatedPeptides,
+} from "@/lib/internalLinks";
 import { siteConfig } from "@/site.config";
 
 // Only build pages that exist as MDX files; unknown slugs 404. Include future
@@ -69,6 +77,8 @@ export default async function ArticlePage(
   }
 
   const related = getRelatedArticles(slug);
+  const relatedPeptides = getArticleRelatedPeptides(article, 5);
+  const relatedHubs = getArticleRelatedCategoryHubs(article, 2);
   const crumbs = [
     { name: "Home", path: "/" },
     { name: "Peptides", path: "/peptides" },
@@ -178,15 +188,26 @@ export default async function ArticlePage(
         </div>
       </article>
 
-      {/* Related */}
-      {related.length > 0 && (
-        <section className="mx-auto max-w-5xl px-5 py-12">
-          <h2 className="mb-6 text-2xl font-semibold tracking-tight">
-            Related reading
-          </h2>
-          <ArticleList articles={related} />
-        </section>
-      )}
+      <RelatedDatabaseEntries
+        peptides={relatedPeptides}
+        title="Related database entries"
+        description="Jump from this guide into structured peptide database pages with evidence scores, status and mechanism notes."
+        currentArticleSlug={article.slug}
+        className="mx-auto max-w-5xl px-5 py-8"
+      />
+
+      <RelatedCategoryHubs
+        hubs={relatedHubs}
+        title="Related peptide categories"
+        description="Compare the wider category before going deeper on a single compound."
+        className="mx-auto max-w-5xl px-5 py-8"
+      />
+
+      <RelatedGuides
+        articles={related}
+        title="Related guides"
+        className="mx-auto max-w-5xl px-5 py-8"
+      />
     </>
   );
 }

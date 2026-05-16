@@ -17,9 +17,11 @@ import {
   type PeptideCategoryHub as PeptideCategoryHubData,
 } from "@/data/peptideCategoryHubs";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
+import { RelatedGuides } from "@/components/InternalLinkBlocks";
 import { JsonLd } from "@/components/JsonLd";
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
 import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
+import { getGuidesForCategoryHub } from "@/lib/internalLinks";
 import { shopUrl } from "@/site.config";
 
 const STATUS_BADGE: Record<PeptideStatus, string> = {
@@ -129,6 +131,7 @@ export function PeptideCategoryHub({
   const relatedHubs = peptideCategoryHubs.filter(
     (candidate) => candidate.slug !== hub.slug,
   );
+  const relatedGuides = getGuidesForCategoryHub(hub, 6);
 
   return (
     <>
@@ -417,6 +420,12 @@ export function PeptideCategoryHub({
               })}
             </div>
           </div>
+
+          <RelatedGuides
+            articles={relatedGuides}
+            title={`${CATEGORY_LABELS[hub.category]} guides`}
+            description="Read the strongest related guides for this category before drilling into a single database entry."
+          />
 
           <section className="mt-12">
             <h2 className="text-2xl font-semibold tracking-tight text-ink">
