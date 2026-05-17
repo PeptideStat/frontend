@@ -100,7 +100,7 @@ export default async function ArticlePage(
         <JsonLd data={faqPageJsonLd(article.faqs)} />
       )}
 
-      <article className="mx-auto max-w-2xl px-5 py-12">
+      <article className="mx-auto max-w-4xl px-5 py-12">
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
@@ -168,7 +168,7 @@ export default async function ArticlePage(
               alt={article.title}
               fill
               priority
-              sizes="(max-width: 768px) 100vw, 672px"
+              sizes="(max-width: 768px) 100vw, 896px"
               className="object-cover"
             />
           </div>
