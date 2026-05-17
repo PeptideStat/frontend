@@ -70,6 +70,14 @@ export const popularQuestions: PopularQuestion[] = [
     href: "/peptides/bacteriostatic-water-guide",
   },
   {
+    label: "Peptide half-life explained",
+    href: "/peptides/peptide-half-life-explained",
+  },
+  {
+    label: "Peptide storage guide",
+    href: "/peptides/peptide-storage-guide",
+  },
+  {
     label: "How does Retatrutide compare to Tirzepatide?",
     href: "/peptides/retatrutide",
   },

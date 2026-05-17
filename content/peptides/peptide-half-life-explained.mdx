@@ -1,0 +1,358 @@
+---
+title: "Peptide Half-Life Explained: Accumulation, Peak, Trough and Steady State"
+description: "A practical peptide half-life guide covering first-order decay, accumulation, steady state, peak and trough, plus examples for GLP-1 and research peptides."
+excerpt: "Half-life explains how quickly a peptide level falls over time. This guide covers decay math, accumulation, steady state, peak/trough and common peptide examples."
+coverImage: "/images/articles/glp1-research-cover.jpg"
+date: "2026-05-18"
+updated: "2026-05-18"
+author: "PeptideStat Editorial Team"
+tags: ["peptide half-life", "half-life", "accumulation", "steady state", "glp-1"]
+cluster: "peptide-basics"
+faqs:
+  - question: "What does peptide half-life mean?"
+    answer: "Half-life is the time it takes for the modeled amount of a peptide or drug to fall by half. It does not mean the compound is fully gone after one half-life."
+  - question: "How many half-lives until a peptide is mostly cleared?"
+    answer: "In a simple first-order model, about 3.125% remains after five half-lives. Real pharmacokinetics can differ because absorption, distribution, metabolites and patient factors matter."
+  - question: "How long does it take to reach steady state?"
+    answer: "A common pharmacokinetic rule of thumb is roughly 4 to 5 half-lives to approach steady state with repeated dosing, but product-specific data matter."
+  - question: "Is half-life the same as duration of effect?"
+    answer: "No. Half-life describes decline in amount or concentration, while duration of effect depends on receptors, tissue exposure, potency and the clinical or experimental endpoint."
+  - question: "Can this guide tell me how often to dose a peptide?"
+    answer: "No. Half-life can explain accumulation math, but dosing frequency must come from a product label, prescriber, pharmacist or valid research protocol."
+---
+
+Half-life is one of the most useful peptide terms because it explains why some
+compounds are discussed as daily, others as weekly, and others as short pulses.
+It also explains why repeated doses can accumulate even when each individual
+dose looks modest.
+
+This guide explains the practical math: what half-life means, how peak and
+trough work, why steady state takes time, and how to use the
+[peptide accumulation calculator](/calculators/accumulation) without turning a
+simple model into a dosing plan.
+
+For related basics, use the [peptide glossary](/peptides/peptide-glossary),
+[what are peptides](/peptides/what-are-peptides), and the
+[peptide database](/database).
+
+## The Short Version
+
+<table className="protocol-table">
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Plain meaning</th>
+      <th>Practical point</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Half-life</td>
+      <td>The time it takes for the modeled amount to fall by half.</td>
+      <td>One half-life does not mean fully cleared.</td>
+    </tr>
+    <tr>
+      <td>1 half-life</td>
+      <td>About 50% remains in a simple model.</td>
+      <td>A compound can still have meaningful exposure.</td>
+    </tr>
+    <tr>
+      <td>5 half-lives</td>
+      <td>About 3.125% remains in a simple model.</td>
+      <td>This is often used as a rough "mostly cleared" benchmark.</td>
+    </tr>
+    <tr>
+      <td>Accumulation</td>
+      <td>New doses are added before prior exposure has fully decayed.</td>
+      <td>Longer half-life plus shorter intervals usually means more accumulation.</td>
+    </tr>
+    <tr>
+      <td>Steady state</td>
+      <td>Repeated peaks and troughs become more consistent over time.</td>
+      <td>A rough rule is about 4 to 5 half-lives, but labels and studies matter.</td>
+    </tr>
+  </tbody>
+</table>
+
+## How Half-Life Math Works
+
+The simple model is first-order decay. Each half-life cuts the modeled amount
+in half:
+
+<table className="protocol-table">
+  <thead>
+    <tr>
+      <th>Time elapsed</th>
+      <th>Approximate amount remaining</th>
+      <th>How to read it</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1 half-life</td>
+      <td>50%</td>
+      <td>Half the modeled amount remains.</td>
+    </tr>
+    <tr>
+      <td>2 half-lives</td>
+      <td>25%</td>
+      <td>Half of half remains.</td>
+    </tr>
+    <tr>
+      <td>3 half-lives</td>
+      <td>12.5%</td>
+      <td>The amount is lower, but not zero.</td>
+    </tr>
+    <tr>
+      <td>4 half-lives</td>
+      <td>6.25%</td>
+      <td>Approaching low residual exposure.</td>
+    </tr>
+    <tr>
+      <td>5 half-lives</td>
+      <td>3.125%</td>
+      <td>Often used as a rough mostly-cleared estimate.</td>
+    </tr>
+  </tbody>
+</table>
+
+This model is useful for understanding direction and timing. It is not the same
+as a measured blood concentration curve. Real pharmacokinetics can include
+absorption delays, tissue distribution, active metabolites, nonlinear behavior,
+renal or hepatic differences, binding proteins, and formulation effects.
+
+## Peak, Trough and Accumulation
+
+Repeated dosing creates a pattern:
+
+<table className="protocol-table">
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Meaning</th>
+      <th>Why it matters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Peak</td>
+      <td>The modeled high point after a dose is added.</td>
+      <td>High peaks can matter for side effects, tolerability and interpretation.</td>
+    </tr>
+    <tr>
+      <td>Trough</td>
+      <td>The modeled low point before the next scheduled dose.</td>
+      <td>Higher troughs mean more carryover from prior doses.</td>
+    </tr>
+    <tr>
+      <td>Accumulation factor</td>
+      <td>How much repeated dosing raises the modeled amount compared with one isolated dose.</td>
+      <td>It rises when the dose interval is short relative to the half-life.</td>
+    </tr>
+    <tr>
+      <td>Steady state</td>
+      <td>The repeated pattern where peaks and troughs stabilize.</td>
+      <td>Many drugs approach this after about 4 to 5 half-lives.</td>
+    </tr>
+  </tbody>
+</table>
+
+Use the [accumulation calculator](/calculators/accumulation) to compare
+scenarios like daily, every-other-day, twice-weekly, or weekly intervals. Treat
+the result as a visualization tool, not a dosing instruction.
+
+## Common Peptide Half-Life Examples
+
+These are reference values from labels, trials, or database-style summaries.
+They are not recommendations for use.
+
+<table className="protocol-table">
+  <thead>
+    <tr>
+      <th>Peptide or medicine</th>
+      <th>Reference half-life</th>
+      <th>Practical meaning</th>
+      <th>Go deeper</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Semaglutide</td>
+      <td>About 1 week</td>
+      <td>Weekly GLP-1 benchmark with long carryover.</td>
+      <td><a href="/database/semaglutide">Semaglutide database</a></td>
+    </tr>
+    <tr>
+      <td>Tirzepatide</td>
+      <td>About 5 days</td>
+      <td>Weekly dual GIP/GLP-1 agonist with meaningful accumulation.</td>
+      <td><a href="/database/tirzepatide">Tirzepatide database</a></td>
+    </tr>
+    <tr>
+      <td>Retatrutide</td>
+      <td>About 6 days in early clinical research</td>
+      <td>Investigational triple agonist with weekly-trial context.</td>
+      <td><a href="/database/retatrutide">Retatrutide database</a></td>
+    </tr>
+    <tr>
+      <td>Liraglutide</td>
+      <td>About 13 hours</td>
+      <td>Older GLP-1 drug with daily dosing context.</td>
+      <td><a href="/database/liraglutide">Liraglutide database</a></td>
+    </tr>
+    <tr>
+      <td>Cagrilintide</td>
+      <td>About 7 days in research summaries</td>
+      <td>Long-acting amylin analog research area.</td>
+      <td><a href="/database/cagrilintide">Cagrilintide database</a></td>
+    </tr>
+    <tr>
+      <td>Ipamorelin</td>
+      <td>Short, often summarized around hours</td>
+      <td>Short-pulse GH secretagogue context, not weekly GLP-1 context.</td>
+      <td><a href="/database/ipamorelin">Ipamorelin database</a></td>
+    </tr>
+    <tr>
+      <td>Tesamorelin</td>
+      <td>Short, label data are measured in minutes</td>
+      <td>Approved GHRH analog where clinical effect is not judged by raw half-life alone.</td>
+      <td><a href="/database/tesamorelin">Tesamorelin database</a></td>
+    </tr>
+    <tr>
+      <td>BPC-157</td>
+      <td>Not well characterized in humans</td>
+      <td>Do not treat forum half-life claims as established clinical pharmacokinetics.</td>
+      <td><a href="/database/bpc-157">BPC-157 database</a></td>
+    </tr>
+    <tr>
+      <td>TB-500</td>
+      <td>Not well characterized in humans</td>
+      <td>Evidence quality and product identity matter more than copied half-life claims.</td>
+      <td><a href="/database/tb-500">TB-500 database</a></td>
+    </tr>
+  </tbody>
+</table>
+
+The pattern is the important part: weekly GLP-1-style drugs are engineered for
+long exposure, while many peptide fragments and secretagogues are discussed as
+shorter signals. Half-life is only one part of the story.
+
+## Half-Life Is Not the Same as Duration of Effect
+
+Two compounds with similar half-lives can feel or behave differently because
+duration of effect depends on more than elimination:
+
+- Absorption after injection.
+- Receptor binding and downstream signaling.
+- Tissue distribution.
+- Active metabolites.
+- Product formulation.
+- Dose level and titration.
+- Individual kidney, liver, body-size and tolerability differences.
+
+This is especially important for GLP-1 drugs. A label half-life can explain why
+weekly dosing is possible, but clinical effect also depends on receptor
+pharmacology, dose escalation, appetite response, glucose state and adverse
+effects.
+
+## How to Use the Accumulation Calculator
+
+Use this workflow:
+
+<table className="protocol-table">
+  <thead>
+    <tr>
+      <th>Step</th>
+      <th>Input</th>
+      <th>Use the result for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Enter the reference half-life from a label, study or database page.</td>
+      <td>Understanding decay speed.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Enter the repeated dose amount and interval from the source you are analyzing.</td>
+      <td>Seeing how overlap changes the modeled curve.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Compare peak, trough and accumulation factor.</td>
+      <td>Learning why a long half-life schedule behaves differently from a short one.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Change only one variable at a time.</td>
+      <td>Keeping the comparison interpretable.</td>
+    </tr>
+  </tbody>
+</table>
+
+Open the [peptide accumulation calculator](/calculators/accumulation) when you
+want to model the curve. Use the [unit converter](/calculators/unit-converter)
+for mg, mcg and syringe unit arithmetic, and the
+[reconstitution calculator](/calculators) for concentration math.
+
+## Common Mistakes
+
+Avoid these:
+
+- Assuming one half-life means a peptide is gone.
+- Using half-life alone to choose a dose interval.
+- Comparing a label half-life to an uncited forum value.
+- Treating a research-only compound like an approved drug product.
+- Forgetting that long half-life compounds can still be present after missed,
+  delayed or changed doses.
+- Using accumulation math as a substitute for medical supervision.
+
+## FAQ
+
+### What does peptide half-life mean?
+
+Half-life is the time it takes for the modeled amount of a peptide or drug to
+fall by half. It does not mean the compound is fully gone after one half-life.
+
+### How many half-lives until a peptide is mostly cleared?
+
+In a simple first-order model, about 3.125% remains after five half-lives. Real
+pharmacokinetics can differ because absorption, distribution, metabolites and
+patient factors matter.
+
+### How long does it take to reach steady state?
+
+A common pharmacokinetic rule of thumb is roughly 4 to 5 half-lives to approach
+steady state with repeated dosing, but product-specific data matter.
+
+### Is half-life the same as duration of effect?
+
+No. Half-life describes decline in amount or concentration, while duration of
+effect depends on receptors, tissue exposure, potency and the clinical or
+experimental endpoint.
+
+### Can this guide tell me how often to dose a peptide?
+
+No. Half-life can explain accumulation math, but dosing frequency must come
+from a product label, prescriber, pharmacist or valid research protocol.
+
+## References
+
+<References>
+  <li>
+    StatPearls / NCBI Bookshelf. <a href="https://www.ncbi.nlm.nih.gov/books/NBK554498/" target="_blank" rel="noopener noreferrer">Pharmacokinetics</a>.
+  </li>
+  <li>
+    Novo Nordisk. <a href="https://www.novo-pi.com/wegovy.pdf" target="_blank" rel="noopener noreferrer">Wegovy prescribing information</a>.
+  </li>
+  <li>
+    Eli Lilly. <a href="https://pi.lilly.com/us/zepbound-uspi.pdf" target="_blank" rel="noopener noreferrer">Zepbound prescribing information</a>.
+  </li>
+  <li>
+    Jastreboff AM, et al. <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2301972" target="_blank" rel="noopener noreferrer">Retatrutide for obesity: a phase 2 trial</a>. <em>New England Journal of Medicine</em>.
+  </li>
+  <li>
+    Novo Nordisk. <a href="https://www.novo-pi.com/saxenda.pdf" target="_blank" rel="noopener noreferrer">Saxenda prescribing information</a>.
+  </li>
+</References>

@@ -9,6 +9,7 @@ import { ArrowRightIcon } from "@/components/icons";
 import {
   breadcrumbJsonLd,
   buildMetadata,
+  faqPageJsonLd,
   webApplicationJsonLd,
 } from "@/lib/seo";
 
@@ -23,6 +24,52 @@ const crumbs = [
   { name: "Peptide chemistry", path },
 ];
 
+const CHEMISTRY_FAQS = [
+  {
+    question: "How is peptide molecular weight calculated?",
+    answer:
+      "The calculator sums amino acid residue masses and adds one water molecule for a linear peptide with free N- and C-termini. Modified residues, salts and terminal caps are not included.",
+  },
+  {
+    question: "What is the difference between average and monoisotopic mass?",
+    answer:
+      "Average mass uses natural isotope abundance averages. Monoisotopic mass uses the most abundant isotope of each element and is often used in mass spectrometry contexts.",
+  },
+  {
+    question: "What does GRAVY mean?",
+    answer:
+      "GRAVY is the grand average of hydropathy. Positive values indicate a more hydrophobic sequence on the Kyte-Doolittle scale, while negative values indicate a more hydrophilic sequence.",
+  },
+  {
+    question: "Can this calculator handle modified peptides?",
+    answer:
+      "No. It is limited to the standard 20 amino acids in a simple linear sequence. It does not include amidation, acetylation, PEGylation, labels, salts, disulfide mapping or non-standard residues.",
+  },
+];
+
+const AMINO_ACID_CODES = [
+  ["A", "Ala", "Alanine"],
+  ["R", "Arg", "Arginine"],
+  ["N", "Asn", "Asparagine"],
+  ["D", "Asp", "Aspartic acid"],
+  ["C", "Cys", "Cysteine"],
+  ["E", "Glu", "Glutamic acid"],
+  ["Q", "Gln", "Glutamine"],
+  ["G", "Gly", "Glycine"],
+  ["H", "His", "Histidine"],
+  ["I", "Ile", "Isoleucine"],
+  ["L", "Leu", "Leucine"],
+  ["K", "Lys", "Lysine"],
+  ["M", "Met", "Methionine"],
+  ["F", "Phe", "Phenylalanine"],
+  ["P", "Pro", "Proline"],
+  ["S", "Ser", "Serine"],
+  ["T", "Thr", "Threonine"],
+  ["W", "Trp", "Tryptophan"],
+  ["Y", "Tyr", "Tyrosine"],
+  ["V", "Val", "Valine"],
+];
+
 export const metadata: Metadata = buildMetadata({
   title,
   description,
@@ -34,6 +81,7 @@ export default function PeptideChemistryCalculatorPage() {
     <>
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
       <JsonLd data={webApplicationJsonLd({ name: title, description, path })} />
+      <JsonLd data={faqPageJsonLd(CHEMISTRY_FAQS)} />
 
       <section className="border-b border-line bg-canvas">
         <div className="mx-auto max-w-6xl px-5 py-16">
@@ -124,6 +172,95 @@ export default function PeptideChemistryCalculatorPage() {
             amidation, acetylation, salts, counterions, glycosylation, isotope
             labels, non-standard residues or confirmed disulfide mapping.
           </p>
+        </div>
+
+        <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]">
+          <article className="rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+            <h2 className="text-xl font-semibold tracking-tight text-ink">
+              Amino acid code table
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              The calculator accepts one-letter sequences like{" "}
+              <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-accent-bright">
+                ACDE
+              </code>{" "}
+              and three-letter tokens like{" "}
+              <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-accent-bright">
+                Ala-Cys-Asp-Glu
+              </code>
+              .
+            </p>
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full border-collapse text-sm">
+                <thead className="bg-surface text-left">
+                  <tr>
+                    <th className="border border-line px-3 py-2 font-semibold text-ink">
+                      1-letter
+                    </th>
+                    <th className="border border-line px-3 py-2 font-semibold text-ink">
+                      3-letter
+                    </th>
+                    <th className="border border-line px-3 py-2 font-semibold text-ink">
+                      Amino acid
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {AMINO_ACID_CODES.map(([one, three, name]) => (
+                    <tr key={one}>
+                      <td className="border border-line px-3 py-2 font-mono text-ink-soft">
+                        {one}
+                      </td>
+                      <td className="border border-line px-3 py-2 font-mono text-ink-soft">
+                        {three}
+                      </td>
+                      <td className="border border-line px-3 py-2 text-ink-soft">
+                        {name}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article className="rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+            <h2 className="text-xl font-semibold tracking-tight text-ink">
+              How mass is calculated
+            </h2>
+            <div className="mt-4 space-y-4 text-sm leading-6 text-muted">
+              <p>
+                A peptide sequence is treated as a chain of amino acid
+                residues. The tool sums residue masses, then adds one water
+                molecule to represent the free termini of a simple linear
+                peptide.
+              </p>
+              <p>
+                That is a useful educational estimate, but it is not a
+                substitute for analytical testing. Terminal caps, salts,
+                disulfides, labels and non-standard amino acids change the
+                actual mass.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+          <h2 className="text-xl font-semibold tracking-tight text-ink">
+            Peptide chemistry calculator FAQ
+          </h2>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            {CHEMISTRY_FAQS.map((faq) => (
+              <div key={faq.question}>
+                <h3 className="text-sm font-semibold text-ink-soft">
+                  {faq.question}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-muted">
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         <RelatedCalculators

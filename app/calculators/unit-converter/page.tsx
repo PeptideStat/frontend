@@ -11,6 +11,7 @@ import { UnitConverterCalculator } from "@/components/UnitConverterCalculator";
 import {
   breadcrumbJsonLd,
   buildMetadata,
+  faqPageJsonLd,
   webApplicationJsonLd,
 } from "@/lib/seo";
 
@@ -24,6 +25,29 @@ const crumbs = [
   { name: "Unit converter", path },
 ];
 
+const UNIT_CONVERTER_FAQS = [
+  {
+    question: "How many mcg are in 1 mg?",
+    answer:
+      "1 mg equals 1000 mcg. To convert mg to mcg, multiply by 1000. To convert mcg to mg, divide by 1000.",
+  },
+  {
+    question: "How do you convert mcg to syringe units?",
+    answer:
+      "First convert mcg to mg, then divide by the vial concentration in mg/mL to get mL. On a U-100 syringe, multiply mL by 100 to get units.",
+  },
+  {
+    question: "Are IU and mg interchangeable?",
+    answer:
+      "No. IU is a biological activity unit and is product-specific. Milligrams and micrograms are mass units. Only use an IU factor when it appears on the exact product label or is provided by a clinician.",
+  },
+  {
+    question: "What is the difference between units and mcg?",
+    answer:
+      "mcg measures mass. Syringe units measure volume on a specific syringe scale. A unit mark only tells you how much liquid to draw, not how many micrograms are in that liquid.",
+  },
+];
+
 export const metadata: Metadata = buildMetadata({
   title,
   description,
@@ -35,6 +59,7 @@ export default function UnitConverterPage() {
     <>
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
       <JsonLd data={webApplicationJsonLd({ name: title, description, path })} />
+      <JsonLd data={faqPageJsonLd(UNIT_CONVERTER_FAQS)} />
 
       <section className="border-b border-line bg-canvas">
         <div className="mx-auto max-w-6xl px-5 py-16">
@@ -126,6 +151,107 @@ export default function UnitConverterPage() {
 
         <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5 shadow-card">
           <h2 className="text-xl font-semibold tracking-tight text-ink">
+            mg to mcg quick table
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Milligrams and micrograms are mass units. This table is pure unit
+            conversion, independent of vial concentration.
+          </p>
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead className="bg-surface text-left">
+                <tr>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    mg
+                  </th>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    mcg
+                  </th>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    Decimal mg
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["0.05", "50", "0.05 mg"],
+                  ["0.1", "100", "0.1 mg"],
+                  ["0.25", "250", "0.25 mg"],
+                  ["0.5", "500", "0.5 mg"],
+                  ["1", "1000", "1 mg"],
+                ].map(([mg, mcg, decimal]) => (
+                  <tr key={mg}>
+                    <td className="border border-line px-3 py-2 text-ink-soft">
+                      {mg} mg
+                    </td>
+                    <td className="border border-line px-3 py-2 text-ink-soft">
+                      {mcg} mcg
+                    </td>
+                    <td className="border border-line px-3 py-2 text-ink-soft">
+                      {decimal}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+          <h2 className="text-xl font-semibold tracking-tight text-ink">
+            mcg to units examples
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Syringe units require concentration. These examples assume a U-100
+            syringe and a vial mixed to 2.5 mg/mL.
+          </p>
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead className="bg-surface text-left">
+                <tr>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    Amount
+                  </th>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    In mg
+                  </th>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    Draw volume
+                  </th>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    U-100 units
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["100 mcg", "0.1 mg", "0.04 mL", "4 units"],
+                  ["250 mcg", "0.25 mg", "0.1 mL", "10 units"],
+                  ["500 mcg", "0.5 mg", "0.2 mL", "20 units"],
+                  ["1000 mcg", "1 mg", "0.4 mL", "40 units"],
+                ].map(([amount, mg, volume, units]) => (
+                  <tr key={amount}>
+                    <td className="border border-line px-3 py-2 text-ink-soft">
+                      {amount}
+                    </td>
+                    <td className="border border-line px-3 py-2 text-ink-soft">
+                      {mg}
+                    </td>
+                    <td className="border border-line px-3 py-2 text-ink-soft">
+                      {volume}
+                    </td>
+                    <td className="border border-line px-3 py-2 text-ink-soft">
+                      {units}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+          <h2 className="text-xl font-semibold tracking-tight text-ink">
             About IU conversions
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-muted">
@@ -134,6 +260,24 @@ export default function UnitConverterPage() {
             factor only when it appears on a specific product label or is
             provided by a clinician.
           </p>
+        </div>
+
+        <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+          <h2 className="text-xl font-semibold tracking-tight text-ink">
+            Unit converter FAQ
+          </h2>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            {UNIT_CONVERTER_FAQS.map((faq) => (
+              <div key={faq.question}>
+                <h3 className="text-sm font-semibold text-ink-soft">
+                  {faq.question}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-muted">
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         <RelatedCalculators

@@ -8,6 +8,7 @@ import { DisclaimerBanner } from "@/components/DisclaimerBanner";
 import {
   breadcrumbJsonLd,
   buildMetadata,
+  faqPageJsonLd,
   webApplicationJsonLd,
 } from "@/lib/seo";
 import { CATEGORY_ICONS, ArrowRightIcon } from "@/components/icons";
@@ -20,6 +21,34 @@ const path = "/calculators";
 const crumbs = [
   { name: "Home", path: "/" },
   { name: "Calculators", path },
+];
+
+const RECONSTITUTION_FAQS = [
+  {
+    question: "How much BAC water should I add to a 5 mg peptide vial?",
+    answer:
+      "There is no universal amount. The water volume sets the final concentration. For example, 5 mg with 1 mL is 5 mg/mL, while 5 mg with 2 mL is 2.5 mg/mL. Follow the product label, prescriber or pharmacist instructions.",
+  },
+  {
+    question: "How many syringe units is 250 mcg?",
+    answer:
+      "It depends on the vial concentration and syringe scale. If 5 mg is mixed with 2 mL, concentration is 2.5 mg/mL. A 250 mcg dose is 0.25 mg, which equals 0.1 mL or 10 units on a U-100 syringe.",
+  },
+  {
+    question: "What does 10 mg reconstituted with 2 mL mean?",
+    answer:
+      "It means the vial contains 10 mg total in 2 mL of liquid, giving a concentration of 5 mg/mL. A 1 mg draw would be 0.2 mL, or 20 units on a U-100 syringe.",
+  },
+  {
+    question: "What are U-100 syringe units?",
+    answer:
+      "U-100 syringes are marked so 100 units equals 1 mL. One unit equals 0.01 mL. Units are volume markings, not peptide milligrams.",
+  },
+  {
+    question: "Is this calculator a dosing recommendation?",
+    answer:
+      "No. It only converts vial amount, water volume and target amount into concentration and draw volume. The target amount must come from a product label, prescriber, pharmacist or appropriate research protocol.",
+  },
 ];
 
 export const metadata: Metadata = buildMetadata({
@@ -95,6 +124,7 @@ export default function CalculatorsPage() {
     <>
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
       <JsonLd data={webApplicationJsonLd({ name: title, description, path })} />
+      <JsonLd data={faqPageJsonLd(RECONSTITUTION_FAQS)} />
 
       <section className="border-b border-line bg-canvas">
         <div className="mx-auto max-w-6xl px-5 py-16">
@@ -121,6 +151,13 @@ export default function CalculatorsPage() {
               className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
             >
               Bacteriostatic water guide
+              <ArrowRightIcon className="h-3.5 w-3.5" />
+            </Link>
+            <Link
+              href="/peptides/peptide-storage-guide"
+              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
+            >
+              Peptide storage guide
               <ArrowRightIcon className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -181,29 +218,94 @@ export default function CalculatorsPage() {
 
         <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5 shadow-card">
           <h2 className="text-xl font-semibold tracking-tight text-ink">
+            Common reconstitution examples
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            These examples show the math only. They are not dose instructions.
+            Change the vial amount, water volume or syringe scale in the
+            calculator above for your actual label or protocol.
+          </p>
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead className="bg-surface text-left">
+                <tr>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    Vial setup
+                  </th>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    Concentration
+                  </th>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    250 mcg draw
+                  </th>
+                  <th className="border border-line px-3 py-2 font-semibold text-ink">
+                    U-100 units
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    5 mg + 1 mL
+                  </td>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    5 mg/mL
+                  </td>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    0.05 mL
+                  </td>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    5 units
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    5 mg + 2 mL
+                  </td>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    2.5 mg/mL
+                  </td>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    0.1 mL
+                  </td>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    10 units
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    10 mg + 2 mL
+                  </td>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    5 mg/mL
+                  </td>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    0.05 mL
+                  </td>
+                  <td className="border border-line px-3 py-2 text-ink-soft">
+                    5 units
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5 shadow-card">
+          <h2 className="text-xl font-semibold tracking-tight text-ink">
             Reconstitution FAQ
           </h2>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
-            <div>
-              <h3 className="text-sm font-semibold text-ink-soft">
-                Is this a dosing recommendation?
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-muted">
-                No. It is only a unit and concentration calculator. The target
-                dose must come from an appropriate research protocol or licensed
-                clinician.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-ink-soft">
-                Why do syringe units change?
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-muted">
-                Units depend on concentration and syringe scale. The same mg
-                dose can require a different draw if the vial is mixed with a
-                different BAC water volume.
-              </p>
-            </div>
+            {RECONSTITUTION_FAQS.map((faq) => (
+              <div key={faq.question}>
+                <h3 className="text-sm font-semibold text-ink-soft">
+                  {faq.question}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-muted">
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

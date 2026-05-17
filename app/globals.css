@@ -132,3 +132,14 @@ body {
 .protocol-table td {
   color: var(--color-ink-soft);
 }
+
+.protocol-table a {
+  color: var(--color-accent-bright);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.protocol-table a:hover {
+  color: var(--color-accent);
+}
