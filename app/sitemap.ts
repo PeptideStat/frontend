@@ -6,7 +6,7 @@ import { absoluteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles();
-  const siteUpdatedAt = new Date("2026-05-17");
+  const siteUpdatedAt = new Date("2026-05-18");
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -41,6 +41,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: absoluteUrl("/calculators/unit-converter"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: absoluteUrl("/calculators/peptide-chemistry"),
       lastModified: siteUpdatedAt,
       changeFrequency: "monthly",
       priority: 0.85,

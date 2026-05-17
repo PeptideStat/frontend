@@ -1,27 +1,26 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { CalculatorFallback } from "@/components/CalculatorFallback";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
 import { JsonLd } from "@/components/JsonLd";
+import { PeptideChemistryCalculator } from "@/components/PeptideChemistryCalculator";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { ArrowRightIcon } from "@/components/icons";
-import { UnitConverterCalculator } from "@/components/UnitConverterCalculator";
 import {
   breadcrumbJsonLd,
   buildMetadata,
   webApplicationJsonLd,
 } from "@/lib/seo";
 
-const title = "Peptide Unit Converter";
+const title =
+  "Peptide Calculator: Molecular Weight, Sequence and Composition";
 const description =
-  "Convert peptide amounts between mg, mcg, optional IU and syringe units using vial strength, BAC water and syringe scale.";
-const path = "/calculators/unit-converter";
+  "Analyze peptide sequences: molecular weight, amino acid composition, one-letter and three-letter conversion, net charge, GRAVY and extinction estimates.";
+const path = "/calculators/peptide-chemistry";
 const crumbs = [
   { name: "Home", path: "/" },
   { name: "Calculators", path: "/calculators" },
-  { name: "Unit converter", path },
+  { name: "Peptide chemistry", path },
 ];
 
 export const metadata: Metadata = buildMetadata({
@@ -30,7 +29,7 @@ export const metadata: Metadata = buildMetadata({
   path,
 });
 
-export default function UnitConverterPage() {
+export default function PeptideChemistryCalculatorPage() {
   return (
     <>
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
@@ -50,24 +49,17 @@ export default function UnitConverterPage() {
           </p>
           <div className="mt-6 flex flex-wrap gap-4">
             <Link
-              href="/calculators"
+              href="/peptides/what-are-peptides"
               className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
             >
-              Reconstitution calculator
+              What are peptides?
               <ArrowRightIcon className="h-3.5 w-3.5" />
             </Link>
             <Link
-              href="/calculators/accumulation"
+              href="/peptides/peptide-glossary"
               className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
             >
-              Accumulation calculator
-              <ArrowRightIcon className="h-3.5 w-3.5" />
-            </Link>
-            <Link
-              href="/calculators/peptide-chemistry"
-              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
-            >
-              Peptide chemistry calculator
+              Peptide glossary
               <ArrowRightIcon className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -80,27 +72,26 @@ export default function UnitConverterPage() {
             Live now
           </p>
           <h2 className="mt-1 text-2xl font-semibold tracking-tight text-ink">
-            Unit conversion calculator
+            Sequence analysis tool
           </h2>
           <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">
-            Convert mass units, optional IU and syringe draw from the same
-            reconstituted vial setup.
+            Paste a peptide sequence to estimate basic chemistry properties and
+            convert between one-letter and three-letter amino acid notation.
           </p>
         </div>
-        <Suspense fallback={<CalculatorFallback />}>
-          <UnitConverterCalculator />
-        </Suspense>
+        <PeptideChemistryCalculator />
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-16">
         <div className="grid gap-4 lg:grid-cols-3">
           <article className="rounded-xl border border-line bg-surface-2 p-5 shadow-card">
             <h2 className="text-xl font-semibold tracking-tight text-ink">
-              What it converts
+              What it calculates
             </h2>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Convert between mg and mcg, optionally calculate IU with a label
-              factor, and translate the dose into mL and syringe units.
+              Sequence length, amino acid composition, average and monoisotopic
+              molecular weight, net charge estimate, GRAVY hydropathy and 280
+              nm extinction coefficient.
             </p>
           </article>
           <article className="rounded-xl border border-line bg-surface-2 p-5 shadow-card">
@@ -108,9 +99,8 @@ export default function UnitConverterPage() {
               Best for
             </h2>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Checking dose unit math, comparing concentration after
-              reconstitution and converting microgram amounts into syringe
-              marks.
+              Quick peptide chemistry checks, glossary support, sequence
+              notation conversion and educational research notes.
             </p>
           </article>
           <article className="rounded-xl border border-line bg-surface-2 p-5 shadow-card">
@@ -118,21 +108,21 @@ export default function UnitConverterPage() {
               Common searches
             </h2>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Peptide unit converter, mcg to mg peptide calculator, peptide IU
-              converter and peptide units calculator.
+              Peptide molecular weight calculator, peptide sequence calculator,
+              amino acid composition calculator and peptide hydropathy tool.
             </p>
           </article>
         </div>
 
         <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5 shadow-card">
           <h2 className="text-xl font-semibold tracking-tight text-ink">
-            About IU conversions
+            Important limitations
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Milligrams and micrograms are mass units. IU is a biological
-            activity unit and is not universal across peptides. Use the IU
-            factor only when it appears on a specific product label or is
-            provided by a clinician.
+            This calculator assumes the standard 20 amino acids in a linear
+            peptide with free termini. It does not include terminal capping,
+            amidation, acetylation, salts, counterions, glycosylation, isotope
+            labels, non-standard residues or confirmed disulfide mapping.
           </p>
         </div>
 
@@ -140,7 +130,7 @@ export default function UnitConverterPage() {
           currentPath={path}
           className="mt-10"
           title="Use with other peptide calculators"
-          description="Pair unit conversion with reconstitution math and accumulation estimates for a fuller view of peptide calculations."
+          description="Pair sequence chemistry with concentration, unit conversion and accumulation tools when building research notes."
         />
       </section>
 

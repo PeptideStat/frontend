@@ -54,6 +54,14 @@ export const popularQuestions: PopularQuestion[] = [
     href: "/peptides/how-to-inject-peptides-safely",
   },
   {
+    label: "What are peptides?",
+    href: "/peptides/what-are-peptides",
+  },
+  {
+    label: "Peptide chemistry calculator",
+    href: "/calculators/peptide-chemistry",
+  },
+  {
     label: "How does Retatrutide compare to Tirzepatide?",
     href: "/peptides/retatrutide",
   },
@@ -237,11 +245,11 @@ export const featuredGuides: FeaturedGuide[] = [
     href: "/peptides/retatrutide",
   },
   {
-    kicker: "Recovery",
-    title: "BPC-157: hype vs evidence",
+    kicker: "Peptide basics",
+    title: "What are peptides?",
     description:
-      "Promising preclinical work, almost no human data. Separating what the research shows from what the marketing claims.",
-    href: "/peptides/bpc-157",
+      "A clear foundation for amino acids, peptide bonds, residues, sequences, molecular weight and peptide calculators.",
+    href: "/peptides/what-are-peptides",
   },
 ];
 

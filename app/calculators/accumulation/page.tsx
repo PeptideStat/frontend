@@ -48,13 +48,22 @@ export default function AccumulationCalculatorPage() {
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
             {description}
           </p>
-          <Link
-            href="/calculators"
-            className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
-          >
-            Reconstitution calculator
-            <ArrowRightIcon className="h-3.5 w-3.5" />
-          </Link>
+          <div className="mt-6 flex flex-wrap gap-4">
+            <Link
+              href="/calculators"
+              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
+            >
+              Reconstitution calculator
+              <ArrowRightIcon className="h-3.5 w-3.5" />
+            </Link>
+            <Link
+              href="/calculators/peptide-chemistry"
+              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
+            >
+              Peptide chemistry calculator
+              <ArrowRightIcon className="h-3.5 w-3.5" />
+            </Link>
+          </div>
         </div>
       </section>
 

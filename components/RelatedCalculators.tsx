@@ -20,6 +20,12 @@ const CALCULATOR_LINKS = [
     description:
       "Convert mg, mcg, optional IU and syringe units from one reconstituted vial setup.",
   },
+  {
+    href: "/calculators/peptide-chemistry",
+    title: "Peptide chemistry calculator",
+    description:
+      "Analyze sequence length, molecular weight, composition, charge, hydropathy and notation.",
+  },
 ];
 
 function sectionClassName(className?: string): string {
@@ -51,7 +57,7 @@ export function RelatedCalculators({
           {description}
         </p>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {links.map((link) => (
           <Link
             key={link.href}

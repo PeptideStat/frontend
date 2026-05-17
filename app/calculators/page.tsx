@@ -15,7 +15,7 @@ import { Suspense } from "react";
 
 const title = "Peptide Reconstitution Calculator";
 const description =
-  "Calculate peptide concentration, dose volume and syringe units from vial strength, BAC water and target dose. Optional peptide shortcuts included.";
+  "Calculate peptide concentration, dose volume, syringe units, accumulation and sequence chemistry. Optional peptide shortcuts included.";
 const path = "/calculators";
 const crumbs = [
   { name: "Home", path: "/" },
@@ -68,6 +68,16 @@ const CALCULATORS: CalculatorEntry[] = [
     href: "/calculators/unit-converter",
     icon: "leaf",
     tint: "slate",
+  },
+  {
+    slug: "peptide-chemistry",
+    title: "Peptide chemistry calculator",
+    description:
+      "Analyze sequence length, molecular weight, composition, charge, hydropathy and amino acid notation.",
+    status: "live",
+    href: "/calculators/peptide-chemistry",
+    icon: "molecule",
+    tint: "violet",
   },
 ];
 
@@ -189,12 +199,12 @@ export default function CalculatorsPage() {
             All calculators
           </h2>
           <p className="mt-1 text-sm text-muted">
-            Live, no-signup tools for peptide concentration, unit conversion
-            and repeated-dose accumulation math.
+            Live, no-signup tools for peptide concentration, unit conversion,
+            repeated-dose accumulation and sequence chemistry.
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {CALCULATORS.map((calc) => {
             const Icon = CATEGORY_ICONS[calc.icon];
             const tintClasses = TINT_BG[calc.tint] ?? TINT_BG.emerald;
