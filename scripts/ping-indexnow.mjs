@@ -30,9 +30,12 @@ const PUBLIC_DIR = path.join(ROOT, "public");
 const CONTENT_DIR = path.join(ROOT, "content", "peptides");
 const DATA_DIR = path.join(ROOT, "data");
 
+const DEFAULT_SITE_URL = "https://www.peptidestat.com";
 const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://peptidestat.com"
-).replace(/\/$/, "");
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || DEFAULT_SITE_URL
+)
+  .replace(/^https:\/\/peptidestat\.com\/?$/i, DEFAULT_SITE_URL)
+  .replace(/\/$/, "");
 
 const forceFlag = process.argv.includes("--force");
 const shouldRun =

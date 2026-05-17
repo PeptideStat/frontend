@@ -3,6 +3,12 @@ const defaultShopUrl =
 export const shopUrl =
   process.env.NEXT_PUBLIC_SHOP_URL?.trim() || defaultShopUrl;
 const isExternalUrl = (href: string) => /^https?:\/\//i.test(href);
+const defaultSiteUrl = "https://www.peptidestat.com";
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || defaultSiteUrl;
+const canonicalSiteUrl = rawSiteUrl.replace(
+  /^https:\/\/peptidestat\.com\/?$/i,
+  defaultSiteUrl,
+);
 
 /**
  * Single source of truth for site-wide metadata.
@@ -15,7 +21,7 @@ export const siteConfig = {
   description:
     "In-depth, research-backed guides on peptides — dosing, benefits, side effects and how they compare. Clear answers for people researching peptides.",
   // Set NEXT_PUBLIC_SITE_URL in production (Vercel env var).
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://peptidestat.com",
+  url: canonicalSiteUrl.replace(/\/$/, ""),
   locale: "en_US",
   author: {
     name: "PeptideStat Editorial Team",
