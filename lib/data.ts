@@ -62,6 +62,14 @@ export const popularQuestions: PopularQuestion[] = [
     href: "/calculators/peptide-chemistry",
   },
   {
+    label: "Peptide reconstitution guide",
+    href: "/peptides/peptide-reconstitution-guide",
+  },
+  {
+    label: "Bacteriostatic water guide",
+    href: "/peptides/bacteriostatic-water-guide",
+  },
+  {
     label: "How does Retatrutide compare to Tirzepatide?",
     href: "/peptides/retatrutide",
   },
