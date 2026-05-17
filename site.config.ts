@@ -25,6 +25,10 @@ export const siteConfig = {
   twitter: "peptidestat",
   // Contact address shown on legal pages (Privacy, Disclaimer).
   contactEmail: "admin@peptidestat.com",
+  // IndexNow key — verified by /<key>.txt under public/. Used to ping
+  // Bing/Yandex/etc when content changes. Rotate by regenerating the key,
+  // renaming the .txt file, and updating this value in a single commit.
+  indexNowKey: "edb8b768a066cfe25ce55be1268c90ce",
   nav: [
     {
       title: "Shop Peptides",
