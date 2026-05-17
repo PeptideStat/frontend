@@ -104,7 +104,7 @@ export const peptides: Peptide[] = [
     approvedFor: ["Type 2 diabetes", "Chronic weight management"],
     developer: "Eli Lilly",
     year: 2022,
-    articleSlug: null,
+    articleSlug: "mounjaro-tirzepatide-glp-1",
   },
   {
     slug: "semaglutide",
@@ -122,7 +122,7 @@ export const peptides: Peptide[] = [
     approvedFor: ["Type 2 diabetes", "Chronic weight management", "Cardiovascular risk reduction"],
     developer: "Novo Nordisk",
     year: 2017,
-    articleSlug: null,
+    articleSlug: "semaglutide-as-glp-1",
   },
   {
     slug: "liraglutide",
@@ -140,7 +140,7 @@ export const peptides: Peptide[] = [
     approvedFor: ["Type 2 diabetes", "Chronic weight management"],
     developer: "Novo Nordisk",
     year: 2010,
-    articleSlug: null,
+    articleSlug: "saxenda-liraglutide-glp-1",
   },
   {
     slug: "cagrilintide",

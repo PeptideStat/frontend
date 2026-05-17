@@ -5,7 +5,7 @@ import { ArrowRightIcon } from "@/components/icons";
 /**
  * "Featured guides" — analogous to peptide-db.com's "Tools" grid, but
  * surfacing the pillar articles since this is a blog rather than a tool
- * suite. Three larger cards with a kicker, title, summary and arrow.
+ * suite. Larger cards with a kicker, title, summary and arrow.
  */
 export function FeaturedGuides() {
   return (
@@ -32,7 +32,7 @@ export function FeaturedGuides() {
           </Link>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {featuredGuides.map((guide) => (
             <Link
               key={guide.href}

@@ -18,7 +18,12 @@ import {
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Disclaimer } from "@/components/Disclaimer";
 import { JsonLd } from "@/components/JsonLd";
-import { articleJsonLd, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
+import {
+  articleJsonLd,
+  breadcrumbJsonLd,
+  buildMetadata,
+  faqPageJsonLd,
+} from "@/lib/seo";
 import { formatDate } from "@/lib/format";
 import {
   getArticleRelatedCategoryHubs,
@@ -91,6 +96,9 @@ export default async function ArticlePage(
     <>
       <JsonLd data={articleJsonLd(article)} />
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
+      {article.faqs && article.faqs.length > 0 && (
+        <JsonLd data={faqPageJsonLd(article.faqs)} />
+      )}
 
       <article className="mx-auto max-w-2xl px-5 py-12">
         {/* Breadcrumb */}

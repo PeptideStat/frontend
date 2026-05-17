@@ -35,6 +35,8 @@ export interface ArticleFrontmatter {
   cluster?: string;
   /** True for the pillar/hub article of a cluster. */
   pillar?: boolean;
+  /** Optional FAQ entries used for FAQPage structured data. */
+  faqs?: { question: string; answer: string }[];
   /** Hide from listings, sitemap and build output. */
   draft?: boolean;
 }
@@ -49,6 +51,8 @@ export interface Article extends ArticleMeta {
   /** Raw MDX body (frontmatter stripped). */
   content: string;
 }
+
+type ArticleMetaWithOptionalContent = ArticleMeta & { content?: string };
 
 function contentDirExists(): boolean {
   return fs.existsSync(CONTENT_DIR);
@@ -99,7 +103,11 @@ export function getAllArticles({
       (article) => includeFuture || new Date(article.date).getTime() <= now,
     )
     .sort((a, b) => +new Date(b.date) - +new Date(a.date))
-    .map(({ content: _content, ...meta }) => meta);
+    .map((article) => {
+      const meta: ArticleMetaWithOptionalContent = { ...article };
+      delete meta.content;
+      return meta;
+    });
 }
 
 /** Articles belonging to a topic cluster, pillar first. */

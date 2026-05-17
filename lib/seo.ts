@@ -124,6 +124,23 @@ export function articleJsonLd(article: ArticleMeta) {
   };
 }
 
+export function faqPageJsonLd(
+  faqs: { question: string; answer: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
 /** schema.org BreadcrumbList for an article. */
 export function breadcrumbJsonLd(
   crumbs: { name: string; path: string }[],

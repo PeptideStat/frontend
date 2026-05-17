@@ -46,6 +46,10 @@ export const popularQuestions: PopularQuestion[] = [
     href: "/peptides/peptide-shampoo",
   },
   {
+    label: "Peptides for weight loss",
+    href: "/peptides/peptides-for-weight-loss",
+  },
+  {
     label: "How does Retatrutide compare to Tirzepatide?",
     href: "/peptides/retatrutide",
   },
@@ -116,7 +120,7 @@ export const categories: Category[] = [
     slug: "weight-loss",
     title: "Weight loss",
     description: "GLP-1, GIP and triple agonists — what works and what's hype.",
-    href: "/database/weight-loss-peptides",
+    href: "/peptides/peptides-for-weight-loss",
     imageSrc: "/images/categories/weight-loss-category.jpg",
     imageAlt: "Peptide research visual for weight loss and metabolic agonists",
     tint: "emerald",
@@ -207,6 +211,13 @@ export interface FeaturedGuide {
 }
 
 export const featuredGuides: FeaturedGuide[] = [
+  {
+    kicker: "Weight loss",
+    title: "Peptides for weight loss",
+    description:
+      "The broad map: GLP-1s, tirzepatide, retatrutide, amylin analogs, evidence status, safety and calculators.",
+    href: "/peptides/peptides-for-weight-loss",
+  },
   {
     kicker: "Hair protocol",
     title: "Best peptides for hair growth",
