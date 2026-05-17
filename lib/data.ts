@@ -50,6 +50,10 @@ export const popularQuestions: PopularQuestion[] = [
     href: "/peptides/peptides-for-weight-loss",
   },
   {
+    label: "How to inject peptides safely",
+    href: "/peptides/how-to-inject-peptides-safely",
+  },
+  {
     label: "How does Retatrutide compare to Tirzepatide?",
     href: "/peptides/retatrutide",
   },
@@ -180,7 +184,7 @@ export const categories: Category[] = [
     slug: "safety",
     title: "Safety & side effects",
     description: "Common, dose-related and long-term risk profiles.",
-    href: "/peptides",
+    href: "/peptides/how-to-inject-peptides-safely",
     imageSrc: "/images/categories/safety-category.jpg",
     imageAlt: "Peptide research visual for safety and side effects",
     tint: "rose",
