@@ -50,6 +50,26 @@ export const popularQuestions: PopularQuestion[] = [
     href: "/peptides/peptides-for-weight-loss",
   },
   {
+    label: "Semaglutide vs Tirzepatide",
+    href: "/peptides/semaglutide-vs-tirzepatide",
+  },
+  {
+    label: "Zepbound vs Wegovy",
+    href: "/peptides/zepbound-vs-wegovy",
+  },
+  {
+    label: "Ozempic vs Wegovy",
+    href: "/peptides/ozempic-vs-wegovy",
+  },
+  {
+    label: "Tirzepatide vs Retatrutide",
+    href: "/peptides/tirzepatide-vs-retatrutide",
+  },
+  {
+    label: "Semaglutide vs Liraglutide",
+    href: "/peptides/semaglutide-vs-liraglutide",
+  },
+  {
     label: "How to inject peptides safely",
     href: "/peptides/how-to-inject-peptides-safely",
   },
@@ -79,7 +99,7 @@ export const popularQuestions: PopularQuestion[] = [
   },
   {
     label: "How does Retatrutide compare to Tirzepatide?",
-    href: "/peptides/retatrutide",
+    href: "/peptides/tirzepatide-vs-retatrutide",
   },
   {
     label: "What are BPC-157's side effects?",
