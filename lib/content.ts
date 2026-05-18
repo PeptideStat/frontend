@@ -15,8 +15,10 @@ import readingTime from "reading-time";
 const CONTENT_DIR = path.join(process.cwd(), "content", "peptides");
 
 export interface ArticleFrontmatter {
-  /** Page <title> and on-page H1. */
+  /** On-page H1 and listing title. */
   title: string;
+  /** Optional shorter browser title for search snippets. */
+  metaTitle?: string;
   /** Meta description — keep ~150-160 chars. */
   description: string;
   /** Short summary shown on cards/listings. Falls back to `description`. */

@@ -2,9 +2,16 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/site.config";
 import type { ArticleMeta } from "@/lib/content";
 
+const MAX_TITLE_LENGTH = 70;
+
 /** Absolute URL for a given path, based on the configured site URL. */
 export function absoluteUrl(path = "/"): string {
   return new URL(path, siteConfig.url).toString();
+}
+
+function browserTitle(title: string): string {
+  const branded = `${title} | ${siteConfig.name}`;
+  return branded.length <= MAX_TITLE_LENGTH ? branded : title;
 }
 
 interface PageMetaInput {
@@ -27,14 +34,15 @@ export function buildMetadata({
   type = "website",
 }: PageMetaInput): Metadata {
   const url = absoluteUrl(path);
+  const resolvedTitle = browserTitle(title);
   return {
-    title,
+    title: { absolute: resolvedTitle },
     description,
     alternates: { canonical: url },
     openGraph: {
       type,
       url,
-      title,
+      title: resolvedTitle,
       description,
       siteName: siteConfig.name,
       locale: siteConfig.locale,
@@ -42,7 +50,7 @@ export function buildMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: resolvedTitle,
       description,
       site: `@${siteConfig.twitter}`,
       creator: `@${siteConfig.twitter}`,

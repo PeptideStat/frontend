@@ -53,7 +53,7 @@ export async function generateMetadata(
   }
 
   const meta = buildMetadata({
-    title: article.title,
+    title: article.metaTitle ?? article.title,
     description: article.description,
     path: `/peptides/${article.slug}`,
     image: article.coverImage,
