@@ -165,7 +165,7 @@ export default async function ArticlePage(
           <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-xl border border-line bg-surface-2">
             <Image
               src={article.coverImage}
-              alt={article.title}
+              alt={article.coverImageAlt ?? article.title}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 896px"

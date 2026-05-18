@@ -20,7 +20,7 @@ export function ArticleCard({
           {article.coverImage ? (
             <Image
               src={article.coverImage}
-              alt=""
+              alt={article.coverImageAlt ?? `${article.title} cover image`}
               fill
               sizes="(max-width: 768px) 100vw, 400px"
               priority={priority}

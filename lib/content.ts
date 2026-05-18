@@ -27,6 +27,8 @@ export interface ArticleFrontmatter {
   updated?: string;
   /** Path to a cover image under /public, e.g. "/images/retatrutide.jpg". */
   coverImage?: string;
+  /** Descriptive alt text for the cover image. */
+  coverImageAlt?: string;
   /** Display name of the author. Defaults to the editorial team. */
   author?: string;
   /** Free-form tags for grouping/related content. */
