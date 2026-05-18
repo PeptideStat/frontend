@@ -22,6 +22,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
 import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
 import { getGuidesForCategoryHub } from "@/lib/internalLinks";
+import { externalLinkRel } from "@/lib/externalLinks";
 import { shopUrl } from "@/site.config";
 
 const STATUS_BADGE: Record<PeptideStatus, string> = {
@@ -408,7 +409,7 @@ export function PeptideCategoryHub({
                       <a
                         href={buyHref}
                         target="_blank"
-                        rel="nofollow sponsored noopener noreferrer"
+                        rel={externalLinkRel(buyHref, { sponsored: true })}
                         className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md bg-accent px-2 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright"
                       >
                         Buy

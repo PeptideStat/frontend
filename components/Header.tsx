@@ -4,6 +4,7 @@ import { getAllArticles } from "@/lib/content";
 import { SearchTrigger, type SearchItem } from "@/components/SearchTrigger";
 import { Logo } from "@/components/Logo";
 import { ExternalLinkIcon } from "@/components/icons";
+import { externalLinkRel } from "@/lib/externalLinks";
 
 /**
  * Top-of-page header with logo, primary nav and the ⌘K search trigger.
@@ -45,7 +46,7 @@ export function Header() {
                     key={item.href}
                     href={item.href}
                     target="_blank"
-                    rel={isSponsored ? "noopener sponsored" : "noopener"}
+                    rel={externalLinkRel(item.href, { sponsored: isSponsored })}
                     className={className}
                   >
                     {item.title}

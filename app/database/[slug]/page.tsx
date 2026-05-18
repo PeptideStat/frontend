@@ -33,6 +33,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
 import { absoluteUrl, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import { getGuidesForPeptide } from "@/lib/internalLinks";
+import { externalLinkRel } from "@/lib/externalLinks";
 import { shopUrl } from "@/site.config";
 
 export const dynamicParams = false;
@@ -256,7 +257,7 @@ export default async function PeptideDetailPage(
                 <a
                   href={buyHref}
                   target="_blank"
-                  rel="nofollow sponsored noopener noreferrer"
+                  rel={externalLinkRel(buyHref, { sponsored: true })}
                   className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright"
                 >
                   Buy / compare source

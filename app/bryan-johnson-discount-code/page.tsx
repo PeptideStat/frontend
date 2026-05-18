@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { absoluteUrl, buildMetadata } from "@/lib/seo";
+import { externalLinkRel } from "@/lib/externalLinks";
 
 const title = "Bryan Johnson Discount Code: $25 Off Blueprint";
 const description =
@@ -110,7 +111,7 @@ function ProductOfferCard({ product }: { product: (typeof products)[number] }) {
           <a
             href={product.href}
             target="_blank"
-            rel="nofollow sponsored noopener noreferrer"
+            rel={externalLinkRel(product.href, { sponsored: true })}
             className="mt-4 inline-flex min-h-10 items-center rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-bright"
           >
             {product.cta}
@@ -170,7 +171,10 @@ export default function BryanJohnsonDiscountCodePage() {
             <a
               href="https://blueprint.bryanjohnson.com/STEVESLAYO?q=hair-peptide-serum"
               target="_blank"
-              rel="nofollow sponsored noopener noreferrer"
+              rel={externalLinkRel(
+                "https://blueprint.bryanjohnson.com/STEVESLAYO?q=hair-peptide-serum",
+                { sponsored: true },
+              )}
               className="inline-flex min-h-11 items-center rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-bright"
             >
               Get $25 off serum

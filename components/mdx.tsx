@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { externalLinkRel } from "@/lib/externalLinks";
 
 /**
  * Component map passed to <MDXRemote />. Styles raw markdown elements so
@@ -37,12 +38,12 @@ function MdxLink({ href = "", children, ...props }: AnchorProps) {
     );
   }
 
-  // External links - nofollow/sponsored keeps affiliate links policy-safe.
+  // Paid/referral links are qualified; editorial source links stay followable.
   return (
     <a
       href={href}
       target="_blank"
-      rel="nofollow sponsored noopener noreferrer"
+      rel={externalLinkRel(href)}
       className="font-medium text-accent underline underline-offset-2 hover:text-accent-bright"
       {...props}
     >
@@ -98,7 +99,7 @@ function ProtocolProduct({
             <a
               href={ctaHref}
               target="_blank"
-              rel="nofollow sponsored noopener noreferrer"
+              rel={externalLinkRel(ctaHref, { sponsored: true })}
               className="mt-4 inline-flex min-h-10 items-center rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-bright"
             >
               {ctaLabel}

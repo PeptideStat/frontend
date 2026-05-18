@@ -22,6 +22,7 @@ import {
   buildUnitConverterHref,
   getCalculatorPreset,
 } from "@/lib/calculatorPresets";
+import { externalLinkRel } from "@/lib/externalLinks";
 
 /**
  * Filterable / sortable peptide database cards.
@@ -364,7 +365,7 @@ export function PeptideDatabase({
                   <a
                     href={buyHref}
                     target="_blank"
-                    rel="nofollow sponsored noopener noreferrer"
+                    rel={externalLinkRel(buyHref, { sponsored: true })}
                     aria-label={`Buy ${peptide.name}`}
                     className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md bg-accent px-2 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright"
                   >
