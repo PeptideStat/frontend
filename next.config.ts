@@ -4,6 +4,17 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "peptidestat.com",
+          },
+        ],
+        destination: "https://www.peptidestat.com/:path*",
+        permanent: true,
+      },
+      {
         source: "/peptides/bryan-johnson-hair-products",
         destination: "/peptides/bryan-johnson-hair-protocol",
         permanent: true,
