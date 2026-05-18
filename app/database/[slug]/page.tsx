@@ -291,7 +291,7 @@ export default async function PeptideDetailPage(
         </section>
 
         <section className="mx-auto max-w-6xl px-5 py-12">
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <dl className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             <DetailRow label="Drug class" value={peptide.drugClass} />
             <DetailRow label="Primary targets" value={peptide.targets.join(", ")} />
             <DetailRow label="Dose reference" value={peptide.typicalDose} />
@@ -304,7 +304,7 @@ export default async function PeptideDetailPage(
                 value={`${evidence.score}/5 - ${evidence.label}`}
               />
             )}
-          </div>
+          </dl>
 
           {peptide.approvedFor && peptide.approvedFor.length > 0 && (
             <div className="mt-6 rounded-xl border border-line bg-surface-2 p-5">

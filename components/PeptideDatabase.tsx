@@ -310,21 +310,19 @@ export function PeptideDatabase({
                     </dt>
                     <dd className="mt-1 text-ink-soft">{peptide.drugClass}</dd>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div>
-                      <dt className="font-semibold uppercase tracking-wider text-muted">
-                        Dose ref
-                      </dt>
-                      <dd className="mt-1 text-ink-soft">{peptide.typicalDose}</dd>
-                    </div>
-                    <div>
-                      <dt className="font-semibold uppercase tracking-wider text-muted">
-                        Half-life
-                      </dt>
-                      <dd className="mt-1 font-mono text-ink-soft">
-                        {peptide.halfLife}
-                      </dd>
-                    </div>
+                  <div>
+                    <dt className="font-semibold uppercase tracking-wider text-muted">
+                      Dose ref
+                    </dt>
+                    <dd className="mt-1 text-ink-soft">{peptide.typicalDose}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-semibold uppercase tracking-wider text-muted">
+                      Half-life
+                    </dt>
+                    <dd className="mt-1 font-mono text-ink-soft">
+                      {peptide.halfLife}
+                    </dd>
                   </div>
                   <div>
                     <dt className="font-semibold uppercase tracking-wider text-muted">

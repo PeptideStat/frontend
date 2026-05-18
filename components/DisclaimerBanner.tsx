@@ -6,9 +6,9 @@ export function DisclaimerBanner() {
   return (
     <section className="border-t border-line bg-surface-2">
       <div className="mx-auto max-w-4xl px-5 py-10 text-center">
-        <p className="text-xs font-semibold uppercase tracking-wider text-muted">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-muted">
           Research & educational purposes only
-        </p>
+        </h2>
         <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted">
           The information on PeptideStat is for educational and research
           purposes only and is not medical advice. Many peptides discussed are

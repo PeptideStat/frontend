@@ -9,9 +9,9 @@ import { trustedSources } from "@/lib/data";
 export function TrustedSources() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-12">
-      <p className="text-center text-xs font-semibold uppercase tracking-wider text-muted">
+      <h2 className="text-center text-xs font-semibold uppercase tracking-wider text-muted">
         Drawing on research from
-      </p>
+      </h2>
       <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
         {trustedSources.map((source) => (
           <li
