@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { externalLinkRel } from "@/lib/externalLinks";
+import { ProviderTable } from "@/components/ProviderTable";
+import { WeightLossChart } from "@/components/WeightLossChart";
 
 /**
  * Component map passed to <MDXRemote />. Styles raw markdown elements so
@@ -115,6 +117,8 @@ function ProtocolProduct({
 
 export const mdxComponents = {
   ProtocolProduct,
+  ProviderTable,
+  WeightLossChart,
   References: (props: ComponentPropsWithoutRef<"ol">) => (
     <ol
       className="mt-4 space-y-3 rounded-xl border border-line bg-surface-2 p-5 pl-10 text-sm leading-6 text-ink-soft [&_a]:font-semibold [&_a]:text-accent-bright [&_a]:underline [&_a]:underline-offset-4"
