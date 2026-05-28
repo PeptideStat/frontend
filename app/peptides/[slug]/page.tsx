@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import {
   getAllArticles,
   getArticleBySlug,
@@ -176,7 +177,15 @@ export default async function ArticlePage(
 
         {/* Body */}
         <div className="mt-8">
-          <MDXRemote source={article.content} components={mdxComponents} />
+          <MDXRemote
+            source={article.content}
+            components={mdxComponents}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+              },
+            }}
+          />
         </div>
 
         {/* Tags */}
