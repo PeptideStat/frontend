@@ -193,7 +193,7 @@ export const peptides: Peptide[] = [
     year: 1991,
     articleSlug: "bpc-157",
     productUrl:
-      "https://ascensionpeptides.com/product/bpc-157-10mg/?ref=mihaita&campaign=rand",
+      "https://ascensionpeptides.com/product/bpc-157-10mg/?ref=PEPTIDESDEFINED&campaign=nav_shop",
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/03/Ascension-BPC-157-10mg-1024x1024.jpg",
   },
@@ -214,7 +214,7 @@ export const peptides: Peptide[] = [
     year: 1981,
     articleSlug: "bpc-157-vs-tb-500",
     productUrl:
-      "https://ascensionpeptides.com/product/tb-500-5mg/?ref=mihaita&campaign=rand",
+      "https://ascensionpeptides.com/product/tb-500-5mg/?ref=PEPTIDESDEFINED&campaign=nav_shop",
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-TB-500-5mg-1024x1024.webp",
   },
@@ -235,7 +235,7 @@ export const peptides: Peptide[] = [
     year: 1998,
     articleSlug: "ipamorelin-vs-sermorelin",
     productUrl:
-      "https://ascensionpeptides.com/product/ipamorelin-5mg/?ref=mihaita&campaign=rand",
+      "https://ascensionpeptides.com/product/ipamorelin-5mg/?ref=PEPTIDESDEFINED&campaign=nav_shop",
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-Ipamorelin-5mg-1024x1024.jpg",
   },
@@ -256,7 +256,7 @@ export const peptides: Peptide[] = [
     year: 2005,
     articleSlug: null,
     productUrl:
-      "https://ascensionpeptides.com/product/cjc-1295-5mg/?ref=mihaita&campaign=rand",
+      "https://ascensionpeptides.com/product/cjc-1295-5mg/?ref=PEPTIDESDEFINED&campaign=nav_shop",
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-CJC-1295-5mg-1024x1024.jpg",
   },
@@ -278,7 +278,7 @@ export const peptides: Peptide[] = [
     year: 2010,
     articleSlug: null,
     productUrl:
-      "https://ascensionpeptides.com/product/tesamorelin-5mg/?ref=mihaita&campaign=rand",
+      "https://ascensionpeptides.com/product/tesamorelin-5mg/?ref=PEPTIDESDEFINED&campaign=nav_shop",
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-Tesamorelin-5mg-1024x1024.webp",
   },
@@ -299,7 +299,7 @@ export const peptides: Peptide[] = [
     year: 1973,
     articleSlug: "ghk-cu-for-hair-growth",
     productUrl:
-      "https://ascensionpeptides.com/product/ghk-cu-100mg/?ref=mihaita&campaign=rand",
+      "https://ascensionpeptides.com/product/ghk-cu-100mg/?ref=PEPTIDESDEFINED&campaign=nav_shop",
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-GHK-CU-100mg-1024x1024.jpg",
   },
@@ -320,7 +320,7 @@ export const peptides: Peptide[] = [
     year: 1990,
     articleSlug: null,
     productUrl:
-      "https://ascensionpeptides.com/product/selank-10mg/?ref=mihaita&campaign=rand",
+      "https://ascensionpeptides.com/product/selank-10mg/?ref=PEPTIDESDEFINED&campaign=nav_shop",
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-Selank-10mg-1024x1024.webp",
   },
@@ -341,7 +341,7 @@ export const peptides: Peptide[] = [
     year: 1982,
     articleSlug: null,
     productUrl:
-      "https://ascensionpeptides.com/product/semax-10mg/?ref=mihaita&campaign=rand",
+      "https://ascensionpeptides.com/product/semax-10mg/?ref=PEPTIDESDEFINED&campaign=nav_shop",
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-Semax-10mg-1024x1024.webp",
   },

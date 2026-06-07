@@ -1,5 +1,5 @@
 const defaultShopUrl =
-  "https://ascensionpeptides.com/ref/mihaita/?campaign=rand";
+  "https://ascensionpeptides.com/shop/ref/PEPTIDESDEFINED/?campaign=nav_shop";
 export const shopUrl =
   process.env.NEXT_PUBLIC_SHOP_URL?.trim() || defaultShopUrl;
 const isExternalUrl = (href: string) => /^https?:\/\//i.test(href);
