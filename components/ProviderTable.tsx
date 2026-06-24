@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   LAST_VERIFIED,
@@ -199,12 +200,12 @@ export function ProviderTable() {
         Last verified {LAST_VERIFIED}. Sort by starting price ranks the lowest
         monthly-equivalent entry cost; per-visit and annual plans are normalised
         for ordering only. Medication cost is separate and varies — see our{" "}
-        <a
+        <Link
           href="/peptides/glp-1-cost"
           className="font-medium text-accent underline underline-offset-2 hover:text-accent-bright"
         >
           GLP-1 cost guide
-        </a>
+        </Link>
         .
       </p>
     </section>

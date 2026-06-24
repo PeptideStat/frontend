@@ -1,5 +1,6 @@
-const defaultShopUrl =
-  "https://ascensionpeptides.com/shop/ref/PEPTIDESDEFINED/?campaign=nav_shop";
+import { getAscensionShopUrl } from "@/data/ascensionLinks";
+
+const defaultShopUrl = getAscensionShopUrl("nav_shop");
 export const shopUrl =
   process.env.NEXT_PUBLIC_SHOP_URL?.trim() || defaultShopUrl;
 const isExternalUrl = (href: string) => /^https?:\/\//i.test(href);
