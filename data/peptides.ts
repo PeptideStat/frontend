@@ -18,7 +18,11 @@ export type PeptideCategory =
   | "growth-hormone"
   | "longevity"
   | "cognitive"
-  | "metabolic-health";
+  | "metabolic-health"
+  | "reproductive-hormone"
+  | "skin-cosmetic"
+  | "clinical-peptide"
+  | "antimicrobial";
 
 export type PeptideStatus =
   | "approved"
@@ -39,7 +43,15 @@ export interface Peptide {
   mechanism: string;
   /** Reference dose range from trial protocols / approved labels. */
   typicalDose: string;
-  routeOfAdministration: "Subcutaneous" | "Intramuscular" | "Oral" | "Intranasal";
+  routeOfAdministration:
+    | "Subcutaneous"
+    | "Intramuscular"
+    | "Intravenous"
+    | "Oral"
+    | "Intranasal"
+    | "Topical"
+    | "Implant"
+    | "Intrathecal";
   /** Plasma half-life (rounded), e.g. "~6 days". */
   halfLife: string;
   status: PeptideStatus;
@@ -64,6 +76,10 @@ export const CATEGORY_LABELS: Record<PeptideCategory, string> = {
   longevity: "Longevity",
   cognitive: "Cognitive",
   "metabolic-health": "Metabolic health",
+  "reproductive-hormone": "Reproductive & hormone",
+  "skin-cosmetic": "Skin & cosmetic",
+  "clinical-peptide": "Clinical / approved drug",
+  antimicrobial: "Antimicrobial & immune",
 };
 
 export const STATUS_LABELS: Record<PeptideStatus, string> = {
@@ -338,5 +354,141 @@ export const peptides: Peptide[] = [
     productUrl: getAscensionBuyUrl("semax", "nav_shop"),
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-Semax-10mg-1024x1024.webp",
+  },
+  {
+    slug: "igf-1-lr3",
+    name: "IGF-1 LR3",
+    aliases: "Long R3 IGF-1",
+    category: "growth-hormone",
+    drugClass: "IGF-1 analog / IGF-1 receptor agonist (research reagent)",
+    targets: ["IGF-1R"],
+    mechanism:
+      "A modified IGF-1 that binds IGF binding proteins far more weakly than native IGF-1, leaving it free to act as a potent, long-acting agonist at the IGF-1 receptor.",
+    typicalDose: "No validated human dose; research reagent only",
+    routeOfAdministration: "Subcutaneous",
+    halfLife: "~20-30 hours (reported, non-clinical estimate)",
+    status: "research-only",
+    developer: "GroPep Ltd (Adelaide, Australia)",
+    year: 1992,
+    articleSlug: "igf-1-lr3-peptide",
+  },
+  {
+    slug: "igf-1-des",
+    name: "IGF-1 DES",
+    aliases: "DES(1-3) IGF-1",
+    category: "growth-hormone",
+    drugClass: "Truncated IGF-1 analog",
+    targets: ["IGF-1R"],
+    mechanism:
+      "Removal of the N-terminal tripeptide sharply lowers IGF-binding-protein affinity while preserving IGF-1 receptor binding, leaving more free peptide to activate IGF-1R.",
+    typicalDose: "No established human dose; research-only",
+    routeOfAdministration: "Subcutaneous",
+    halfLife: "Very short; minutes in animal studies",
+    status: "research-only",
+    developer: "Sara, Carlsson-Skwirut et al. (Karolinska Institutet)",
+    year: 1986,
+    articleSlug: "igf-1-des-peptide",
+  },
+  {
+    slug: "mgf",
+    name: "MGF (Mechano Growth Factor)",
+    aliases: "IGF-1Ec",
+    category: "growth-hormone",
+    drugClass: "IGF-1 splice variant / E-domain peptide",
+    targets: ["Satellite (muscle stem) cells", "Myoblasts"],
+    mechanism:
+      "MGF is the IGF-1Ec splice variant whose distinct C-terminal E-domain peptide, induced by mechanical loading or damage, is proposed to activate satellite cells ahead of mature IGF-1 signaling.",
+    typicalDose: "No established or approved human dose; research-only",
+    routeOfAdministration: "Subcutaneous",
+    halfLife: "Very short; minutes for the native E-peptide",
+    status: "research-only",
+    developer: "Goldspink et al. (University College London)",
+    year: 2002,
+    articleSlug: "mgf-peptide",
+  },
+  {
+    slug: "hgh-fragment-176-191",
+    name: "HGH Fragment 176-191",
+    aliases: "HGH Frag 176-191",
+    category: "weight-loss",
+    drugClass: "Growth hormone C-terminal lipolytic fragment",
+    targets: ["Adipocyte lipid metabolism"],
+    mechanism:
+      "A synthetic C-terminal fragment of human growth hormone claimed to stimulate adipocyte lipolysis without binding the GH receptor or raising IGF-1, though human fat-loss evidence is weak.",
+    typicalDose: "No established human dose; research-only",
+    routeOfAdministration: "Subcutaneous",
+    halfLife: "Very short (minutes); poorly characterized",
+    status: "research-only",
+    developer: "Ng et al. (Monash University)",
+    year: 1994,
+    articleSlug: "hgh-fragment-176-191-peptide",
+  },
+  {
+    slug: "ace-031",
+    name: "ACE-031",
+    aliases: "ramatercept, ActRIIB-Fc",
+    category: "growth-hormone",
+    drugClass: "Soluble ActRIIB-Fc fusion protein (myostatin/activin ligand trap)",
+    targets: ["Myostatin", "Activin"],
+    mechanism:
+      "A soluble ActRIIB-Fc decoy receptor that sequesters myostatin and activin before they reach activin type II receptors, releasing the natural brake on skeletal muscle growth.",
+    typicalDose: "Investigational only; trials used 0.02-3 mg/kg subcutaneously",
+    routeOfAdministration: "Subcutaneous",
+    halfLife: "~10-15 days",
+    status: "investigational",
+    developer: "Acceleron Pharma",
+    year: 2008,
+    articleSlug: "ace-031-peptide",
+  },
+  {
+    slug: "thymosin-beta-4",
+    name: "Thymosin Beta-4",
+    aliases: "TB4, Tβ4",
+    category: "healing-recovery",
+    drugClass: "Endogenous actin-sequestering peptide (beta-thymosin family)",
+    targets: ["G-actin"],
+    mechanism:
+      "Thymosin beta-4 sequesters monomeric G-actin to regulate the actin cytoskeleton, enabling cell migration, angiogenesis and tissue repair, with an anti-fibrotic Ac-SDKP fragment.",
+    typicalDose: "No established therapeutic dose; phase 1 IV studies used 42-1260 mg",
+    routeOfAdministration: "Subcutaneous",
+    halfLife: "Short, dose-dependent ~1-2 hours (IV)",
+    status: "research-only",
+    developer: "RegeneRx",
+    year: 1981,
+    articleSlug: "thymosin-beta-4-peptide",
+  },
+  {
+    slug: "vip",
+    name: "VIP (Vasoactive Intestinal Peptide)",
+    aliases: "Aviptadil",
+    category: "healing-recovery",
+    drugClass: "Neuropeptide; VPAC1/VPAC2 receptor agonist",
+    targets: ["VPAC1", "VPAC2"],
+    mechanism:
+      "VIP activates VPAC1 and VPAC2 receptors, raising intracellular cyclic AMP to drive vasodilation, smooth-muscle relaxation and immune modulation.",
+    typicalDose: "Route-dependent (investigational); e.g. inhaled aviptadil 50 mcg four times daily in studies",
+    routeOfAdministration: "Intranasal",
+    halfLife: "~1 minute (plasma)",
+    status: "investigational",
+    developer: "Relief Therapeutics / NRx Pharmaceuticals (aviptadil)",
+    year: 1970,
+    articleSlug: "vip-peptide",
+  },
+  {
+    slug: "larazotide",
+    name: "Larazotide",
+    aliases: "Larazotide acetate, AT-1001",
+    category: "clinical-peptide",
+    drugClass: "Tight-junction regulator / zonulin antagonist",
+    targets: ["Zonulin / tight junctions"],
+    mechanism:
+      "An oral, gut-restricted peptide that antagonizes zonulin signaling to limit gluten-driven intestinal tight-junction permeability in celiac disease.",
+    typicalDose: "Investigational; 0.5 mg orally three times daily in trials",
+    routeOfAdministration: "Oral",
+    halfLife: "Minimal systemic absorption (gut-restricted)",
+    status: "investigational",
+    developer: "Alba Therapeutics / 9 Meters Biopharma",
+    year: 2005,
+    articleSlug: "larazotide-peptide",
   },
 ];

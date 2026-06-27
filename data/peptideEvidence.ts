@@ -299,6 +299,238 @@ export const peptideEvidence: Record<string, PeptideEvidence> = {
       },
     ],
   },
+  "igf-1-lr3": {
+    score: 2,
+    label: "Preclinical / reagent only",
+    summary:
+      "IGF-1 LR3 is well characterized as a cell-culture supplement and in animal infusion studies, but there is essentially no controlled human therapeutic data.",
+    basis: [
+      "Reduced IGFBP affinity with retained IGF-1R binding",
+      "Validated potency in serum-free cell culture",
+      "Animal infusion studies showing disproportionate organ growth",
+      "No published controlled human therapeutic trials",
+    ],
+    references: [
+      {
+        title:
+          "Novel recombinant fusion protein analogues of IGF-I indicate the importance of IGFBP and receptor binding for potency",
+        url: "https://pubmed.ncbi.nlm.nih.gov/1378742/",
+        source: "PubMed",
+      },
+      {
+        title:
+          "IGF-I and especially IGF-I variants are anabolic in dexamethasone-treated rats",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC1130894/",
+        source: "PMC",
+      },
+      {
+        title:
+          "Long R3 IGF-I infusion stimulates organ growth but reduces plasma IGF-I in the guinea pig",
+        url: "https://pubmed.ncbi.nlm.nih.gov/7561636/",
+        source: "PubMed",
+      },
+    ],
+  },
+  "igf-1-des": {
+    score: 2,
+    label: "Preclinical only",
+    summary:
+      "IGF-1 DES has a clear mechanism but evidence is limited to cell-culture and rodent studies, with no human therapeutic approval, validated dose, or human safety data.",
+    basis: [
+      "Removal of N-terminal tripeptide reduces IGFBP affinity to ~1% of native IGF-1",
+      "~10-fold greater mitogenic potency in binding-protein-containing cultures",
+      "Rat studies show improved nitrogen retention and muscle protein synthesis",
+      "No human trials, approval, or validated dosing",
+    ],
+    references: [
+      {
+        title:
+          "IGF-binding proteins inhibit the activities of IGF-1 and IGF-2 but not des-(1-3)-IGF-1",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC1138350/",
+        source: "PMC",
+      },
+      {
+        title:
+          "Characterization of somatomedins from human fetal brain: a variant form of IGF-I",
+        url: "https://pubmed.ncbi.nlm.nih.gov/3460078/",
+        source: "PubMed",
+      },
+      {
+        title:
+          "IGF-I and des-(1-3)IGF-I enhance growth in rats after gut resection",
+        url: "https://pubmed.ncbi.nlm.nih.gov/1996625/",
+        source: "PubMed",
+      },
+    ],
+  },
+  mgf: {
+    score: 2,
+    label: "Preclinical and contested",
+    summary:
+      "MGF (IGF-1Ec) is a genuine mechano-responsive IGF-1 splice variant linked to muscle repair, but evidence is largely cell/animal work, some conflicting, with no approved human therapeutic.",
+    basis: [
+      "Load-induced IGF-1Ec splicing associated with satellite-cell activation",
+      "Proposed distinct E-domain role in myoblast proliferation",
+      "Independent E-peptide activity is contested in the literature",
+      "No controlled human hypertrophy or recovery trials",
+    ],
+    references: [
+      {
+        title:
+          "Different roles of the IGF-I Ec peptide (MGF) and mature IGF-I in myoblast proliferation and differentiation",
+        url: "https://pubmed.ncbi.nlm.nih.gov/12095637/",
+        source: "PubMed",
+      },
+      {
+        title:
+          "IGF gene splicing associated with muscle satellite (stem) cell activation following local tissue damage",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2342958/",
+        source: "PMC",
+      },
+      {
+        title:
+          "MGF peptide, the COOH terminus of unprocessed IGF-1, has no apparent effect on myoblasts or muscle stem cells",
+        url: "https://pubmed.ncbi.nlm.nih.gov/24253050/",
+        source: "PubMed",
+      },
+    ],
+  },
+  "hgh-fragment-176-191": {
+    score: 2,
+    label: "Weak",
+    summary:
+      "Animal and isolated-tissue studies show the hGH 176-191 domain stimulates lipolysis without GH's IGF-1 effects, but there is no convincing controlled human fat-loss evidence; its optimized analog AOD-9604 failed a human obesity trial.",
+    basis: [
+      "Synthetic hGH 177-191 reduced adipose mass and lipogenesis in obese mice",
+      "Stimulated hormone-sensitive lipase without binding the GH receptor",
+      "No controlled human fat-loss trial for the unmodified fragment",
+      "Optimized analog AOD-9604 failed human obesity development",
+    ],
+    references: [
+      {
+        title:
+          "Reduction of body weight gain and adipose tissue mass in obese mice: response to synthetic hGH 177-191 peptide",
+        url: "https://pubmed.ncbi.nlm.nih.gov/7987248/",
+        source: "PubMed",
+      },
+      {
+        title:
+          "Metabolic studies of a synthetic lipolytic domain (AOD9604) of human growth hormone",
+        url: "https://pubmed.ncbi.nlm.nih.gov/11146367/",
+        source: "PubMed",
+      },
+    ],
+  },
+  "ace-031": {
+    score: 3,
+    label: "Moderate human evidence; discontinued for safety",
+    summary:
+      "ACE-031 reached phase 1 and phase 2 human trials with clear muscle effects, but development was halted over vascular adverse events and it was never approved.",
+    basis: [
+      "Phase 1 showed significant increases in lean mass and thigh muscle volume",
+      "Randomized phase 2 in Duchenne muscular dystrophy (stopped early)",
+      "Halted after vascular adverse events (epistaxis, telangiectasias)",
+      "No approved indication or validated human dose",
+    ],
+    references: [
+      {
+        title:
+          "A single ascending-dose study of muscle regulator ACE-031 in healthy volunteers",
+        url: "https://pubmed.ncbi.nlm.nih.gov/23169607/",
+        source: "PubMed",
+      },
+      {
+        title:
+          "Myostatin inhibitor ACE-031 treatment of ambulatory boys with Duchenne muscular dystrophy",
+        url: "https://pubmed.ncbi.nlm.nih.gov/27462804/",
+        source: "PubMed",
+      },
+    ],
+  },
+  "thymosin-beta-4": {
+    score: 3,
+    label: "Mechanistically strong, clinically narrow",
+    summary:
+      "Thymosin beta-4 is a genuine endogenous actin-sequestering peptide with angiogenic and anti-fibrotic biology. Human evidence is strongest for topical/ocular use; systemic injectable use for recovery is unproven.",
+    basis: [
+      "Phase 3 ophthalmic program (RGN-259) in dry eye and neurotrophic keratopathy",
+      "Preclinical dermal wound and cardiac repair data",
+      "Phase 1 IV tolerability to 1260 mg with no dose-limiting toxicity",
+      "No FDA-approved drug; consumer products often supply the TB-500 fragment",
+    ],
+    references: [
+      {
+        title:
+          "Thymosin beta4: actin-sequestering protein moonlights to repair injured tissues",
+        url: "https://pubmed.ncbi.nlm.nih.gov/16099219/",
+        source: "PubMed",
+      },
+      {
+        title:
+          "0.1% RGN-259 (Thymosin beta4) Ophthalmic Solution in Neurotrophic Keratopathy: Phase III Trial",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC9820614/",
+        source: "PMC",
+      },
+      {
+        title:
+          "A randomized, placebo-controlled study of intravenous thymosin beta4 in healthy volunteers",
+        url: "https://pubmed.ncbi.nlm.nih.gov/20536472/",
+        source: "PubMed",
+      },
+    ],
+  },
+  vip: {
+    score: 2,
+    label: "Weak / mixed",
+    summary:
+      "VIP biology and VPAC receptor pharmacology are well characterized, but synthetic aviptadil failed its flagship COVID-19 respiratory trials and has only small or non-US-approved support elsewhere; popular intranasal use is unproven.",
+    basis: [
+      "Large randomized TESICO trial of IV aviptadil for COVID-19 was negative",
+      "Only a small open-label sarcoidosis study showed a pulmonary signal",
+      "Aviptadil-phentolamine (Invicorp) approved for ED in some European countries, not US",
+      "Intranasal VIP for CIRS/mold illness has no published RCT",
+    ],
+    references: [
+      {
+        title:
+          "Intravenous aviptadil and remdesivir for COVID-19-associated hypoxaemic respiratory failure (TESICO)",
+        url: "https://pubmed.ncbi.nlm.nih.gov/37348524/",
+        source: "PubMed",
+      },
+      {
+        title:
+          "Inhaled Vasoactive Intestinal Peptide Exerts Immunoregulatory Effects in Sarcoidosis",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2967653/",
+        source: "PMC",
+      },
+    ],
+  },
+  larazotide: {
+    score: 2,
+    label: "Investigational — failed pivotal trial",
+    summary:
+      "Larazotide showed positive phase 2 symptom data at the low 0.5 mg dose, but the pivotal phase 3 CeDLara trial was discontinued for futility in 2022 and it is not approved.",
+    basis: [
+      "Phase 2b trial in 342 adults met its primary endpoint only at the 0.5 mg dose",
+      "Gluten-challenge trials showed reduced gluten-induced symptoms at low doses",
+      "Phase 3 CeDLara halted for futility (2022)",
+      "Tolerability comparable to placebo; no regulatory approval",
+    ],
+    references: [
+      {
+        title:
+          "Larazotide acetate for persistent symptoms of celiac disease despite a gluten-free diet: a randomized controlled trial",
+        url: "https://pubmed.ncbi.nlm.nih.gov/25683116/",
+        source: "PubMed",
+      },
+      {
+        title:
+          "A randomized, double-blind study of larazotide acetate to prevent activation of celiac disease during gluten challenge",
+        url: "https://pubmed.ncbi.nlm.nih.gov/22825365/",
+        source: "PubMed",
+      },
+    ],
+  },
 };
 
 export function getPeptideEvidence(slug: string): PeptideEvidence | null {
