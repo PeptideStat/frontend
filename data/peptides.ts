@@ -1,5 +1,3 @@
-import { getAscensionBuyUrl } from "./ascensionLinks";
-
 /**
  * Structured peptide database.
  *
@@ -62,8 +60,6 @@ export interface Peptide {
   year: number;
   /** Pillar article slug under /peptides if one exists. */
   articleSlug: string | null;
-  /** Matching Ascension product URL when the peptide is sold there. */
-  productUrl?: string;
   /** Product image from the matching Ascension product page. */
   productImageUrl?: string;
 }
@@ -210,7 +206,6 @@ export const peptides: Peptide[] = [
     developer: "Sikiric et al. (academic origin)",
     year: 1991,
     articleSlug: "bpc-157",
-    productUrl: getAscensionBuyUrl("bpc-157", "nav_shop"),
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/03/Ascension-BPC-157-10mg-1024x1024.jpg",
   },
@@ -230,7 +225,6 @@ export const peptides: Peptide[] = [
     developer: "RegeneRx (related TB4 program)",
     year: 1981,
     articleSlug: "bpc-157-vs-tb-500",
-    productUrl: getAscensionBuyUrl("tb-500", "nav_shop"),
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-TB-500-5mg-1024x1024.webp",
   },
@@ -250,7 +244,6 @@ export const peptides: Peptide[] = [
     developer: "Novo Nordisk (original)",
     year: 1998,
     articleSlug: "ipamorelin-vs-sermorelin",
-    productUrl: getAscensionBuyUrl("ipamorelin", "nav_shop"),
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-Ipamorelin-5mg-1024x1024.jpg",
   },
@@ -270,7 +263,6 @@ export const peptides: Peptide[] = [
     developer: "ConjuChem (original)",
     year: 2005,
     articleSlug: null,
-    productUrl: getAscensionBuyUrl("cjc-1295", "nav_shop"),
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-CJC-1295-5mg-1024x1024.jpg",
   },
@@ -291,7 +283,6 @@ export const peptides: Peptide[] = [
     developer: "Theratechnologies",
     year: 2010,
     articleSlug: null,
-    productUrl: getAscensionBuyUrl("tesamorelin", "nav_shop"),
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-Tesamorelin-5mg-1024x1024.webp",
   },
@@ -311,7 +302,6 @@ export const peptides: Peptide[] = [
     developer: "Pickart (discovery)",
     year: 1973,
     articleSlug: "ghk-cu-for-hair-growth",
-    productUrl: getAscensionBuyUrl("ghk-cu", "nav_shop"),
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-GHK-CU-100mg-1024x1024.jpg",
   },
@@ -331,7 +321,6 @@ export const peptides: Peptide[] = [
     developer: "Russian Academy of Sciences",
     year: 1990,
     articleSlug: null,
-    productUrl: getAscensionBuyUrl("selank", "nav_shop"),
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-Selank-10mg-1024x1024.webp",
   },
@@ -351,7 +340,6 @@ export const peptides: Peptide[] = [
     developer: "Russian Academy of Sciences",
     year: 1982,
     articleSlug: null,
-    productUrl: getAscensionBuyUrl("semax", "nav_shop"),
     productImageUrl:
       "https://ascensionpeptides.com/wp-content/uploads/2024/05/Ascension-Semax-10mg-1024x1024.webp",
   },

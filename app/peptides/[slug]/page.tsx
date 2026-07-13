@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
@@ -19,6 +18,7 @@ import {
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Disclaimer } from "@/components/Disclaimer";
 import { JsonLd } from "@/components/JsonLd";
+import { ArticlePartnerCard } from "@/components/ArticlePartnerCard";
 import {
   articleJsonLd,
   breadcrumbJsonLd,
@@ -32,9 +32,6 @@ import {
 } from "@/lib/internalLinks";
 import { siteConfig } from "@/site.config";
 
-// Only build pages that exist as MDX files; unknown slugs 404. Include future
-// articles here so internal links never 404 while scheduled posts remain hidden
-// from listings/sitemap until their date.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -49,9 +46,7 @@ export async function generateMetadata(
   const { slug } = await props.params;
   const article = getArticleBySlug(slug);
 
-  if (!article) {
-    return { title: "Article not found" };
-  }
+  if (!article) return { title: "Article not found" };
 
   const meta = buildMetadata({
     title: article.metaTitle ?? article.title,
@@ -80,16 +75,14 @@ export default async function ArticlePage(
   const { slug } = await props.params;
   const article = getArticleBySlug(slug);
 
-  if (!article) {
-    notFound();
-  }
+  if (!article) notFound();
 
   const related = getRelatedArticles(slug);
   const relatedPeptides = getArticleRelatedPeptides(article, 5);
   const relatedHubs = getArticleRelatedCategoryHubs(article, 2);
   const crumbs = [
     { name: "Home", path: "/" },
-    { name: "Peptides", path: "/peptides" },
+    { name: "Research library", path: "/peptides" },
     { name: article.title, path: `/peptides/${article.slug}` },
   ];
 
@@ -101,145 +94,177 @@ export default async function ArticlePage(
         <JsonLd data={faqPageJsonLd(article.faqs)} />
       )}
 
-      <article className="mx-auto max-w-4xl px-5 py-12">
-        {/* Breadcrumb */}
-        <nav
-          aria-label="Breadcrumb"
-          className="flex flex-wrap items-center gap-1.5 text-sm text-muted"
-        >
-          {crumbs.map((crumb, index) => {
-            const isLast = index === crumbs.length - 1;
-            return (
-              <span key={crumb.path} className="flex items-center gap-1.5">
-                {isLast ? (
-                  <span className="line-clamp-1 text-ink-soft">
-                    {crumb.name}
-                  </span>
-                ) : (
-                  <Link
-                    href={crumb.path}
-                    className="transition-colors hover:text-accent-bright"
-                  >
-                    {crumb.name}
-                  </Link>
-                )}
-                {!isLast && <span aria-hidden>/</span>}
-              </span>
-            );
-          })}
-        </nav>
-
-        {/* Header */}
-        <header className="mt-6">
-          {article.pillar && (
-            <span className="text-xs font-semibold uppercase tracking-wider text-accent">
-              Complete Guide
-            </span>
-          )}
-          <h1 className="mt-2 text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">
-            {article.title}
-          </h1>
-          <p className="mt-4 text-lg leading-relaxed text-muted">
-            {article.description}
-          </p>
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-muted">
-            <Link
-              href={siteConfig.author.url}
-              className="transition-colors hover:text-accent-bright"
+      <article>
+        <header className="border-b border-line bg-surface-2">
+          <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+            <nav
+              aria-label="Breadcrumb"
+              className="flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-muted"
             >
-              {article.author ?? siteConfig.author.name}
-            </Link>
-            <span aria-hidden>·</span>
-            <time dateTime={article.date}>{formatDate(article.date)}</time>
-            <span aria-hidden>·</span>
-            <span>{article.readingTime}</span>
-            {article.updated && (
-              <>
-                <span aria-hidden>·</span>
-                <span>Updated {formatDate(article.updated)}</span>
-              </>
-            )}
+              {crumbs.map((crumb, index) => {
+                const isLast = index === crumbs.length - 1;
+                return (
+                  <span key={crumb.path} className="flex items-center gap-2">
+                    {isLast ? (
+                      <span className="max-w-52 truncate text-muted-soft">
+                        {crumb.name}
+                      </span>
+                    ) : (
+                      <Link href={crumb.path} className="hover:text-cobalt">
+                        {crumb.name}
+                      </Link>
+                    )}
+                    {!isLast && <span aria-hidden>→</span>}
+                  </span>
+                );
+              })}
+            </nav>
+
+            <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-end lg:gap-16">
+              <div>
+                <div className="flex flex-wrap items-center gap-3 text-[10px] font-bold uppercase tracking-[0.16em] text-accent">
+                  <span className="h-2 w-2 rounded-full bg-accent" />
+                  {article.pillar ? "Definitive guide" : "Research note"}
+                  {article.cluster && (
+                    <>
+                      <span className="h-px w-8 bg-line-strong" />
+                      {article.cluster}
+                    </>
+                  )}
+                </div>
+                <h1 className="mt-5 max-w-5xl text-[clamp(2.8rem,6vw,5.8rem)] font-semibold leading-[0.96] tracking-[-0.055em] text-ink">
+                  {article.title}
+                </h1>
+                <p className="mt-7 max-w-3xl text-lg leading-8 text-ink-soft sm:text-xl sm:leading-9">
+                  {article.description}
+                </p>
+              </div>
+
+              <dl className="rounded-xl border border-line bg-paper px-5 text-[10px] uppercase tracking-[0.12em]">
+                <div className="grid grid-cols-2 border-b border-line py-3">
+                  <dt className="font-bold text-muted">Published</dt>
+                  <dd className="text-right text-ink">{formatDate(article.date)}</dd>
+                </div>
+                <div className="grid grid-cols-2 border-b border-line py-3">
+                  <dt className="font-bold text-muted">Last reviewed</dt>
+                  <dd className="text-right text-ink">
+                    {formatDate(article.updated ?? article.date)}
+                  </dd>
+                </div>
+                <div className="grid grid-cols-2 border-b border-line py-3">
+                  <dt className="font-bold text-muted">Reading time</dt>
+                  <dd className="text-right text-ink">{article.readingTime}</dd>
+                </div>
+                <div className="grid grid-cols-2 border-b border-line py-3">
+                  <dt className="font-bold text-muted">By</dt>
+                  <dd className="text-right normal-case tracking-normal text-ink">
+                    <Link href={siteConfig.author.url} className="hover:text-cobalt">
+                      {article.author ?? siteConfig.author.name}
+                    </Link>
+                  </dd>
+                </div>
+              </dl>
+            </div>
           </div>
         </header>
 
-        {article.coverImage && (
-          <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-xl border border-line bg-surface-2">
-            <Image
-              src={article.coverImage}
-              alt={article.coverImageAlt ?? article.title}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 896px"
-              className="object-cover"
-            />
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,760px)_300px] lg:justify-between lg:gap-16 lg:px-8 lg:py-20">
+          <div className="min-w-0">
+            <div className="border-l-2 border-coral pl-5 text-xs leading-5 text-muted sm:pl-6">
+              This article separates published evidence from commercial claims.
+              It is educational, not medical advice.
+            </div>
+
+            <div className="mt-8">
+              <MDXRemote
+                source={article.content}
+                components={mdxComponents}
+                options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+              />
+            </div>
+
+            {article.tags && article.tags.length > 0 && (
+              <div className="mt-12 border-t border-line pt-6">
+                <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-muted">
+                  Filed under
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {article.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="border border-line bg-surface-2 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-ink-soft"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="mt-10">
+              <Disclaimer />
+            </div>
           </div>
-        )}
 
-        {/* Body */}
-        <div className="mt-8">
-          <MDXRemote
-            source={article.content}
-            components={mdxComponents}
-            options={{
-              mdxOptions: {
-                remarkPlugins: [remarkGfm],
-              },
-            }}
-          />
-        </div>
-
-        {/* Tags */}
-        {article.tags && article.tags.length > 0 && (
-          <div className="mt-10 flex flex-wrap gap-2">
-            {article.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-surface px-3 py-1 text-xs font-medium text-muted"
-              >
-                {tag}
-              </span>
-            ))}
+          <div className="order-first lg:order-none">
+            <div className="lg:sticky lg:top-32">
+              <ArticlePartnerCard
+                slug={article.slug}
+                title={article.title}
+                cluster={article.cluster}
+                tags={article.tags}
+              />
+              <div className="mt-8 hidden border-t border-ink pt-4 lg:block">
+                <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-muted">
+                  Editorial standard
+                </p>
+                <p className="mt-3 text-[11px] leading-5 text-muted">
+                  Sources remain linked in the reference list. Partner placement
+                  never changes our evidence grading or conclusions.
+                </p>
+                <Link
+                  href="/editorial-policy"
+                  className="mt-3 inline-block border-b border-line text-[10px] font-bold text-ink hover:border-cobalt hover:text-cobalt"
+                >
+                  Read our editorial policy
+                </Link>
+              </div>
+            </div>
           </div>
-        )}
-
-        <div className="mt-8">
-          <Disclaimer />
         </div>
       </article>
 
-      <RelatedDatabaseEntries
-        peptides={relatedPeptides}
-        title="Related database entries"
-        description="Jump from this guide into structured peptide database pages with evidence scores, status and mechanism notes."
-        currentArticleSlug={article.slug}
-        className="mx-auto max-w-5xl px-5 py-8"
-      />
-
-      <RelatedCalculators
-        title="Peptide calculators"
-        description="Use these tools for reconstitution math, unit conversion and repeated-dose accumulation estimates."
-        className="mx-auto max-w-5xl px-5 py-8"
-      />
-
-      <CalculatorPresetLinks
-        peptides={relatedPeptides}
-        title="Prefilled calculator shortcuts"
-        description="Open calculators with editable example values for peptides mentioned around this guide."
-        className="mx-auto max-w-5xl px-5 py-8"
-      />
-
-      <RelatedCategoryHubs
-        hubs={relatedHubs}
-        title="Related peptide categories"
-        description="Compare the wider category before going deeper on a single compound."
-        className="mx-auto max-w-5xl px-5 py-8"
-      />
-
-      <RelatedGuides
-        articles={related}
-        title="Related guides"
-        className="mx-auto max-w-5xl px-5 py-8"
-      />
+      <section className="border-t border-line bg-surface">
+        <RelatedDatabaseEntries
+          peptides={relatedPeptides}
+          title="Continue in the database"
+          description="Structured status, mechanism and evidence notes for compounds connected to this guide."
+          currentArticleSlug={article.slug}
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
+        />
+        <RelatedCalculators
+          title="Work with the numbers"
+          description="Open reconstitution, unit-conversion and accumulation tools with editable examples."
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
+        />
+        <CalculatorPresetLinks
+          peptides={relatedPeptides}
+          title="Prefilled calculator shortcuts"
+          description="Open calculators with editable examples for compounds mentioned around this guide."
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
+        />
+        <RelatedCategoryHubs
+          hubs={relatedHubs}
+          title="Explore the wider category"
+          description="Compare the broader evidence landscape before focusing on one compound."
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
+        />
+        <RelatedGuides
+          articles={related}
+          title="Read next"
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
+        />
+      </section>
     </>
   );
 }

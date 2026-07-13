@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -35,6 +34,15 @@ import { absoluteUrl, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import { getGuidesForPeptide } from "@/lib/internalLinks";
 import { externalLinkRel } from "@/lib/externalLinks";
 import { shopUrl } from "@/site.config";
+import {
+  getPeptideProfileImage,
+  PeptideProfileVisual,
+} from "@/components/PeptideProfileVisual";
+import {
+  getAscensionAvailability,
+  getAscensionBuyUrl,
+  hasAscensionProduct,
+} from "@/data/ascensionLinks";
 
 export const dynamicParams = false;
 
@@ -95,7 +103,7 @@ export async function generateMetadata(
     title: `${peptide.name}: Mechanism, Status, Dose Reference & Half-Life`,
     description: `${peptide.name} database entry covering aliases, category, class, targets, mechanism, status, dose reference, half-life and related guides.`,
     path: `/database/${peptide.slug}`,
-    image: peptide.productImageUrl,
+    image: absoluteUrl(getPeptideProfileImage(peptide.routeOfAdministration)),
   });
 }
 
@@ -170,7 +178,10 @@ export default async function PeptideDetailPage(
   const relatedGuides = getGuidesForPeptide(peptide, 4);
   const peptideCategoryHub = getPeptideCategoryHubByCategory(peptide.category);
   const guideHref = peptide.articleSlug ? `/peptides/${peptide.articleSlug}` : "/peptides";
-  const buyHref = peptide.productUrl ?? shopUrl;
+  const buyHref = hasAscensionProduct(peptide.slug)
+    ? getAscensionBuyUrl(peptide.slug, `database_detail_${peptide.slug}`)
+    : shopUrl;
+  const productAvailability = getAscensionAvailability(peptide.slug);
   const crumbs = [
     { name: "Home", path: "/" },
     { name: "Database", path: "/database" },
@@ -258,34 +269,26 @@ export default async function PeptideDetailPage(
                   href={buyHref}
                   target="_blank"
                   rel={externalLinkRel(buyHref, { sponsored: true })}
+                  data-affiliate-placement="database-detail"
+                  data-affiliate-product={peptide.slug}
                   className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright"
                 >
-                  Buy / compare source
+                  {productAvailability === "out-of-stock"
+                    ? "Recheck source availability"
+                    : "Buy / compare source"}
                   <ExternalLinkIcon className="h-4 w-4" />
                 </a>
               </div>
             </div>
 
             <div className="rounded-xl border border-line bg-surface-2 p-5 shadow-card">
-              {peptide.productImageUrl ? (
-                <div className="overflow-hidden rounded-lg border border-line bg-white">
-                  <Image
-                    src={peptide.productImageUrl}
-                    alt={`${peptide.name} product image`}
-                    width={600}
-                    height={600}
-                    unoptimized
-                    priority
-                    className="aspect-square w-full object-contain p-5"
-                  />
-                </div>
-              ) : (
-                <div className="flex aspect-square items-center justify-center rounded-lg border border-line bg-surface text-center">
-                  <span className="px-6 text-2xl font-semibold text-muted">
-                    {peptide.name}
-                  </span>
-                </div>
-              )}
+              <div className="overflow-hidden rounded-lg border border-line bg-white">
+                <PeptideProfileVisual
+                  peptide={peptide}
+                  priority
+                  variant="detail"
+                />
+              </div>
             </div>
           </div>
         </section>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   CATEGORY_LABELS,
@@ -24,6 +23,12 @@ import { absoluteUrl, breadcrumbJsonLd } from "@/lib/seo";
 import { getGuidesForCategoryHub } from "@/lib/internalLinks";
 import { externalLinkRel } from "@/lib/externalLinks";
 import { shopUrl } from "@/site.config";
+import { PeptideProfileVisual } from "@/components/PeptideProfileVisual";
+import {
+  getAscensionAvailability,
+  getAscensionBuyUrl,
+  hasAscensionProduct,
+} from "@/data/ascensionLinks";
 
 const STATUS_BADGE: Record<PeptideStatus, string> = {
   approved: "border-tint-emerald-ink/40 bg-tint-emerald text-tint-emerald-ink",
@@ -340,7 +345,13 @@ export function PeptideCategoryHub({
                 const guideHref = peptide.articleSlug
                   ? `/peptides/${peptide.articleSlug}`
                   : "/peptides";
-                const buyHref = peptide.productUrl ?? shopUrl;
+                const buyHref = hasAscensionProduct(peptide.slug)
+                  ? getAscensionBuyUrl(
+                      peptide.slug,
+                      `category_${hub.slug}_${peptide.slug}`,
+                    )
+                  : shopUrl;
+                const productAvailability = getAscensionAvailability(peptide.slug);
 
                 return (
                   <article
@@ -348,23 +359,7 @@ export function PeptideCategoryHub({
                     className="flex min-h-full flex-col rounded-lg border border-line bg-surface-2 p-4 shadow-card"
                   >
                     <div className="overflow-hidden rounded-md border border-line bg-white">
-                      {peptide.productImageUrl ? (
-                        <Image
-                          src={peptide.productImageUrl}
-                          alt={`${peptide.name} product image`}
-                          width={420}
-                          height={315}
-                          loading="lazy"
-                          unoptimized
-                          className="aspect-[4/3] w-full object-contain p-3"
-                        />
-                      ) : (
-                        <div className="flex aspect-[4/3] w-full items-center justify-center bg-surface px-4 text-center">
-                          <span className="text-sm font-semibold text-muted">
-                            {peptide.name}
-                          </span>
-                        </div>
-                      )}
+                      <PeptideProfileVisual peptide={peptide} />
                     </div>
 
                     <div className="mt-4 flex items-start justify-between gap-3">
@@ -410,9 +405,11 @@ export function PeptideCategoryHub({
                         href={buyHref}
                         target="_blank"
                         rel={externalLinkRel(buyHref, { sponsored: true })}
+                        data-affiliate-placement="category-card"
+                        data-affiliate-product={peptide.slug}
                         className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md bg-accent px-2 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright"
                       >
-                        Buy
+                        {productAvailability === "out-of-stock" ? "Recheck" : "Buy"}
                         <ExternalLinkIcon className="h-3.5 w-3.5" />
                       </a>
                     </div>

@@ -8,6 +8,7 @@
  * out — link targets fall back to `/peptides` until cluster slugs exist.
  */
 import { getAllArticles } from "@/lib/content";
+import { peptides } from "@/data/peptides";
 
 /** ------------------------------------------------------------------ */
 /* Popular-questions chips in the hero                                  */
@@ -131,10 +132,10 @@ export interface SiteStat {
 export function getSiteStats(): SiteStat[] {
   const articleCount = getAllArticles().length;
   return [
-    { value: `${articleCount}+`, label: "research-backed guides" },
-    { value: "20+", label: "peptides covered" },
-    { value: "10+", label: "trusted sources" },
-    { value: "100%", label: "evidence-based" },
+    { value: `${articleCount}`, label: "published research guides" },
+    { value: `${peptides.length}`, label: "structured peptide records" },
+    { value: "3", label: "free research calculators" },
+    { value: "2026", label: "evidence review cycle" },
   ];
 }
 

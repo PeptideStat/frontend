@@ -12,7 +12,7 @@ export const metadata: Metadata = buildMetadata({
   path: "/privacy",
 });
 
-const EFFECTIVE_DATE = "May 16, 2026";
+const EFFECTIVE_DATE = "July 13, 2026";
 
 export default function PrivacyPage() {
   const email = siteConfig.contactEmail;
@@ -32,8 +32,8 @@ export default function PrivacyPage() {
           &quot;us&quot; or &quot;our&quot;) publishes evidence-based peptide
           guides at peptidestat.com (the &quot;Site&quot;). This Privacy Policy
           explains what information we collect, how we use it and the rights you
-          have over it. By using the Site you agree to the practices described
-          below.
+          have over it. Optional enhanced analytics remain off unless you choose
+          to allow them.
         </p>
 
         <h2 className="pt-4 text-xl font-semibold tracking-tight text-ink">
@@ -83,27 +83,61 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong className="font-semibold text-ink">
-              Cookies and similar technologies:
+              Aggregate analytics:
             </strong>{" "}
-            The Site does not set advertising, analytics or social-media
-            tracking cookies. Essential cookies required for the underlying web
-            framework (Next.js) to function may be present.
+            We use Vercel Web Analytics to measure aggregate page views and
+            outbound affiliate-link events. An affiliate event can include the
+            page path, CTA placement, partner, campaign and product label. We do
+            not send names, email addresses, account identifiers or health
+            information in these events.
+          </li>
+          <li>
+            <strong className="font-semibold text-ink">
+              Optional enhanced analytics:
+            </strong>{" "}
+            If you choose &quot;Allow analytics&quot;, we load TraceDart to
+            understand sessions, returning visits, active time, scroll depth,
+            referral and UTM context, client-side route changes and affiliate
+            clicks. TraceDart uses a first-party visitor token and hashed browser
+            fingerprint components. Its technical signals can include
+            browser/device characteristics, display and rendering information,
+            locale, storage and media capabilities, browser permission states,
+            network context, IP-derived location, ASN/ISP and VPN, proxy, Tor or
+            datacenter indicators. A
+            visited URL can reveal which peptide content interested a visitor,
+            but we do not intentionally send calculator inputs, email addresses,
+            account identifiers or self-reported health information as event
+            properties.
+          </li>
+          <li>
+            <strong className="font-semibold text-ink">
+              Cookies and local storage:
+            </strong>{" "}
+            The Site does not set advertising or social-media tracking cookies.
+            Vercel Web Analytics is designed to operate without third-party
+            cookies. If you allow TraceDart, it sets a first-party visitor token
+            (including the <code>_td_vid</code> cookie) and uses browser storage
+            to recognize a visitor and session. We store your analytics choice
+            locally in your browser. Essential storage required for the
+            underlying web framework (Next.js) to function may also be present.
           </li>
           <li>
             <strong className="font-semibold text-ink">
               Affiliate clickthroughs:
             </strong>{" "}
-            When you click an outbound affiliate link, the destination site
-            (e.g. Ascension Peptides) may receive an identifier indicating that
-            the visit originated from {siteConfig.name} and may set its own
-            cookies under its own privacy policy.
+            When you click an outbound affiliate link, Vercel records the
+            aggregate event described above; TraceDart also records it if you
+            allowed enhanced analytics. The destination site (e.g. Ascension
+            Peptides) may receive an identifier indicating that the visit
+            originated from {siteConfig.name} and may set its own cookies under
+            its own privacy policy.
           </li>
         </ul>
         <p>
-          If we add analytics, comments, newsletter sign-ups or other
-          data-collecting features in the future, we will update this policy
-          and, where required by law, ask for your consent before activating
-          them.
+          If we add accounts, comments, newsletter sign-ups or materially
+          different data-collecting features in the future, we will update this
+          policy and, where required by law, ask for your consent before
+          activating them.
         </p>
 
         <h2 className="pt-4 text-xl font-semibold tracking-tight text-ink">
@@ -130,6 +164,22 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong className="font-semibold text-ink">
+              Measuring aggregate site and referral performance with Vercel:
+            </strong>{" "}
+            Legitimate interests (Art. 6(1)(f)) in understanding which pages and
+            clearly disclosed partner placements are useful, while limiting the
+            event data to non-identifying labels.
+          </li>
+          <li>
+            <strong className="font-semibold text-ink">
+              TraceDart enhanced analytics:
+            </strong>{" "}
+            Consent (Art. 6(1)(a)). TraceDart is not loaded until you allow it.
+            You can withdraw that consent at any time through the
+            &quot;Analytics choices&quot; control in the footer.
+          </li>
+          <li>
+            <strong className="font-semibold text-ink">
               Complying with legal obligations:
             </strong>{" "}
             Legal obligation (Art. 6(1)(c)) where applicable.
@@ -152,8 +202,10 @@ export default function PrivacyPage() {
             <strong className="font-semibold text-ink">
               Service providers
             </strong>{" "}
-            that host the Site and operate its underlying infrastructure, bound
-            by appropriate contractual terms;
+            including Vercel, which hosts the Site and provides aggregate
+            analytics, and TraceDart, which provides enhanced analytics only
+            after consent. These providers process data to operate their
+            services under appropriate contractual terms;
           </li>
           <li>
             <strong className="font-semibold text-ink">Authorities</strong>{" "}
@@ -173,12 +225,13 @@ export default function PrivacyPage() {
           5. Data retention
         </h2>
         <p>
-          We retain server logs only for as long as our hosting provider&apos;s
-          default retention period, and any correspondence you send us for as
-          long as needed to respond and to maintain a reasonable record of the
-          exchange. We delete personal data when it is no longer needed for the
-          purpose for which it was collected, unless retention is required by
-          law.
+          We retain server logs and analytics according to our service
+          providers&apos; configured retention periods, and any correspondence you
+          send us for as long as needed to respond and to maintain a reasonable
+          record of the exchange. TraceDart supports visitor-level export and
+          deletion; contact us if you want us to locate and act on a record. We
+          delete personal data when it is no longer needed for the purpose for
+          which it was collected, unless retention is required by law.
         </p>
 
         <h2 className="pt-4 text-xl font-semibold tracking-tight text-ink">
@@ -263,7 +316,9 @@ export default function PrivacyPage() {
           >
             {email}
           </a>
-          . We will respond within the timeframes required by the GDPR.
+          . You can also withdraw optional analytics consent at any time using
+          &quot;Analytics choices&quot; in the footer. We will respond within the
+          timeframes required by the GDPR.
         </p>
 
         <h2 className="pt-4 text-xl font-semibold tracking-tight text-ink">

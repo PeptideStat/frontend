@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { siteConfig } from "@/site.config";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { AffiliateClickTracker } from "@/components/AffiliateClickTracker";
+import { TraceDartAnalytics } from "@/components/TraceDartAnalytics";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// TraceDart's browser key is a public site identifier by design. Collection is
+// restricted by the allowed origins configured for this key in TraceDart.
+const TRACEDART_BROWSER_KEY =
+  "td_sk_QrSMFYFCgABspJNVDkB55okAU6dnp7Fo9aFI7w_Ni9g";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -54,13 +50,15 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className="h-full antialiased"
     >
       <body className="flex min-h-full flex-col">
         <Header />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Footer showAnalyticsChoices />
         <Analytics />
+        <AffiliateClickTracker />
+        <TraceDartAnalytics apiKey={TRACEDART_BROWSER_KEY} />
       </body>
     </html>
   );

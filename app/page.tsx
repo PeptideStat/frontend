@@ -3,7 +3,10 @@ import { StatsRow } from "@/components/StatsRow";
 import { TrustedSources } from "@/components/TrustedSources";
 import { CategoryGrid } from "@/components/CategoryGrid";
 import { FeaturedGuides } from "@/components/FeaturedGuides";
+import { LatestResearch } from "@/components/LatestResearch";
+import { ReferralBand } from "@/components/ReferralBand";
 import { DisclaimerBanner } from "@/components/DisclaimerBanner";
+import { PopularCompounds } from "@/components/PopularCompounds";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
@@ -29,6 +32,9 @@ export default function HomePage() {
       <HeroSection />
       <StatsRow />
       <TrustedSources />
+      <PopularCompounds />
+      <LatestResearch />
+      <ReferralBand />
       <CategoryGrid />
       <FeaturedGuides />
       <DisclaimerBanner />

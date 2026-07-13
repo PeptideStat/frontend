@@ -14,7 +14,47 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3002](http://localhost:3002) with your browser to see the result.
+
+## Referral QA
+
+Validate the 53 direct Ascension destinations and referral URL contract without
+network access:
+
+```bash
+npm run audit:ascension:config
+```
+
+Run the live four-page catalog and stock comparison:
+
+```bash
+npm run audit:ascension
+```
+
+After a production build, verify every prerendered sponsored anchor has an
+analytics placement label:
+
+```bash
+npm run audit:affiliate-markup
+```
+
+See [the attribution runbook](docs/affiliate-attribution-runbook.md) for the
+TraceDart/Vercel-to-Ascension dashboard reconciliation check.
+
+## TraceDart
+
+The TraceDart browser site key is intentionally embedded in `app/layout.tsx`,
+matching TraceDart's public script installation model. In TraceDart, allow only
+`https://www.peptidestat.com` and `https://peptidestat.com` as production site
+origins. If the key is rotated, update the constant and redeploy.
+
+TraceDart is loaded only after the visitor allows enhanced analytics; the
+footer exposes a persistent withdrawal control.
+
+The site records `affiliate_click` with `partner`, `placement`, `product`,
+`campaign`, and `source_path`. It also records `virtual_pageview` for Next.js
+client navigations because the current TraceDart browser script only creates an
+automatic pageview on a full page load.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

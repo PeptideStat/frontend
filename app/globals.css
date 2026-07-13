@@ -1,54 +1,48 @@
 @import "tailwindcss";
 
 @theme {
-  /* Surfaces — soft mid-dark with stepped elevation.
-     Bumped lighter from the original near-black so the page reads as
-     "comfortable dark" rather than "blacked out".
-     canvas = page background
-     surface = subtle section accent
-     surface-2 = cards and elevated panels */
-  --color-canvas: #161b24;
-  --color-surface: #1d2330;
-  --color-surface-2: #252c3b;
-  --color-line: #2d3545;
-  --color-line-strong: #3d4658;
+  /* PeptideStat 3.0 — quiet product UI with one clear research-green
+     accent and a restrained chartreuse conversion color. */
+  --color-canvas: #f3f4ef;
+  --color-surface: #e9ece6;
+  --color-surface-2: #f9faf7;
+  --color-paper: #ffffff;
+  --color-line: #d8ddd6;
+  --color-line-strong: #a9b2aa;
 
-  /* Text — cool near-white scale */
-  --color-ink: #e8eef5;
-  --color-ink-soft: #c1ccd9;
-  --color-muted: #8693a3;
-  --color-muted-soft: #5e6a79;
+  --color-ink: #111713;
+  --color-ink-soft: #35423a;
+  --color-muted: #68756d;
+  --color-muted-soft: #929c95;
 
-  /* Brand accent — vivid emerald on dark.
-     accent-bright = hover / active (gets lighter on dark)
-     accent       = default
-     accent-dark  = strong border / shadow tint
-     accent-soft  = tinted dark bg for chips and gradients */
-  --color-accent-bright: #34d399;
-  --color-accent: #10b981;
-  --color-accent-dark: #047857;
-  --color-accent-soft: #062a1d;
+  --color-accent-bright: #1e6a4f;
+  --color-accent: #1e6a4f;
+  --color-accent-dark: #124734;
+  --color-accent-soft: #e0eee7;
+  --color-cobalt: #1e6a4f;
+  --color-lime: #d9f36a;
+  --color-coral: #df7657;
 
-  /* Category-card tints — paired dark bg + bright ink */
-  --color-tint-emerald: #0a2e22;
-  --color-tint-emerald-ink: #34d399;
-  --color-tint-sky: #0a253b;
-  --color-tint-sky-ink: #38bdf8;
-  --color-tint-amber: #2e2210;
-  --color-tint-amber-ink: #fbbf24;
-  --color-tint-violet: #1f1a35;
-  --color-tint-violet-ink: #a78bfa;
-  --color-tint-rose: #2e1620;
-  --color-tint-rose-ink: #fb7185;
-  --color-tint-slate: #1a2230;
-  --color-tint-slate-ink: #94a3b8;
+  --color-tint-emerald: #dce8df;
+  --color-tint-emerald-ink: #164d3b;
+  --color-tint-sky: #dfe8f7;
+  --color-tint-sky-ink: #2446bd;
+  --color-tint-amber: #f3e8c7;
+  --color-tint-amber-ink: #6f5015;
+  --color-tint-violet: #e9e1f1;
+  --color-tint-violet-ink: #614284;
+  --color-tint-rose: #f3ddd6;
+  --color-tint-rose-ink: #8a3c2d;
+  --color-tint-slate: #e1e4e1;
+  --color-tint-slate-ink: #45534e;
 
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+  --font-sans: "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui,
     sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-display: "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui,
+    sans-serif;
 
-  /* Section rhythm */
-  --section-pad-y: clamp(3rem, 5vw, 5rem);
+  --section-pad-y: clamp(4.5rem, 8vw, 8rem);
 }
 
 * {
@@ -57,10 +51,12 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
+  background: var(--color-canvas);
 }
 
 body {
+  min-width: 320px;
   background: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-sans);
@@ -68,43 +64,64 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-::selection {
-  background: var(--color-accent-soft);
-  color: var(--color-accent-bright);
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  text-wrap: balance;
 }
 
-/* Subtle elevation utility for cards — dark-mode shadows.
-   We layer a soft accent-tinted glow over a deeper dark drop so cards
-   feel lifted off the canvas without looking like flat strokes. */
+::selection {
+  background: var(--color-lime);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-cobalt);
+  outline-offset: 3px;
+}
+
 @utility shadow-card {
   box-shadow:
-    0 1px 0 0 rgb(255 255 255 / 0.03) inset,
-    0 1px 2px 0 rgb(0 0 0 / 0.5),
-    0 0 0 1px rgb(255 255 255 / 0.01);
+    0 1px 0 rgb(255 255 255 / 0.85) inset,
+    0 18px 42px -34px rgb(13 43 35 / 0.7);
 }
 
 @utility shadow-card-hover {
   box-shadow:
-    0 1px 0 0 rgb(255 255 255 / 0.05) inset,
-    0 12px 32px -12px rgb(0 0 0 / 0.7),
-    0 0 0 1px rgb(16 185 129 / 0.15);
+    4px 4px 0 var(--color-ink),
+    0 18px 42px -30px rgb(13 43 35 / 0.55);
 }
 
-/* Faint light grid pattern over the hero */
 @utility bg-grid {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
-  background-size: 32px 32px;
+    linear-gradient(to right, rgb(13 43 35 / 0.075) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(13 43 35 / 0.075) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-/* Radial accent glow used behind the hero headline */
+@utility bg-dot-grid {
+  background-image: radial-gradient(rgb(13 43 35 / 0.18) 0.8px, transparent 0.8px);
+  background-size: 14px 14px;
+}
+
 @utility bg-hero-glow {
   background: radial-gradient(
     ellipse 80% 60% at 50% 0%,
-    rgb(16 185 129 / 0.22),
+    rgb(30 106 79 / 0.1),
     transparent 70%
   );
+}
+
+@utility text-stroke-ink {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 .protocol-table {
@@ -125,18 +142,20 @@ body {
 .protocol-table th {
   background: var(--color-surface);
   color: var(--color-ink);
-  font-weight: 600;
+  font-weight: 650;
   text-align: left;
 }
 
 .protocol-table td {
+  background: var(--color-paper);
   color: var(--color-ink-soft);
 }
 
 .protocol-table a {
-  color: var(--color-accent-bright);
-  font-weight: 600;
+  color: var(--color-cobalt);
+  font-weight: 650;
   text-decoration: underline;
+  text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
 

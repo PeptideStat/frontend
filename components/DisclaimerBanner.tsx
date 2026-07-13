@@ -1,22 +1,24 @@
-/**
- * Full-width medical/affiliate disclaimer band shown just above the
- * footer. Distinct from the in-article `<Disclaimer />` box.
- */
+import Link from "next/link";
+
 export function DisclaimerBanner() {
   return (
-    <section className="border-t border-line bg-surface-2">
-      <div className="mx-auto max-w-4xl px-5 py-10 text-center">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-muted">
-          Research & educational purposes only
+    <section className="border-b border-ink bg-lime text-ink">
+      <div className="mx-auto grid max-w-7xl gap-5 px-4 py-8 sm:px-6 lg:grid-cols-[220px_1fr_auto] lg:items-center lg:px-8">
+        <h2 className="text-[10px] font-bold uppercase tracking-[0.2em]">
+          Read this first
         </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-          The information on PeptideStat is for educational and research
-          purposes only and is not medical advice. Many peptides discussed are
-          research compounds not approved for human use. Always consult a
-          qualified healthcare professional before making any health decisions.
-          Articles may contain affiliate links — we may earn a commission at
-          no extra cost to you.
+        <p className="max-w-3xl text-xs leading-6 text-ink/75">
+          PeptideStat is educational, not medical advice. Many compounds we cover
+          are investigational or research-only and are not approved for human use.
+          Partner links may earn us a commission without changing your price or
+          our editorial conclusions.
         </p>
+        <Link
+          href="/disclaimer"
+          className="w-fit border-b-2 border-ink pb-0.5 text-xs font-bold hover:text-cobalt"
+        >
+          Full disclosure →
+        </Link>
       </div>
     </section>
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
@@ -11,6 +10,11 @@ import {
   type PeptideStatus,
 } from "@/data/peptides";
 import { getPeptideEvidence } from "@/data/peptideEvidence";
+import {
+  getAscensionAvailability,
+  getAscensionBuyUrl,
+  hasAscensionProduct,
+} from "@/data/ascensionLinks";
 import {
   SearchIcon,
   CloseIcon,
@@ -23,6 +27,7 @@ import {
   getCalculatorPreset,
 } from "@/lib/calculatorPresets";
 import { externalLinkRel } from "@/lib/externalLinks";
+import { PeptideProfileVisual } from "@/components/PeptideProfileVisual";
 
 /**
  * Filterable / sortable peptide database cards.
@@ -228,7 +233,10 @@ export function PeptideDatabase({
               : "/peptides";
             const guideLabel = peptide.articleSlug ? "Guide" : "Guides";
             const detailHref = `/database/${peptide.slug}`;
-            const buyHref = peptide.productUrl ?? shopHref;
+            const buyHref = hasAscensionProduct(peptide.slug)
+              ? getAscensionBuyUrl(peptide.slug, `database_card_${peptide.slug}`)
+              : shopHref;
+            const productAvailability = getAscensionAvailability(peptide.slug);
             const evidence = getPeptideEvidence(peptide.slug);
             const preset = getCalculatorPreset(peptide.slug);
             const calculatorHref = preset
@@ -243,23 +251,7 @@ export function PeptideDatabase({
                 className="flex min-h-full flex-col rounded-lg border border-line bg-surface-2 p-4 shadow-card transition-colors hover:border-accent/40"
               >
                 <div className="mb-4 overflow-hidden rounded-md border border-line bg-white">
-                  {peptide.productImageUrl ? (
-                    <Image
-                      src={peptide.productImageUrl}
-                      alt={`${peptide.name} product image`}
-                      width={420}
-                      height={315}
-                      loading="lazy"
-                      unoptimized
-                      className="aspect-[4/3] w-full object-contain p-3"
-                    />
-                  ) : (
-                    <div className="flex aspect-[4/3] w-full items-center justify-center bg-surface px-4 text-center">
-                      <span className="text-sm font-semibold text-muted">
-                        {peptide.name}
-                      </span>
-                    </div>
-                  )}
+                  <PeptideProfileVisual peptide={peptide} />
                 </div>
 
                 <div className="flex items-start justify-between gap-3">
@@ -364,10 +356,12 @@ export function PeptideDatabase({
                     href={buyHref}
                     target="_blank"
                     rel={externalLinkRel(buyHref, { sponsored: true })}
+                    data-affiliate-placement="database-card"
+                    data-affiliate-product={peptide.slug}
                     aria-label={`Buy ${peptide.name}`}
                     className="inline-flex h-10 items-center justify-center gap-1.5 rounded-md bg-accent px-2 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright"
                   >
-                    Buy
+                    {productAvailability === "out-of-stock" ? "Recheck" : "Buy"}
                     <ExternalLinkIcon className="h-3.5 w-3.5" />
                   </a>
                 </div>

@@ -115,12 +115,12 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
       <button
         type="button"
         onClick={openSearch}
-        className="hidden h-9 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm text-muted transition-colors hover:border-accent/50 hover:text-ink-soft sm:inline-flex"
+        className="hidden h-10 items-center gap-2 rounded-lg border border-line bg-surface-2 px-3 text-xs font-semibold text-muted transition-colors hover:border-ink hover:text-ink sm:inline-flex"
         aria-label="Search articles"
       >
         <SearchIcon className="h-4 w-4" />
         <span>Search</span>
-        <kbd className="ml-2 rounded border border-line bg-canvas px-1.5 py-0.5 font-mono text-[10px] font-medium text-ink-soft">
+        <kbd className="ml-2 rounded border border-line bg-canvas px-1.5 py-0.5 font-mono text-[9px] font-bold text-ink-soft">
           ⌘K
         </kbd>
       </button>
@@ -129,7 +129,7 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
       <button
         type="button"
         onClick={openSearch}
-        className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted transition-colors hover:bg-surface hover:text-ink sm:hidden"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-ink hover:text-ink sm:hidden"
         aria-label="Search articles"
       >
         <SearchIcon className="h-5 w-5" />
@@ -147,11 +147,11 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
             type="button"
             aria-label="Close search"
             onClick={() => setOpen(false)}
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-ink/80 backdrop-blur-sm"
           />
 
           {/* Panel */}
-          <div className="relative z-10 w-full max-w-xl overflow-hidden rounded-xl border border-line bg-surface-2 shadow-card-hover">
+          <div className="relative z-10 w-full max-w-xl overflow-hidden rounded-2xl border border-line bg-paper shadow-[0_30px_80px_-30px_rgba(0,0,0,.65)]">
             <div className="flex items-center gap-2 border-b border-line px-4">
               <SearchIcon className="h-5 w-5 text-muted" />
               <input
@@ -185,9 +185,9 @@ export function SearchTrigger({ items }: { items: SearchItem[] }) {
                         href={`/peptides/${item.slug}`}
                         onClick={() => setOpen(false)}
                         onMouseEnter={() => setHighlight(index)}
-                        className={`flex flex-col gap-0.5 rounded-md px-3 py-2.5 transition-colors ${
+                        className={`flex flex-col gap-0.5 rounded-lg px-3 py-2.5 transition-colors ${
                           index === activeHighlight
-                            ? "bg-accent-soft text-ink"
+                            ? "bg-lime text-ink"
                             : "text-ink-soft hover:bg-surface"
                         }`}
                       >

@@ -7,6 +7,9 @@
     "build": "next build",
     "postbuild": "node scripts/ping-indexnow.mjs",
     "ping-indexnow": "node scripts/ping-indexnow.mjs --force",
+    "audit:ascension": "node scripts/audit-ascension-catalog.mjs --strict",
+    "audit:ascension:config": "node scripts/audit-ascension-catalog.mjs --config-only",
+    "audit:affiliate-markup": "node scripts/audit-affiliate-markup.mjs",
     "start": "next start -p 3002",
     "lint": "eslint"
   },
