@@ -9,7 +9,7 @@ export function AnalyticsChoicesButton() {
       onClick={openTraceDartConsentChoices}
       className="uppercase hover:text-canvas"
     >
-      Analytics choices
+      Analytics settings
     </button>
   );
 }

@@ -48,8 +48,9 @@ matching TraceDart's public script installation model. In TraceDart, allow only
 `https://www.peptidestat.com` and `https://peptidestat.com` as production site
 origins. If the key is rotated, update the constant and redeploy.
 
-TraceDart is loaded only after the visitor allows enhanced analytics; the
-footer exposes a persistent withdrawal control.
+TraceDart loads automatically after the app becomes interactive unless the
+visitor previously opted out. The footer exposes a persistent analytics
+settings control that can disable tracking and clear local TraceDart identity.
 
 The site records `affiliate_click` with `partner`, `placement`, `product`,
 `campaign`, and `source_path`. It also records `virtual_pageview` for Next.js

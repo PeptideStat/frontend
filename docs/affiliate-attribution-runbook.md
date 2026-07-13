@@ -6,8 +6,8 @@ without treating a page view as a referral click.
 
 ## What is recorded
 
-PeptideStat sends an `affiliate_click` custom event to Vercel Web Analytics and,
-after visitor consent, TraceDart with five non-identifying labels:
+PeptideStat sends an `affiliate_click` custom event to Vercel Web Analytics and
+TraceDart with five non-identifying labels:
 
 - `source_path`: the PeptideStat page where the click occurred
 - `placement`: the CTA position, such as `article-sidebar` or `marketplace-card`
@@ -33,8 +33,8 @@ hard-load pageview.
 3. In **Events & Goals**, create an event goal matching
    `affiliate_click` exactly.
 4. Keep `virtual_pageview` as an analysis event, not a conversion goal.
-5. Deploy and accept enhanced analytics in the clean test browser before
-   checking TraceDart.
+5. Deploy and open a clean test browser. TraceDart should load automatically;
+   no analytics acceptance step is required.
 
 ## Clean-click check
 
@@ -64,7 +64,7 @@ be used to judge attribution.
 Track these five numbers by campaign and placement:
 
 - Outbound CTR = PeptideStat affiliate clicks / landing-page sessions
-- Consent coverage = TraceDart unique visitors / Vercel unique visitors
+- TraceDart coverage = TraceDart unique visitors / Vercel unique visitors
 - Partner receipt rate = Ascension recorded visits / PeptideStat affiliate clicks
 - Partner conversion rate = Ascension conversions / Ascension recorded visits
 - Earnings per click = cleared commission / PeptideStat affiliate clicks

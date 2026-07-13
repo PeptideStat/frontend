@@ -32,8 +32,8 @@ export default function PrivacyPage() {
           &quot;us&quot; or &quot;our&quot;) publishes evidence-based peptide
           guides at peptidestat.com (the &quot;Site&quot;). This Privacy Policy
           explains what information we collect, how we use it and the rights you
-          have over it. Optional enhanced analytics remain off unless you choose
-          to allow them.
+          have over it. Enhanced analytics starts automatically unless you have
+          disabled it through the &quot;Analytics settings&quot; control in the footer.
         </p>
 
         <h2 className="pt-4 text-xl font-semibold tracking-tight text-ink">
@@ -93,13 +93,13 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong className="font-semibold text-ink">
-              Optional enhanced analytics:
+              Enhanced analytics:
             </strong>{" "}
-            If you choose &quot;Allow analytics&quot;, we load TraceDart to
-            understand sessions, returning visits, active time, scroll depth,
-            referral and UTM context, client-side route changes and affiliate
-            clicks. TraceDart uses a first-party visitor token and hashed browser
-            fingerprint components. Its technical signals can include
+            We load TraceDart automatically to understand sessions, returning
+            visits, active time, scroll depth, referral and UTM context,
+            client-side route changes and affiliate clicks. TraceDart uses a
+            first-party visitor token and hashed browser fingerprint components.
+            Its technical signals can include
             browser/device characteristics, display and rendering information,
             locale, storage and media capabilities, browser permission states,
             network context, IP-derived location, ASN/ISP and VPN, proxy, Tor or
@@ -115,10 +115,10 @@ export default function PrivacyPage() {
             </strong>{" "}
             The Site does not set advertising or social-media tracking cookies.
             Vercel Web Analytics is designed to operate without third-party
-            cookies. If you allow TraceDart, it sets a first-party visitor token
-            (including the <code>_td_vid</code> cookie) and uses browser storage
-            to recognize a visitor and session. We store your analytics choice
-            locally in your browser. Essential storage required for the
+            cookies. Unless you disable it, TraceDart sets a first-party visitor
+            token (including the <code>_td_vid</code> cookie) and uses browser
+            storage to recognize a visitor and session. We store your analytics
+            preference locally in your browser. Essential storage required for the
             underlying web framework (Next.js) to function may also be present.
           </li>
           <li>
@@ -126,8 +126,8 @@ export default function PrivacyPage() {
               Affiliate clickthroughs:
             </strong>{" "}
             When you click an outbound affiliate link, Vercel records the
-            aggregate event described above; TraceDart also records it if you
-            allowed enhanced analytics. The destination site (e.g. Ascension
+            aggregate event described above; TraceDart also records it unless
+            you disabled enhanced analytics. The destination site (e.g. Ascension
             Peptides) may receive an identifier indicating that the visit
             originated from {siteConfig.name} and may set its own cookies under
             its own privacy policy.
@@ -174,9 +174,11 @@ export default function PrivacyPage() {
             <strong className="font-semibold text-ink">
               TraceDart enhanced analytics:
             </strong>{" "}
-            Consent (Art. 6(1)(a)). TraceDart is not loaded until you allow it.
-            You can withdraw that consent at any time through the
-            &quot;Analytics choices&quot; control in the footer.
+            Legitimate interests (Art. 6(1)(f)) in understanding how visitors
+            navigate the Site and which disclosed referral placements are useful.
+            TraceDart loads automatically unless you have opted out. You can
+            object and disable it at any time through the &quot;Analytics settings&quot;
+            control in the footer.
           </li>
           <li>
             <strong className="font-semibold text-ink">
@@ -203,8 +205,8 @@ export default function PrivacyPage() {
               Service providers
             </strong>{" "}
             including Vercel, which hosts the Site and provides aggregate
-            analytics, and TraceDart, which provides enhanced analytics only
-            after consent. These providers process data to operate their
+            analytics, and TraceDart, which provides enhanced analytics. These
+            providers process data to operate their
             services under appropriate contractual terms;
           </li>
           <li>
@@ -316,9 +318,11 @@ export default function PrivacyPage() {
           >
             {email}
           </a>
-          . You can also withdraw optional analytics consent at any time using
-          &quot;Analytics choices&quot; in the footer. We will respond within the
-          timeframes required by the GDPR.
+          . You can also object to and disable enhanced analytics at any time
+          using &quot;Analytics settings&quot; in the footer. Disabling analytics clears
+          TraceDart&apos;s local visitor and session identifiers from that browser
+          and prevents the script from loading on later visits from that browser.
+          We will respond within the timeframes required by the GDPR.
         </p>
 
         <h2 className="pt-4 text-xl font-semibold tracking-tight text-ink">

@@ -23,18 +23,20 @@ export function TraceDartAnalytics({ apiKey }: { apiKey: string }) {
 
   useEffect(() => {
     let cancelled = false;
-    let storedConsent: TraceDartConsent = "pending";
+    // TraceDart is enabled by default. A previously saved opt-out is the only
+    // state that prevents the browser script from loading.
+    let storedConsent: TraceDartConsent = "granted";
 
     try {
       const stored = window.localStorage.getItem(
         TRACEDART_CONSENT_STORAGE_KEY,
       );
-      if (stored === "granted" || stored === "denied") {
+      if (stored === "denied") {
         storedConsent = stored;
       }
     } catch {
-      // If storage is unavailable, keep optional analytics off until the
-      // visitor makes a choice for this page view.
+      // If preference storage is unavailable, analytics remains enabled for
+      // this page view.
     }
 
     setTraceDartConsent(storedConsent);
@@ -110,20 +112,21 @@ export function TraceDartAnalytics({ apiKey }: { apiKey: string }) {
 
       {consent === "pending" ? (
         <section
-          aria-label="Enhanced analytics choices"
+          aria-label="Analytics settings"
           aria-live="polite"
           className="fixed inset-x-3 bottom-3 z-[100] mx-auto max-w-3xl border border-ink bg-paper p-4 shadow-[0_18px_60px_rgba(21,27,24,0.24)] sm:p-5"
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="max-w-xl">
               <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-accent">
-                Enhanced analytics
+                Analytics settings
               </p>
               <p className="mt-1.5 text-xs leading-5 text-ink-soft">
-                With your permission, TraceDart helps us understand visits and
-                referral clicks using a first-party visitor token and
-                browser/device signals. We do not send calculator inputs,
-                emails or self-reported health data. {" "}
+                TraceDart analytics is enabled by default to help us understand
+                visits and referral clicks using a first-party visitor token
+                and browser/device signals. You can disable or re-enable it
+                here. We do not send calculator inputs, emails or self-reported
+                health data. {" "}
                 <Link
                   href="/privacy"
                   className="font-semibold text-ink underline underline-offset-2"
@@ -138,14 +141,14 @@ export function TraceDartAnalytics({ apiKey }: { apiKey: string }) {
                 onClick={() => chooseConsent("denied")}
                 className="h-10 border border-line-strong px-4 text-[10px] font-bold uppercase tracking-[0.08em] text-ink hover:border-ink"
               >
-                Decline
+                Disable analytics
               </button>
               <button
                 type="button"
                 onClick={() => chooseConsent("granted")}
                 className="h-10 bg-ink px-4 text-[10px] font-bold uppercase tracking-[0.08em] text-white hover:bg-accent"
               >
-                Allow analytics
+                Enable analytics
               </button>
             </div>
           </div>
