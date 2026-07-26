@@ -1,74 +1,113 @@
+import Image from "next/image";
 import Link from "next/link";
-import { peptides, STATUS_LABELS } from "@/data/peptides";
+import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
 import {
   ascensionAvailabilityCheckedAt,
   ascensionCouponCode,
+  ascensionDiscountPercent,
   getAscensionAvailability,
   getAscensionBuyUrl,
   getAscensionProduct,
-  getAscensionShopUrl,
+  getAscensionProductImage,
+  hasAscensionProduct,
 } from "@/data/ascensionLinks";
-import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
+import { peptides, STATUS_LABELS, type Peptide } from "@/data/peptides";
 import { externalLinkRel } from "@/lib/externalLinks";
 
 interface ArticlePartnerCardProps {
   cluster?: string;
+  description: string;
   slug: string;
   tags?: string[];
   title: string;
 }
 
-export function ArticlePartnerCard({
+function normalizeTopic(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function includesPhrase(value: string, phrase: string) {
+  return ` ${value} `.includes(` ${phrase} `);
+}
+
+function findMatchingPeptide({
   cluster,
+  description,
   slug,
   tags,
   title,
-}: ArticlePartnerCardProps) {
-  const matchingPeptide = peptides.find(
-    (peptide) => peptide.articleSlug === slug || peptide.slug === slug,
+}: ArticlePartnerCardProps): Peptide | undefined {
+  const normalizedSlug = normalizeTopic(slug);
+  const normalizedTitle = normalizeTopic(title);
+  const normalizedDescription = normalizeTopic(description);
+  const normalizedCluster = normalizeTopic(cluster ?? "");
+  const normalizedTags = (tags ?? []).map(normalizeTopic);
+  const topicSequence = normalizeTopic(
+    [title, description, ...(tags ?? []), cluster, slug]
+      .filter(Boolean)
+      .join(" "),
   );
+
+  return peptides
+    .filter((peptide) => hasAscensionProduct(peptide.slug))
+    .map((peptide) => {
+      const phrases = [peptide.slug, peptide.name].map(normalizeTopic);
+      let score = peptide.articleSlug === slug ? 500 : 0;
+      let mentionIndex = Number.POSITIVE_INFINITY;
+
+      for (const phrase of phrases) {
+        const phraseIndex = topicSequence.indexOf(phrase);
+        if (phraseIndex >= 0) mentionIndex = Math.min(mentionIndex, phraseIndex);
+        if (includesPhrase(normalizedSlug, phrase)) score = Math.max(score, 400);
+        if (includesPhrase(normalizedTitle, phrase)) score = Math.max(score, 350);
+        if (normalizedTags.some((tag) => includesPhrase(tag, phrase))) {
+          score = Math.max(score, 300);
+        }
+        if (includesPhrase(normalizedCluster, phrase)) {
+          score = Math.max(score, 250);
+        }
+        if (includesPhrase(normalizedDescription, phrase)) {
+          score = Math.max(score, 150);
+        }
+      }
+
+      return { mentionIndex, peptide, score };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.mentionIndex - b.mentionIndex;
+    })[0]?.peptide;
+}
+
+export function ArticlePartnerCard(props: ArticlePartnerCardProps) {
+  const matchingPeptide = findMatchingPeptide(props);
   const matchingProduct =
-    getAscensionProduct(slug) ??
-    (matchingPeptide ? getAscensionProduct(matchingPeptide.slug) : undefined);
-  const productAvailability = matchingProduct
-    ? getAscensionAvailability(matchingProduct.id)
-    : "unknown";
-  const topicText = `${cluster ?? ""} ${tags?.join(" ") ?? ""} ${title}`.toLowerCase();
-  const isClinicalGlp1 = /glp-?1|semaglutide|tirzepatide|ozempic|wegovy|zepbound|mounjaro/.test(
-    topicText,
+    getAscensionProduct(props.slug) ??
+    (matchingPeptide
+      ? getAscensionProduct(matchingPeptide.slug)
+      : undefined);
+
+  // No generic marketplace or prescription fallback: commercial cards only
+  // appear when this article maps to a peptide-specific referral destination.
+  if (!matchingProduct) return null;
+
+  const productAvailability = getAscensionAvailability(matchingProduct.id);
+  const partnerUrl = getAscensionBuyUrl(
+    matchingProduct.id,
+    `article_${props.slug}`,
   );
-
-  if (!matchingProduct && isClinicalGlp1) {
-    return (
-      <aside className="rounded-xl border border-line bg-paper p-5 shadow-[0_18px_40px_-34px_rgba(17,23,19,.5)]">
-        <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-cobalt">
-          Prescription pathway
-        </p>
-        <h2 className="mt-3 text-2xl font-semibold leading-tight tracking-[-0.025em] text-ink">
-          Compare licensed GLP-1 care
-        </h2>
-        <p className="mt-3 text-xs leading-5 text-muted">
-          Review provider models, current entry prices, insurance support and
-          medication types before starting an intake.
-        </p>
-        <Link
-          href="/peptides/where-to-get-glp-1-online"
-          className="group mt-5 flex min-h-11 items-center justify-between gap-3 rounded-lg bg-ink px-4 text-xs font-bold text-white hover:bg-accent"
-        >
-          Compare providers
-          <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-        </Link>
-        <p className="mt-4 text-[9px] leading-4 text-muted-soft">
-          Prescription medications require evaluation by a licensed clinician.
-          Availability and eligibility vary.
-        </p>
-      </aside>
-    );
-  }
-
-  const partnerUrl = matchingProduct
-    ? getAscensionBuyUrl(matchingProduct.id, `article_${slug}`)
-    : getAscensionShopUrl(`article_${slug}`);
+  const matchingPeptideProduct = matchingPeptide
+    ? getAscensionProduct(matchingPeptide.slug)
+    : undefined;
+  const productImageUrl =
+    getAscensionProductImage(matchingProduct.id) ??
+    (matchingPeptideProduct?.id === matchingProduct.id
+      ? matchingPeptide?.productImageUrl
+      : undefined);
 
   return (
     <aside
@@ -76,13 +115,16 @@ export function ArticlePartnerCard({
       data-affiliate-placement="article-sidebar"
     >
       <div className="bg-ink p-5 text-white">
-        <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-lime">
-          Research partner · affiliate
-        </p>
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-lime">
+            Research partner · affiliate
+          </p>
+          <span className="shrink-0 rounded-full bg-lime px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.08em] text-ink">
+            {ascensionDiscountPercent}% off
+          </span>
+        </div>
         <h2 className="mt-3 text-2xl font-semibold leading-tight tracking-[-0.025em]">
-          {matchingProduct
-            ? `${matchingProduct.name} research listing`
-            : "Research marketplace"}
+          {matchingProduct.name} research listing
         </h2>
         {matchingPeptide && (
           <div className="mt-3 flex flex-wrap gap-2 text-[9px] font-bold uppercase tracking-[0.1em] text-white/65">
@@ -96,18 +138,28 @@ export function ArticlePartnerCard({
         )}
       </div>
 
+      {productImageUrl && (
+        <div className="relative aspect-[4/3] overflow-hidden border-b border-line bg-[#f3f4ef]">
+          <Image
+            src={productImageUrl}
+            alt={`${matchingProduct.name} research vial from Ascension Peptides`}
+            fill
+            sizes="(max-width: 1024px) 100vw, 300px"
+            className="object-contain p-4"
+          />
+        </div>
+      )}
+
       <div className="p-5">
         <p className="text-xs leading-5 text-muted">
           {productAvailability === "out-of-stock"
-            ? `This listing was out of stock at our ${ascensionAvailabilityCheckedAt} catalog check. Open the direct page to recheck availability or compare the wider catalog.`
-            : matchingProduct
-            ? "Check the current lot COA and product documentation before purchasing from our reviewed partner."
-            : "Browse the current catalog from our reviewed research-marketplace partner and verify the lot documentation before purchasing."}
+            ? `This listing was out of stock at our ${ascensionAvailabilityCheckedAt} catalog check. Open the direct page to recheck availability.`
+            : "Check the current lot COA and product documentation before purchasing from our reviewed partner."}
         </p>
 
         <div className="mt-4 rounded-lg border border-line bg-surface px-3 py-3">
           <span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-muted">
-            Partner code
+            Save {ascensionDiscountPercent}% with partner code
           </span>
           <strong className="mt-1 block font-mono text-xl tracking-[-0.04em] text-ink">
             {ascensionCouponCode}
@@ -119,14 +171,12 @@ export function ArticlePartnerCard({
           target="_blank"
           rel={externalLinkRel(partnerUrl, { sponsored: true })}
           data-affiliate-placement="article-sidebar"
-          data-affiliate-product={matchingProduct?.id ?? "catalog"}
+          data-affiliate-product={matchingProduct.id}
           className="group mt-4 flex min-h-11 items-center justify-between gap-3 rounded-lg bg-ink px-4 text-xs font-bold text-white hover:bg-accent"
         >
-          {matchingProduct
-            ? productAvailability === "out-of-stock"
-              ? `Recheck ${matchingProduct.name}`
-              : `View ${matchingProduct.name}`
-            : "Browse partner shop"}
+          {productAvailability === "out-of-stock"
+            ? `Recheck ${matchingProduct.name}`
+            : `View ${matchingProduct.name}`}
           <ExternalLinkIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </a>
         <Link
@@ -138,8 +188,9 @@ export function ArticlePartnerCard({
         </Link>
 
         <p className="mt-4 text-[9px] leading-4 text-muted-soft">
-          Research use only. Not approved for human use. We may earn a commission
-          from this link at no extra cost to you. Verify any saving at checkout.
+          Research use only. Not approved for human use. We may earn a
+          commission from this link at no extra cost to you. Verify the saving
+          at checkout.
         </p>
       </div>
     </aside>

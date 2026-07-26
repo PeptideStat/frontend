@@ -211,6 +211,7 @@ export default async function ArticlePage(
               <ArticlePartnerCard
                 slug={article.slug}
                 title={article.title}
+                description={article.description}
                 cluster={article.cluster}
                 tags={article.tags}
               />

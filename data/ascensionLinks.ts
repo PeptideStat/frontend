@@ -4,6 +4,7 @@ const ASCENSION_ORIGIN = "https://ascensionpeptides.com";
 
 export const ascensionReferralCode = "PEPTIDESDEFINED";
 export const ascensionCouponCode = "PEPTIDESDE";
+export const ascensionDiscountPercent = 50;
 export const ascensionShopUrl = `${ASCENSION_ORIGIN}/shop/ref/${ascensionReferralCode}/`;
 export const ascensionReferralUrl = ascensionShopUrl;
 export const ascensionAvailabilityCheckedAt = availabilitySnapshot.checkedAt;
@@ -79,6 +80,98 @@ export const ascensionCatalog: readonly AscensionCatalogProduct[] = [
   { id: "ss-31-kit", name: "SS-31 (10MG) Kit", path: "/product/ss-31-10mg-kit/", catalogPage: 4 },
 ];
 
+/**
+ * Product/vial images verified against Ascension's live peptide catalog.
+ * Keep these attached to catalog IDs rather than article slugs so every
+ * referral placement reuses the same product-specific asset.
+ */
+export const ascensionProductImages = {
+  "5-amino-1mq":
+    "/images/partners/ascension/5-amino-1mq.webp",
+  "aod-9604":
+    "/images/partners/ascension/aod-9604.jpg",
+  "ara-290":
+    "/images/partners/ascension/ara-290.jpg",
+  "bpc-157":
+    "/images/partners/ascension/bpc-157.jpg",
+  "bpc-157-5":
+    "/images/partners/ascension/bpc-157-5.jpg",
+  "c-10":
+    "/images/partners/ascension/c-10.webp",
+  "cjc-1295":
+    "/images/partners/ascension/cjc-1295.jpg",
+  "fit-stack-10":
+    "/images/partners/ascension/fit-stack-10.webp",
+  "fit-stack-20":
+    "/images/partners/ascension/fit-stack-20.webp",
+  dsip:
+    "/images/partners/ascension/dsip.jpg",
+  epitalon:
+    "/images/partners/ascension/epitalon.jpg",
+  "foxo4-dri":
+    "/images/partners/ascension/foxo4-dri.webp",
+  "ghk-cu":
+    "/images/partners/ascension/ghk-cu.jpg",
+  "glow-70":
+    "/images/partners/ascension/glow-70.webp",
+  glutathione:
+    "/images/partners/ascension/glutathione.webp",
+  hcg:
+    "/images/partners/ascension/hcg.webp",
+  ipamorelin:
+    "/images/partners/ascension/ipamorelin.jpg",
+  kisspeptin:
+    "/images/partners/ascension/kisspeptin.jpg",
+  "klow-80":
+    "/images/partners/ascension/klow-80.webp",
+  kpv:
+    "/images/partners/ascension/kpv.jpg",
+  "ll-37":
+    "/images/partners/ascension/ll-37.jpg",
+  "melanotan-i":
+    "/images/partners/ascension/melanotan-i.jpg",
+  "melanotan-ii":
+    "/images/partners/ascension/melanotan-ii.jpg",
+  "mots-c":
+    "/images/partners/ascension/mots-c.jpg",
+  "nad-1000":
+    "/images/partners/ascension/nad-1000.webp",
+  oxytocin:
+    "/images/partners/ascension/oxytocin.jpg",
+  pinealon:
+    "/images/partners/ascension/pinealon.webp",
+  "pt-141":
+    "/images/partners/ascension/pt-141.webp",
+  "r-10":
+    "/images/partners/ascension/r-10.webp",
+  "r-30":
+    "/images/partners/ascension/r-30.webp",
+  "s-5":
+    "/images/partners/ascension/s-5.webp",
+  selank:
+    "/images/partners/ascension/selank.webp",
+  semax:
+    "/images/partners/ascension/semax.webp",
+  sermorelin:
+    "/images/partners/ascension/sermorelin.webp",
+  "ss-31":
+    "/images/partners/ascension/ss-31.webp",
+  "t-10":
+    "/images/partners/ascension/t-10.webp",
+  "t-30":
+    "/images/partners/ascension/t-30.webp",
+  "tb-500":
+    "/images/partners/ascension/tb-500.webp",
+  tesamorelin:
+    "/images/partners/ascension/tesamorelin.webp",
+  "thymosin-alpha-1":
+    "/images/partners/ascension/thymosin-alpha-1.webp",
+  vip:
+    "/images/partners/ascension/vip.webp",
+  "wolverine-stack":
+    "/images/partners/ascension/wolverine-stack.webp",
+} as const satisfies Readonly<Record<string, `/images/${string}`>>;
+
 const productsById = new Map(
   ascensionCatalog.map((product) => [product.id, product] as const),
 );
@@ -136,6 +229,14 @@ export const getAscensionShopUrl = (campaign?: string) =>
 export const getAscensionProduct = (slugOrProductId: string) => {
   const productId = ascensionProductAliases[slugOrProductId] ?? slugOrProductId;
   return productsById.get(productId);
+};
+
+export const getAscensionProductImage = (slugOrProductId: string) => {
+  const product = getAscensionProduct(slugOrProductId);
+  if (!product) return undefined;
+  return ascensionProductImages[
+    product.id as keyof typeof ascensionProductImages
+  ];
 };
 
 export const hasAscensionProduct = (slugOrProductId: string) =>
