@@ -142,8 +142,13 @@ export const peptideEvidence: Record<string, PeptideEvidence> = {
     score: 2,
     label: "Mostly preclinical evidence",
     summary:
-      "BPC-157 has animal and mechanistic injury-model evidence, but human clinical efficacy and dosing are not established.",
-    basis: ["Animal injury models", "Narrative/review literature", "FDA safety-risk concerns for compounding"],
+      "BPC-157 has animal and mechanistic injury-model evidence, but human clinical efficacy and dosing are not established. It is not an FDA-approved finished drug; July 2026 PCAC recommended 503A bulks-list inclusion for compounding (non-binding).",
+    basis: [
+      "Animal injury models",
+      "Narrative/review literature",
+      "FDA compounding safety-risk materials",
+      "July 2026 PCAC 503A recommendation (advisory, not drug approval)",
+    ],
     references: [
       {
         title: "BPC-157 for musculoskeletal healing narrative review",
@@ -158,6 +163,11 @@ export const peptideEvidence: Record<string, PeptideEvidence> = {
       {
         title: "FDA bulk drug substances that may present significant safety risks",
         url: "https://www.fda.gov/drugs/human-drug-compounding/certain-bulk-drug-substances-use-compounding-may-present-significant-safety-risks",
+        source: "FDA",
+      },
+      {
+        title: "July 23–24, 2026 Pharmacy Compounding Advisory Committee meeting",
+        url: "https://www.fda.gov/advisory-committees/advisory-committee-calendar/july-23-24-2026-meeting-pharmacy-compounding-advisory-committee-07232026",
         source: "FDA",
       },
     ],

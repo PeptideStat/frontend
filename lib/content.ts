@@ -75,15 +75,25 @@ export function getArticleBySlug(slug: string): Article | null {
   if (!fs.existsSync(fullPath)) return null;
 
   const raw = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(raw);
-  const frontmatter = data as ArticleFrontmatter;
+  try {
+    const { data, content } = matter(raw);
+    const frontmatter = data as ArticleFrontmatter;
 
-  return {
-    ...frontmatter,
-    slug,
-    readingTime: readingTime(content).text,
-    content,
-  };
+    return {
+      ...frontmatter,
+      slug,
+      readingTime: readingTime(content).text,
+      content,
+    };
+  } catch (error) {
+    // One bad MDX frontmatter file must not crash Header/getAllArticles
+    // (search, listings, related links). Log and skip.
+    console.error(
+      `[content] Failed to parse ${slug}.mdx:`,
+      error instanceof Error ? error.message : error,
+    );
+    return null;
+  }
 }
 
 interface GetArticlesOptions {

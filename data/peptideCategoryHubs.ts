@@ -122,7 +122,7 @@ export const peptideCategoryHubs: PeptideCategoryHub[] = [
       {
         question: "Is BPC-157 proven for injury recovery in humans?",
         answer:
-          "No. BPC-157 has preclinical and animal injury-model evidence, but robust human clinical efficacy and dosing are not established.",
+          "No. BPC-157 has preclinical and animal injury-model evidence, but robust human clinical efficacy and dosing are not established. A July 2026 FDA advisory committee vote recommended 503A compounding-list inclusion; that is not drug approval or proof of human recovery efficacy.",
       },
       {
         question: "Is TB-500 the same as thymosin beta-4?",
