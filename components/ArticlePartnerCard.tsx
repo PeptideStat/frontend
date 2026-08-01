@@ -9,6 +9,7 @@ import {
   getAscensionBuyUrl,
   getAscensionProduct,
   getAscensionProductImage,
+  getAscensionShopUrl,
   hasAscensionProduct,
 } from "@/data/ascensionLinks";
 import { peptides, STATUS_LABELS, type Peptide } from "@/data/peptides";
@@ -83,6 +84,65 @@ function findMatchingPeptide({
     })[0]?.peptide;
 }
 
+function AscensionCatalogCard({ slug }: { slug: string }) {
+  const partnerUrl = getAscensionShopUrl(`article_${slug}`);
+
+  return (
+    <aside
+      className="overflow-hidden rounded-xl border border-line bg-paper shadow-[0_18px_40px_-34px_rgba(17,23,19,.5)]"
+      data-affiliate-placement="article-sidebar"
+    >
+      <div className="bg-ink p-5 text-white">
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-lime">
+            Research partner · affiliate
+          </p>
+          <span className="shrink-0 rounded-full bg-lime px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.08em] text-ink">
+            {ascensionDiscountPercent}% off
+          </span>
+        </div>
+        <h2 className="mt-3 text-2xl font-semibold leading-tight tracking-[-0.025em]">
+          Ascension Peptides catalog
+        </h2>
+      </div>
+
+      <div className="p-5">
+        <p className="text-xs leading-5 text-muted">
+          Browse the current catalog from our reviewed research-marketplace
+          partner and verify the lot documentation before purchasing.
+        </p>
+
+        <div className="mt-4 rounded-lg border border-line bg-surface px-3 py-3">
+          <span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-muted">
+            Save {ascensionDiscountPercent}% with partner code
+          </span>
+          <strong className="mt-1 block font-mono text-xl tracking-[-0.04em] text-ink">
+            {ascensionCouponCode}
+          </strong>
+        </div>
+
+        <a
+          href={partnerUrl}
+          target="_blank"
+          rel={externalLinkRel(partnerUrl, { sponsored: true })}
+          data-affiliate-placement="article-sidebar"
+          data-affiliate-product="catalog"
+          className="group mt-4 flex min-h-11 items-center justify-between gap-3 rounded-lg bg-ink px-4 text-xs font-bold text-white hover:bg-accent"
+        >
+          Browse partner shop
+          <ExternalLinkIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </a>
+
+        <p className="mt-4 text-[9px] leading-4 text-muted-soft">
+          Research use only. Not approved for human use. We may earn a
+          commission from this link at no extra cost to you. Verify the saving
+          at checkout.
+        </p>
+      </div>
+    </aside>
+  );
+}
+
 export function ArticlePartnerCard(props: ArticlePartnerCardProps) {
   const matchingPeptide = findMatchingPeptide(props);
   const matchingProduct =
@@ -93,7 +153,12 @@ export function ArticlePartnerCard(props: ArticlePartnerCardProps) {
 
   // No generic marketplace or prescription fallback: commercial cards only
   // appear when this article maps to a peptide-specific referral destination.
-  if (!matchingProduct) return null;
+  // The partner review itself is the one exception — readers arriving there
+  // are evaluating the vendor, so it gets a catalog-level card instead.
+  if (!matchingProduct) {
+    if (props.slug !== "ascension-peptides-review") return null;
+    return <AscensionCatalogCard slug={props.slug} />;
+  }
 
   const productAvailability = getAscensionAvailability(matchingProduct.id);
   const partnerUrl = getAscensionBuyUrl(
