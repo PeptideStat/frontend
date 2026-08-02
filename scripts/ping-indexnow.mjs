@@ -83,6 +83,8 @@ const STATIC_PATHS = [
   "/vendors/uae",
   "/reviews",
   "/deals",
+  "/lab-tests",
+  "/clinical-trials",
   "/reports",
   "/reports/peptide-vendor-transparency-2026",
   "/market-methodology",
@@ -116,6 +118,8 @@ const STATIC_PAGE_BY_FILE = new Map([
   ["app/vendors/uae/page.tsx", "/vendors/uae"],
   ["app/reviews/page.tsx", "/reviews"],
   ["app/deals/page.tsx", "/deals"],
+  ["app/lab-tests/page.tsx", "/lab-tests"],
+  ["app/clinical-trials/page.tsx", "/clinical-trials"],
   ["app/reports/page.tsx", "/reports"],
   [
     "app/reports/peptide-vendor-transparency-2026/page.tsx",
@@ -206,6 +210,59 @@ const vendorPaths = extractArrayValuesFromTs(
   "id",
 ).map((id) => `/vendors/${id}`);
 
+function readClinicalTrialPaths() {
+  const snapshotPath = path.join(DATA_DIR, "clinicalTrials.snapshot.json");
+  const queriesPath = path.join(DATA_DIR, "clinicalTrialQueries.json");
+  if (!fs.existsSync(snapshotPath) || !fs.existsSync(queriesPath)) {
+    return ["/clinical-trials"];
+  }
+
+  try {
+    const snapshot = JSON.parse(fs.readFileSync(snapshotPath, "utf8"));
+    const queries = JSON.parse(fs.readFileSync(queriesPath, "utf8"));
+    const trials = Array.isArray(snapshot.trials) ? snapshot.trials : [];
+    const companies = new Set(
+      trials
+        .filter((trial) => trial.sponsor?.class === "INDUSTRY")
+        .map((trial) => trial.sponsor?.slug)
+        .filter(Boolean),
+    );
+    const phases = new Set(
+      trials.flatMap((trial) => trial.phases?.slugs ?? []).filter(Boolean),
+    );
+    const statuses = new Set(
+      trials.map((trial) => trial.status?.group).filter(Boolean),
+    );
+    const conditions = new Set(
+      trials
+        .flatMap((trial) => trial.conditionGroups ?? [])
+        .map((condition) => condition.slug)
+        .filter(Boolean),
+    );
+
+    return [
+      "/clinical-trials",
+      ...trials.map((trial) => `/clinical-trials/${trial.nctId}`),
+      ...queries.map((query) => `/clinical-trials/${query.slug}`),
+      ...[...companies].map(
+        (company) => `/clinical-trials/company/${company}`,
+      ),
+      ...[...phases].map((phase) => `/clinical-trials/phase/${phase}`),
+      ...[...statuses].map((status) => `/clinical-trials/status/${status}`),
+      ...[...conditions].map(
+        (condition) => `/clinical-trials/condition/${condition}`,
+      ),
+    ];
+  } catch (error) {
+    console.warn(
+      `[indexnow] Could not read clinical-trial inventory: ${error?.message ?? error}`,
+    );
+    return ["/clinical-trials"];
+  }
+}
+
+const clinicalTrialPaths = readClinicalTrialPaths();
+
 // --- build full URL list -------------------------------------------------
 
 const allPaths = [
@@ -215,6 +272,7 @@ const allPaths = [
   ...hubPaths,
   ...comparisonPaths,
   ...vendorPaths,
+  ...clinicalTrialPaths,
 ];
 
 const urlList = [...new Set(allPaths.map((p) => `${SITE_URL}${p}`))];
@@ -362,6 +420,28 @@ function mapChangedFilesToUrls(files) {
 
     if (file === "components/ArticlePartnerCard.tsx") {
       addAll(urls, readArticlePaths());
+      continue;
+    }
+
+    if (
+      file.startsWith("app/clinical-trials/") ||
+      file.startsWith("components/ClinicalTrial") ||
+      file.startsWith("components/ClinicalPeptideTrials") ||
+      file.startsWith("lib/clinicalTrials") ||
+      file.startsWith("data/clinicalTrial") ||
+      file === "public/maps/natural-earth-110m.svg" ||
+      file === "scripts/sync-clinical-trials.mjs"
+    ) {
+      addAll(urls, clinicalTrialPaths);
+      continue;
+    }
+
+    if (
+      file.startsWith("app/lab-tests/") ||
+      file === "components/LabTestExplorer.tsx" ||
+      file === "lib/labTests.ts"
+    ) {
+      urls.add(fullUrl("/lab-tests"));
       continue;
     }
 

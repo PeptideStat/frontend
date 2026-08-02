@@ -33,6 +33,7 @@ import {
   getArticleRelatedPeptides,
 } from "@/lib/internalLinks";
 import { siteConfig } from "@/site.config";
+import { clinicalTrialQueries } from "@/lib/clinicalTrials";
 
 export const dynamicParams = false;
 
@@ -83,6 +84,15 @@ export default async function ArticlePage(
   const relatedPeptides = getArticleRelatedPeptides(article, 5);
   const relatedComparisons = getArticleRelatedComparisons(article, 3);
   const relatedHubs = getArticleRelatedCategoryHubs(article, 2);
+  const relatedTrialPeptides = relatedPeptides
+    .map((peptide) => ({
+      peptide,
+      query: clinicalTrialQueries.find(
+        (query) =>
+          query.slug === peptide.slug || query.databaseSlug === peptide.slug,
+      ),
+    }))
+    .filter((item) => item.query !== undefined);
   const crumbs = [
     { name: "Home", path: "/" },
     { name: "Research library", path: "/peptides" },
@@ -268,6 +278,29 @@ export default async function ArticlePage(
       </article>
 
       <section className="border-t border-line bg-surface">
+        {relatedTrialPeptides.length ? (
+          <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <div className="overflow-hidden rounded-xl bg-ink p-6 text-white sm:p-8">
+              <p className="font-mono text-[9px] font-bold uppercase tracking-[0.15em] text-lime">
+                Clinical-trial database
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.045em]">
+                Follow the registered studies.
+              </h2>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {relatedTrialPeptides.map(({ peptide, query }) => (
+                  <Link
+                    key={peptide.slug}
+                    href={`/clinical-trials/${query!.slug}`}
+                    className="border border-white/20 px-4 py-3 text-xs font-bold text-white/75 hover:border-lime hover:text-lime"
+                  >
+                    {peptide.name} trials →
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : null}
         <RelatedDatabaseEntries
           peptides={relatedPeptides}
           title="Continue in the database"

@@ -7,6 +7,8 @@
     "build": "next build",
     "postbuild": "node scripts/ping-indexnow.mjs",
     "ping-indexnow": "node scripts/ping-indexnow.mjs --force",
+    "generate:world-map": "node scripts/generate-natural-earth-map.mjs",
+    "sync:clinical-trials": "node scripts/sync-clinical-trials.mjs",
     "audit:ascension": "node scripts/audit-ascension-catalog.mjs --strict",
     "audit:ascension:config": "node scripts/audit-ascension-catalog.mjs --config-only",
     "audit:affiliate-markup": "node scripts/audit-affiliate-markup.mjs",

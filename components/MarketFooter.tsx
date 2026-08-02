@@ -11,6 +11,7 @@ const columns = [
       ["Compare prices", "/compare"],
       ["Vendor directory", "/vendors"],
       ["Vendor reviews", "/reviews"],
+      ["Lab tests & COAs", "/lab-tests"],
       ["US vendors", "/vendors/usa"],
       ["UAE & GCC vendors", "/vendors/uae"],
       ["Discount codes", "/deals"],
@@ -20,6 +21,7 @@ const columns = [
     heading: "Research",
     links: [
       ["All research guides", "/peptides"],
+      ["Clinical trials database", "/clinical-trials"],
       ["Peptide database", "/database"],
       ["BPC-157 guide", "/peptides/bpc-157"],
       ["Retatrutide guide", "/peptides/retatrutide"],
@@ -29,6 +31,7 @@ const columns = [
     heading: "Standards",
     links: [
       ["Market methodology", "/market-methodology"],
+      ["How to read a COA", "/peptides/peptide-coa-guide"],
       ["Transparency report", "/reports/peptide-vendor-transparency-2026"],
       ["Editorial policy", "/editorial-policy"],
       ["Affiliate disclosure", "/disclaimer"],

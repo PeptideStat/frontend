@@ -32,6 +32,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
 import { absoluteUrl, breadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import { getGuidesForPeptide } from "@/lib/internalLinks";
+import { clinicalTrialQueries } from "@/lib/clinicalTrials";
 import { externalLinkRel } from "@/lib/externalLinks";
 import { shopUrl } from "@/site.config";
 import {
@@ -178,6 +179,10 @@ export default async function PeptideDetailPage(
   const relatedGuides = getGuidesForPeptide(peptide, 4);
   const peptideCategoryHub = getPeptideCategoryHubByCategory(peptide.category);
   const guideHref = peptide.articleSlug ? `/peptides/${peptide.articleSlug}` : "/peptides";
+  const clinicalTrialQuery = clinicalTrialQueries.find(
+    (query) =>
+      query.slug === peptide.slug || query.databaseSlug === peptide.slug,
+  );
   const buyHref = hasAscensionProduct(peptide.slug)
     ? getAscensionBuyUrl(peptide.slug, `database_detail_${peptide.slug}`)
     : shopUrl;
@@ -258,6 +263,15 @@ export default async function PeptideDetailPage(
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
+                {clinicalTrialQuery ? (
+                  <Link
+                    href={`/clinical-trials/${clinicalTrialQuery.slug}`}
+                    className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent"
+                  >
+                    View clinical trials
+                    <ArrowRightIcon className="h-4 w-4" />
+                  </Link>
+                ) : null}
                 <Link
                   href={guideHref}
                   className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-line bg-surface px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent/50 hover:text-accent-bright"

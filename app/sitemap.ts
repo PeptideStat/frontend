@@ -9,6 +9,18 @@ import {
 import { partnerPrograms } from "@/data/partnerPrograms";
 import { getAllArticles } from "@/lib/content";
 import { marketplaceUpdatedAt } from "@/lib/marketReport";
+import {
+  clinicalTrialQueries,
+  clinicalTrialSnapshot,
+  clinicalTrials,
+  getTrialsForCompany,
+  industryCompanySlugs,
+} from "@/lib/clinicalTrials";
+import {
+  CLINICAL_TRIAL_CONDITIONS,
+  CLINICAL_TRIAL_PHASES,
+  CLINICAL_TRIAL_STATUSES,
+} from "@/lib/clinicalTrialsTypes";
 import { absoluteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -70,6 +82,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: dealsUpdatedAt,
       changeFrequency: "daily",
       priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/lab-tests"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/clinical-trials"),
+      lastModified: new Date(clinicalTrialSnapshot.generatedAt),
+      changeFrequency: "daily",
+      priority: 0.95,
     },
     {
       url: absoluteUrl("/reports"),
@@ -209,8 +233,78 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const clinicalTrialRoutes: MetadataRoute.Sitemap = clinicalTrials.map(
+    (trial) => ({
+      url: absoluteUrl(`/clinical-trials/${trial.nctId}`),
+      lastModified: new Date(
+        trial.dates.lastUpdated ?? clinicalTrialSnapshot.generatedAt,
+      ),
+      changeFrequency:
+        trial.status.group === "recruiting" || trial.status.group === "active"
+          ? ("weekly" as const)
+          : ("monthly" as const),
+      priority: 0.6,
+    }),
+  );
+
+  const clinicalPeptideRoutes: MetadataRoute.Sitemap = clinicalTrialQueries.map(
+    (query) => ({
+      url: absoluteUrl(`/clinical-trials/${query.slug}`),
+      lastModified: new Date(clinicalTrialSnapshot.generatedAt),
+      changeFrequency: "weekly" as const,
+      priority: 0.78,
+    }),
+  );
+
+  const clinicalCompanyRoutes: MetadataRoute.Sitemap = industryCompanySlugs.map(
+    (company) => {
+      const latest = getTrialsForCompany(company)
+        .map((trial) => trial.dates.lastUpdated)
+        .filter((date): date is string => Boolean(date))
+        .sort()
+        .at(-1);
+      return {
+        url: absoluteUrl(`/clinical-trials/company/${company}`),
+        lastModified: new Date(latest ?? clinicalTrialSnapshot.generatedAt),
+        changeFrequency: "weekly" as const,
+        priority: 0.68,
+      };
+    },
+  );
+
+  const clinicalPhaseRoutes: MetadataRoute.Sitemap = CLINICAL_TRIAL_PHASES.map(
+    (phase) => ({
+      url: absoluteUrl(`/clinical-trials/phase/${phase.value}`),
+      lastModified: new Date(clinicalTrialSnapshot.generatedAt),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }),
+  );
+
+  const clinicalStatusRoutes: MetadataRoute.Sitemap =
+    CLINICAL_TRIAL_STATUSES.map((status) => ({
+      url: absoluteUrl(`/clinical-trials/status/${status.value}`),
+      lastModified: new Date(clinicalTrialSnapshot.generatedAt),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }));
+
+  const clinicalConditionRoutes: MetadataRoute.Sitemap =
+    CLINICAL_TRIAL_CONDITIONS.map((condition) => ({
+      url: absoluteUrl(`/clinical-trials/condition/${condition.value}`),
+      lastModified: new Date(clinicalTrialSnapshot.generatedAt),
+      changeFrequency: "weekly" as const,
+      priority: 0.68,
+    }));
+
   return [
     ...staticRoutes,
+    ...clinicalTrialRoutes,
+    ...clinicalPeptideRoutes,
+    ...clinicalCompanyRoutes,
+    ...clinicalPhaseRoutes,
+    ...clinicalStatusRoutes,
+    ...clinicalConditionRoutes,
     ...comparisonRoutes,
     ...vendorRoutes,
     ...articleRoutes,

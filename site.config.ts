@@ -31,6 +31,8 @@ export const siteConfig = {
     { title: "Vendors", href: "/vendors" },
     { title: "Reviews", href: "/reviews" },
     { title: "Discount Codes", href: "/deals" },
+    { title: "Lab Tests", href: "/lab-tests" },
+    { title: "Clinical Trials", href: "/clinical-trials" },
     { title: "Calculators", href: "/calculators" },
     { title: "Database", href: "/database" },
     { title: "Research", href: "/peptides" },

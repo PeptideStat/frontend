@@ -11,6 +11,8 @@ const navigation = [
   { title: "Vendors", href: "/vendors" },
   { title: "Reviews", href: "/reviews" },
   { title: "Discount codes", href: "/deals" },
+  { title: "Lab tests", href: "/lab-tests" },
+  { title: "Clinical trials", href: "/clinical-trials" },
   { title: "Research", href: "/peptides" },
   { title: "Tools", href: "/calculators" },
 ];
@@ -45,7 +47,7 @@ export function MarketHeader() {
             <Logo className="h-8 w-auto sm:h-10" />
           </Link>
 
-          <nav className="hidden items-center gap-6 text-[12px] font-bold md:flex">
+          <nav className="hidden items-center gap-5 text-[11px] font-bold xl:flex">
             {navigation.map((item) => (
               <Link key={item.href} href={item.href} className="text-ink-soft transition-colors hover:text-accent">
                 {item.title}
@@ -56,7 +58,7 @@ export function MarketHeader() {
 
         <div className="flex items-center gap-2">
           <SearchTrigger items={items} />
-          <Link href="/deals" className="hidden h-10 items-center rounded-lg border border-line-strong px-3 text-xs font-bold text-ink hover:border-ink sm:inline-flex md:hidden">
+          <Link href="/deals" className="hidden h-10 items-center rounded-lg border border-line-strong px-3 text-xs font-bold text-ink hover:border-ink sm:inline-flex xl:hidden">
             Codes
           </Link>
           <Link href="/compare" className="inline-flex h-10 items-center rounded-lg bg-ink px-4 text-xs font-bold text-white transition-colors hover:bg-accent-dark">
