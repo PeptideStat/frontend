@@ -3,16 +3,20 @@ import Link from "next/link";
 import { CopyCodeButton } from "@/components/CopyCodeButton";
 import { JsonLd } from "@/components/JsonLd";
 import { VendorLogo } from "@/components/VendorLogo";
-import { ArrowRightIcon } from "@/components/icons";
+import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
 import {
   ascensionCouponCode,
   ascensionDiscountPercent,
   getAscensionShopUrl,
 } from "@/data/ascensionLinks";
-import { vendors } from "@/data/marketplace";
-import { partnerStatusLabels } from "@/data/partnerPrograms";
+import { vendorById } from "@/data/marketplace";
+import {
+  dealsOfferCatalogJsonLd,
+  vendorDeals,
+} from "@/lib/deals";
 import { marketplaceUpdatedAt } from "@/lib/marketReport";
 import {
+  absoluteUrl,
   breadcrumbJsonLd,
   buildMetadata,
   collectionPageJsonLd,
@@ -22,7 +26,17 @@ const title = "Verified Peptide Discount Codes (2026): Current Vendor Offers";
 const description =
   "Current PeptideStat partner codes, vendor offers and transparent coupon-status tracking for research-peptide listings.";
 
-export const metadata: Metadata = buildMetadata({ title, description, path: "/deals" });
+const path = "/deals";
+
+export const metadata: Metadata = {
+  ...buildMetadata({ title, description, path }),
+  alternates: {
+    canonical: absoluteUrl(path),
+    types: {
+      "application/json": absoluteUrl("/deals/data"),
+    },
+  },
+};
 
 const partnerUrl = getAscensionShopUrl("deals_primary");
 
@@ -33,14 +47,17 @@ export default function DealsPage() {
         data={collectionPageJsonLd({
           name: title,
           description,
-          path: "/deals",
+          path,
           dateModified: marketplaceUpdatedAt,
-          items: vendors.map((vendor) => ({
-            name: `${vendor.name} discount code status`,
-            path: `/vendors/${vendor.id}`,
+          items: vendorDeals.map((deal) => ({
+            name: deal.code
+              ? `${deal.vendorName}: ${deal.discountPercent}% off with code ${deal.code}`
+              : `${deal.vendorName}: ${deal.statusLabel}`,
+            path: `/vendors/${deal.vendorId}`,
           })),
         })}
       />
+      <JsonLd data={dealsOfferCatalogJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
@@ -108,27 +125,138 @@ export default function DealsPage() {
           </div>
 
           <div className="mt-12">
-            <div className="mb-6 flex items-end justify-between gap-4">
+            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-[10px] font-black uppercase tracking-[0.16em] text-accent">Code watchlist</p>
                 <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-ink">Every tracked vendor, including the blanks.</h2>
               </div>
-              <Link href="/vendors" className="hidden text-xs font-bold text-ink hover:text-accent sm:block">Vendor details →</Link>
+              <div className="flex flex-wrap items-center gap-4 text-xs font-bold">
+                <Link href="/vendors" className="text-ink hover:text-accent">Vendor details →</Link>
+                <a
+                  href="/deals/data"
+                  type="application/json"
+                  rel="alternate"
+                  className="inline-flex items-center gap-1.5 text-ink hover:text-accent"
+                >
+                  JSON data
+                  <ExternalLinkIcon className="h-3.5 w-3.5" aria-hidden />
+                </a>
+              </div>
             </div>
-            <div className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
-              {vendors.map((vendor) => (
-                <article key={vendor.id} className="rounded-xl border border-line bg-paper p-5">
-                  <div className="flex items-center justify-between gap-3">
-                    <VendorLogo vendor={vendor} size="sm" />
-                    <span className={`text-[9px] font-black uppercase tracking-[0.1em] ${vendor.code || vendor.partnerStatus === "active" ? "text-accent-dark" : "text-muted-soft"}`}>{vendor.code ? "Code active" : vendor.partnerStatus === "active" ? "Referral active" : vendor.partnerStatus === "pending" ? "Pending" : "Watching"}</span>
-                  </div>
-                  <h3 className="mt-8 text-base font-bold text-ink">{vendor.name}</h3>
-                  <div className="mt-4 border-t border-line pt-4">
-                    {vendor.code ? <CopyCodeButton code={vendor.code} compact /> : <span className="text-[10px] text-muted">{partnerStatusLabels[vendor.partnerStatus]}</span>}
-                  </div>
-                  <Link href={`/vendors/${vendor.id}`} className="mt-4 inline-flex text-[10px] font-bold text-ink hover:text-accent">Open vendor profile →</Link>
-                </article>
-              ))}
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {vendorDeals.map((deal) => {
+                const vendor = vendorById.get(deal.vendorId);
+                if (!vendor) return null;
+
+                const badgeLabel =
+                  deal.status === "code-active"
+                    ? "Code active"
+                    : deal.status === "referral-active"
+                      ? "Referral active"
+                      : deal.status === "pending"
+                        ? "Pending"
+                        : "Watching";
+                const isActive =
+                  deal.status === "code-active" ||
+                  deal.status === "referral-active";
+
+                return (
+                  <article
+                    key={deal.vendorId}
+                    data-vendor-id={deal.vendorId}
+                    data-discount-status={deal.status}
+                    data-discount-code={deal.code ?? undefined}
+                    data-discount-percent={deal.discountPercent ?? undefined}
+                    data-checked-at={deal.lastCheckedAt}
+                    className="flex h-full flex-col rounded-xl border border-line bg-paper p-5"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <VendorLogo vendor={vendor} size="sm" />
+                      <span
+                        className={`text-[9px] font-black uppercase tracking-[0.1em] ${
+                          isActive ? "text-accent-dark" : "text-muted-soft"
+                        }`}
+                      >
+                        {badgeLabel}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-6 text-lg font-bold text-ink">
+                      {deal.vendorName}
+                    </h3>
+
+                    <dl className="mt-4 divide-y divide-line border-y border-line">
+                      <div className="grid gap-1.5 py-3 sm:grid-cols-[100px_minmax(0,1fr)] sm:items-center">
+                        <dt className="text-[9px] font-black uppercase tracking-[0.1em] text-muted-soft">
+                          Status
+                        </dt>
+                        <dd className="text-xs font-semibold text-ink-soft sm:text-right">
+                          {deal.statusLabel}
+                        </dd>
+                      </div>
+                      <div className="grid gap-1.5 py-3 sm:grid-cols-[100px_minmax(0,1fr)] sm:items-center">
+                        <dt className="text-[9px] font-black uppercase tracking-[0.1em] text-muted-soft">
+                          Discount code
+                        </dt>
+                        <dd className="sm:justify-self-end">
+                          {deal.code ? (
+                            <CopyCodeButton code={deal.code} compact />
+                          ) : (
+                            <span className="text-xs font-semibold text-muted">
+                              None published
+                            </span>
+                          )}
+                        </dd>
+                      </div>
+                      <div className="grid gap-1.5 py-3 sm:grid-cols-[100px_minmax(0,1fr)] sm:items-center">
+                        <dt className="text-[9px] font-black uppercase tracking-[0.1em] text-muted-soft">
+                          Discount
+                        </dt>
+                        <dd className="font-mono text-xs font-bold text-ink sm:text-right">
+                          {deal.discountPercent === null
+                            ? "No public discount"
+                            : `${deal.discountPercent}% off`}
+                        </dd>
+                      </div>
+                      <div className="grid gap-1.5 py-3 sm:grid-cols-[100px_minmax(0,1fr)] sm:items-center">
+                        <dt className="text-[9px] font-black uppercase tracking-[0.1em] text-muted-soft">
+                          Last checked
+                        </dt>
+                        <dd className="font-mono text-xs text-ink-soft sm:text-right">
+                          <time dateTime={deal.lastCheckedAt}>{deal.lastCheckedAt}</time>
+                        </dd>
+                      </div>
+                      <div className="grid gap-1.5 py-3 sm:grid-cols-[100px_minmax(0,1fr)] sm:items-center">
+                        <dt className="text-[9px] font-black uppercase tracking-[0.1em] text-muted-soft">
+                          Offer URL
+                        </dt>
+                        <dd className="sm:justify-self-end">
+                          <a
+                            href={deal.offerUrl}
+                            target="_blank"
+                            rel={
+                              deal.affiliate
+                                ? "sponsored nofollow noreferrer"
+                                : "noopener noreferrer"
+                            }
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-ink hover:text-accent"
+                          >
+                            {deal.code ? "Open offer" : "Open vendor"}
+                            <ExternalLinkIcon className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                          </a>
+                        </dd>
+                      </div>
+                    </dl>
+
+                    <Link
+                      href={`/vendors/${deal.vendorId}`}
+                      className="mt-4 inline-flex text-[10px] font-bold text-ink hover:text-accent"
+                    >
+                      Open vendor profile →
+                    </Link>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </div>
