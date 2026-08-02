@@ -23,7 +23,7 @@ export function CopyCodeButton({
       type="button"
       onClick={copyCode}
       aria-label={`Copy discount code ${code}`}
-      className={`group inline-flex overflow-hidden rounded-lg border-2 border-dashed border-ink/35 bg-paper text-ink shadow-[0_2px_0_rgba(17,23,19,0.12)] transition-[border-color,transform,box-shadow] hover:-translate-y-0.5 hover:border-ink hover:shadow-[0_4px_0_rgba(17,23,19,0.14)] active:translate-y-0 active:shadow-none ${
+      className={`group inline-flex shrink-0 whitespace-nowrap overflow-hidden rounded-lg border-2 border-dashed border-ink/35 bg-paper text-ink shadow-[0_2px_0_rgba(17,23,19,0.12)] transition-[border-color,transform,box-shadow] hover:-translate-y-0.5 hover:border-ink hover:shadow-[0_4px_0_rgba(17,23,19,0.14)] active:translate-y-0 active:shadow-none ${
         compact ? "min-h-8" : "min-h-11"
       }`}
     >
@@ -43,9 +43,9 @@ export function CopyCodeButton({
         } ${compact ? "px-2.5 text-[9px]" : "px-3.5 text-[10px]"}`}
       >
         {copied ? (
-          <CheckIcon className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} />
+          <CheckIcon className={compact ? "h-3.5 w-3.5 shrink-0" : "h-4 w-4 shrink-0"} />
         ) : (
-          <CopyIcon className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} />
+          <CopyIcon className={compact ? "h-3.5 w-3.5 shrink-0" : "h-4 w-4 shrink-0"} />
         )}
         <span>{copied ? "Copied" : "Copy"}</span>
       </span>

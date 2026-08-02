@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { VendorLogo } from "@/components/VendorLogo";
 import { CopyCodeButton } from "@/components/CopyCodeButton";
+import { ExternalLinkIcon } from "@/components/icons";
 import {
   compoundBySlug,
   compoundOptions,
@@ -92,22 +93,26 @@ export function ComparisonExplorer({
               <p className="mt-1 text-sm font-bold text-ink">{activeCompound?.name}</p>
             </div>
           ) : (
-            <div className="flex gap-2 overflow-x-auto pb-1" aria-label="Choose a compound">
-              {compoundOptions.map((option) => (
-                <button
-                  key={option.slug}
-                  type="button"
-                  onClick={() => setCompound(option.slug)}
-                  aria-pressed={compound === option.slug}
-                  className={`shrink-0 rounded-full border px-3.5 py-2 text-xs font-bold transition-colors ${
-                    compound === option.slug
-                      ? "border-ink bg-ink text-white"
-                      : "border-line-strong bg-paper text-ink-soft hover:border-ink"
-                  }`}
+            <div className="flex min-w-0 flex-1 flex-wrap items-end gap-3">
+              <label className="block w-full sm:w-auto">
+                <span className="mb-1.5 block text-[9px] font-black uppercase tracking-[0.14em] text-muted-soft">
+                  Compound
+                </span>
+                <select
+                  value={compound}
+                  onChange={(event) => setCompound(event.target.value)}
+                  className="min-h-10 w-full rounded-lg border border-line-strong bg-paper px-3 text-sm font-bold text-ink outline-none transition-colors hover:border-ink focus:border-accent sm:w-[280px]"
                 >
-                  {option.name}
-                </button>
-              ))}
+                  {compoundOptions.map((option) => (
+                    <option key={option.slug} value={option.slug}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <p className="pb-2 text-[9px] font-bold uppercase tracking-[0.12em] text-muted-soft">
+                {compoundOptions.length} tracked compounds
+              </p>
             </div>
           )}
 
@@ -150,7 +155,18 @@ export function ComparisonExplorer({
             </tr>
           </thead>
           <tbody>
-            {listings.map((listing, index) => {
+            {listings.length === 0 ? (
+              <tr>
+                <td colSpan={8} className="bg-paper px-6 py-14 text-center">
+                  <p className="text-sm font-bold text-ink">
+                    No current {activeMarket?.shortLabel} listings tracked for {activeCompound?.name}.
+                  </p>
+                  <p className="mt-2 text-xs text-muted">
+                    Switch markets or choose another compound while this catalog is expanded.
+                  </p>
+                </td>
+              </tr>
+            ) : listings.map((listing, index) => {
               const vendor = vendorById.get(listing.vendorId);
               const evidence = getListingEvidence(listing);
               if (!vendor || !evidence) return null;
@@ -255,16 +271,17 @@ export function ComparisonExplorer({
                       href={evidence.sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`mt-2 block text-[9px] font-bold ${
+                      className={`mt-2 inline-flex items-center gap-1 whitespace-nowrap text-[9px] font-bold ${
                         isSourceReady
                           ? "text-ink hover:text-accent"
                           : "text-orange-700"
                       }`}
                     >
-                      {priceSourceStatusLabels[evidence.priceSourceStatus]} ↗
+                      <span>{priceSourceStatusLabels[evidence.priceSourceStatus]}</span>
+                      <ExternalLinkIcon className="h-3 w-3 shrink-0" aria-hidden />
                     </a>
                   </td>
-                  <td className="px-5 py-4 text-right">
+                  <td className="whitespace-nowrap px-5 py-4 text-right">
                     <a
                       href={listing.href}
                       target="_blank"
@@ -279,17 +296,20 @@ export function ComparisonExplorer({
                       data-affiliate-product={
                         vendor.partner ? listing.compoundSlug : undefined
                       }
-                      className={`inline-flex min-h-10 items-center justify-center rounded-lg px-4 text-xs font-bold transition-colors ${
+                      className={`inline-flex min-h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-4 text-xs font-bold transition-colors ${
                         vendor.partner
                           ? "bg-ink text-white hover:bg-accent-dark"
                           : "border border-line-strong text-ink hover:border-ink"
                       }`}
                     >
-                      {vendor.code
-                        ? "Use code ↗"
-                        : vendor.partner
-                          ? "Visit partner ↗"
-                          : "View listing ↗"}
+                      <span>
+                        {vendor.code
+                          ? "Use code"
+                          : vendor.partner
+                            ? "Visit partner"
+                            : "View listing"}
+                      </span>
+                      <ExternalLinkIcon className="h-3.5 w-3.5 shrink-0" aria-hidden />
                     </a>
                   </td>
                 </tr>

@@ -10,6 +10,10 @@ import {
   type PartnerStatus,
   type VendorId,
 } from "@/data/partnerPrograms";
+import {
+  expandedCompoundProfiles,
+  expandedMarketListings,
+} from "@/data/marketplaceExpanded";
 
 export interface Vendor {
   id: VendorId;
@@ -240,7 +244,7 @@ export const vendors: readonly Vendor[] = [
   },
 ] as const;
 
-export const marketListings: readonly MarketListing[] = [
+const baselineMarketListings: readonly MarketListing[] = [
   {
     id: "bpc-ascension-10",
     compound: "BPC-157",
@@ -570,7 +574,12 @@ export const marketListings: readonly MarketListing[] = [
   },
 ] as const;
 
-export const listingEvidence: Readonly<Record<string, ListingEvidence>> = {
+export const marketListings: readonly MarketListing[] = [
+  ...baselineMarketListings,
+  ...expandedMarketListings,
+];
+
+const curatedListingEvidence: Readonly<Record<string, ListingEvidence>> = {
   "bpc-ascension-10": {
     listingId: "bpc-ascension-10",
     sourceUrl: "https://ascensionpeptides.com/product/bpc-157-10mg/",
@@ -732,6 +741,71 @@ export const listingEvidence: Readonly<Record<string, ListingEvidence>> = {
     documentStatus: "linked-batch-report",
     sourceNote: "AED single-vial price, batch identifier and report date are visible on the product page.",
   },
+};
+
+const expandedEvidenceDefaults: Readonly<
+  Record<
+    VendorId,
+    Pick<ListingEvidence, "documentStatus" | "sourceNote">
+  >
+> = {
+  ascension: {
+    documentStatus: "product-page-coa",
+    sourceNote:
+      "Current single-vial price and product-level certificate area were checked on the direct product page.",
+  },
+  ion: {
+    documentStatus: "product-page-coa",
+    sourceNote:
+      "Current single-vial price and product-level testing area were checked on the direct product page.",
+  },
+  ez: {
+    documentStatus: "library-only",
+    sourceNote:
+      "Current single-vial price was checked on the direct product page; documentation remains library-level.",
+  },
+  glacier: {
+    documentStatus: "product-page-coa",
+    sourceNote:
+      "Current single-vial price was checked on the direct product page; report matching remains product-level.",
+  },
+  nura: {
+    documentStatus: "library-only",
+    sourceNote:
+      "Current single-vial price was checked on the direct product page; the vendor links a separate COA library.",
+  },
+  nova: {
+    documentStatus: "linked-batch-report",
+    sourceNote:
+      "AED single-vial price, current batch identifier and linked laboratory report are visible on the direct product page.",
+  },
+};
+
+const removeTrackingParameters = (href: string) =>
+  href
+    .replace(/ref\/PEPTIDESDEFINED\/?/, "")
+    .replace(/[?].*$/, "");
+
+const expandedListingEvidence = Object.fromEntries(
+  expandedMarketListings.map((listing) => {
+    const defaults = expandedEvidenceDefaults[listing.vendorId];
+
+    return [
+      listing.id,
+      {
+        listingId: listing.id,
+        sourceUrl: removeTrackingParameters(listing.href),
+        priceSourceStatus: "direct-product-page",
+        documentStatus: defaults.documentStatus,
+        sourceNote: defaults.sourceNote,
+      } satisfies ListingEvidence,
+    ];
+  }),
+) as Record<string, ListingEvidence>;
+
+export const listingEvidence: Readonly<Record<string, ListingEvidence>> = {
+  ...curatedListingEvidence,
+  ...expandedListingEvidence,
 };
 
 export const coaRecords: readonly CoaRecord[] = [
@@ -961,7 +1035,7 @@ export const coaRecords: readonly CoaRecord[] = [
   },
 ] as const;
 
-export const compoundProfiles: readonly CompoundProfile[] = [
+const baselineCompoundProfiles: readonly CompoundProfile[] = [
   {
     slug: "bpc-157",
     name: "BPC-157",
@@ -993,6 +1067,11 @@ export const compoundProfiles: readonly CompoundProfile[] = [
     researchHref: "/database/cjc-1295",
   },
 ] as const;
+
+export const compoundProfiles: readonly CompoundProfile[] = [
+  ...baselineCompoundProfiles,
+  ...expandedCompoundProfiles,
+];
 
 export const vendorById = new Map(vendors.map((vendor) => [vendor.id, vendor]));
 

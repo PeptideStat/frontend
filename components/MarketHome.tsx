@@ -6,14 +6,34 @@ import { LatestResearch } from "@/components/LatestResearch";
 import { VendorLogo } from "@/components/VendorLogo";
 import { ArrowRightIcon } from "@/components/icons";
 import { ascensionCouponCode, ascensionDiscountPercent } from "@/data/ascensionLinks";
-import { compoundOptions, marketListings, vendors } from "@/data/marketplace";
+import {
+  compoundOptions,
+  marketListings,
+  vendorById,
+  vendors,
+} from "@/data/marketplace";
 import { getAllArticles } from "@/lib/content";
 
-const marketSignals = [
-  { compound: "BPC-157", note: "4 US + 1 UAE listing", movement: "2 markets" },
-  { compound: "GHK-Cu", note: "5 US + 1 UAE listing", movement: "2 markets" },
-  { compound: "Retatrutide", note: "3 US + 1 UAE listing", movement: "2 markets" },
-];
+const highlightedCompoundSlugs = new Set(["bpc-157", "ghk-cu", "retatrutide"]);
+
+const marketSignals = compoundOptions
+  .filter(({ slug }) => highlightedCompoundSlugs.has(slug))
+  .map(({ name, slug }) => {
+    const listings = marketListings.filter(
+      (listing) => listing.compoundSlug === slug,
+    );
+
+    return {
+      compound: name,
+      slug,
+      usListings: listings.filter(
+        (listing) => vendorById.get(listing.vendorId)?.market === "us",
+      ).length,
+      uaeListings: listings.filter(
+        (listing) => vendorById.get(listing.vendorId)?.market === "uae-gcc",
+      ).length,
+    };
+  });
 
 export function MarketHome() {
   const guideCount = getAllArticles().length;
@@ -67,56 +87,136 @@ export function MarketHome() {
             </p>
           </div>
 
-          <aside className="rounded-2xl border border-white/15 bg-white/[0.055] p-3 backdrop-blur-sm">
-            <div className="flex items-center justify-between px-3 py-2 text-[9px] font-bold uppercase tracking-[0.16em] text-white/45">
-              <span>Market snapshot</span>
-              <span className="font-mono">02 AUG 2026</span>
-            </div>
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-[#101b17]">
-              {marketSignals.map((signal, index) => (
-                <div
-                  key={signal.compound}
-                  className="grid grid-cols-[34px_1fr_auto] items-center gap-3 border-b border-white/10 px-4 py-5 last:border-b-0"
-                >
-                  <span className="font-mono text-[10px] text-white/30">0{index + 1}</span>
-                  <span>
-                    <strong className="block text-sm text-white">{signal.compound}</strong>
-                    <span className="mt-1 block text-[10px] text-white/40">{signal.note}</span>
+          <aside className="relative isolate">
+            <div
+              aria-hidden
+              className="absolute -inset-5 -z-10 rounded-[2rem] bg-lime/10 blur-3xl"
+            />
+            <div className="overflow-hidden rounded-[1.65rem] border border-white/20 bg-[#0d1713] shadow-[0_36px_90px_-34px_rgba(0,0,0,0.95)]">
+              <div className="h-1 bg-lime" />
+              <div className="relative overflow-hidden border-b border-white/10 px-5 pb-5 pt-4">
+                <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.12]" />
+                <div className="relative flex items-center justify-between gap-4 text-[9px] font-bold uppercase tracking-[0.16em]">
+                  <span className="inline-flex items-center gap-2 text-lime">
+                    <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_0_4px_rgba(217,243,106,.12)]" />
+                    Market snapshot
                   </span>
-                  <span className="font-mono text-xs font-bold text-lime">{signal.movement}</span>
-                </div>
-              ))}
-            </div>
-            <div className="m-3 mt-4 overflow-hidden rounded-xl bg-lime p-5 text-ink">
-              <div className="grid grid-cols-[minmax(0,1fr)_112px] items-center gap-3">
-                <div className="self-start">
-                  <span className="inline-flex rounded-full border border-ink/15 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.1em]">
-                    Sponsored
+                  <span className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5 font-mono text-white/45">
+                    02 AUG 2026
                   </span>
-                  <p className="mt-4 text-[9px] font-black uppercase tracking-[0.16em] text-ink/55">
-                    Current partner code
-                  </p>
-                  <p className="mt-2 text-2xl font-semibold tracking-[-0.035em]">
-                    Save {ascensionDiscountPercent}% at Ascension
-                  </p>
-                  <p className="mt-2 font-mono text-[9px] font-bold uppercase tracking-[0.1em] text-ink/45">
-                    Featured · R-10 10mg
-                  </p>
                 </div>
-                <div className="relative flex h-32 w-28 items-center justify-center self-end rounded-full bg-white/25">
-                  <Image
-                    src="/images/partners/ascension/r-10.webp"
-                    alt="Ascension Peptides R-10 research vial"
-                    width={150}
-                    height={150}
-                    sizes="112px"
-                    className="h-32 w-32 max-w-none object-contain drop-shadow-[0_16px_16px_rgba(16,27,23,0.22)]"
-                  />
+
+                <div className="relative mt-6 flex items-end justify-between gap-5">
+                  <div>
+                    <p className="text-[9px] font-black uppercase tracking-[0.15em] text-white/35">
+                      Full market ledger
+                    </p>
+                    <p className="mt-2 text-5xl font-semibold leading-none tracking-[-0.06em] text-white">
+                      {marketListings.length}
+                    </p>
+                    <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.12em] text-lime">
+                      tracked listings
+                    </p>
+                  </div>
+                  <dl className="grid grid-cols-2 overflow-hidden rounded-xl border border-white/10 bg-black/15">
+                    <div className="border-r border-white/10 px-3 py-3">
+                      <dt className="text-[8px] font-bold uppercase tracking-[0.12em] text-white/35">
+                        Vendors
+                      </dt>
+                      <dd className="mt-1 font-mono text-xl font-bold text-white">
+                        {String(vendors.length).padStart(2, "0")}
+                      </dd>
+                    </div>
+                    <div className="px-3 py-3">
+                      <dt className="text-[8px] font-bold uppercase tracking-[0.12em] text-white/35">
+                        Markets
+                      </dt>
+                      <dd className="mt-1 font-mono text-xl font-bold text-white">02</dd>
+                    </div>
+                  </dl>
                 </div>
               </div>
-              <div className="mt-5 flex items-center justify-between gap-3 border-t border-ink/15 pt-4">
-                <span className="font-mono text-[10px] text-ink/55">Verify at checkout</span>
-                <CopyCodeButton code={ascensionCouponCode} compact />
+
+              <div className="space-y-1 bg-white/[0.018] p-3">
+                <div className="flex items-center justify-between px-3 pb-1 pt-1 text-[8px] font-bold uppercase tracking-[0.14em] text-white/30">
+                  <span>Highlighted compounds</span>
+                  <span>US / UAE split</span>
+                </div>
+                {marketSignals.map((signal, index) => {
+                  const totalListings = signal.usListings + signal.uaeListings;
+
+                  return (
+                    <Link
+                      key={signal.compound}
+                      href={`/compare?compound=${signal.slug}`}
+                      className="group grid grid-cols-[36px_minmax(0,1fr)_auto] items-center gap-3 rounded-xl px-3 py-3.5 transition-colors hover:bg-white/[0.055]"
+                    >
+                      <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.035] font-mono text-[10px] text-white/35 transition-colors group-hover:border-lime/40 group-hover:text-lime">
+                        0{index + 1}
+                      </span>
+                      <span className="min-w-0">
+                        <strong className="block text-sm font-semibold text-white">
+                          {signal.compound}
+                        </strong>
+                        <span className="mt-2 flex h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
+                          <span
+                            className="bg-lime"
+                            style={{ flex: signal.usListings }}
+                          />
+                          <span
+                            className="bg-white/30"
+                            style={{ flex: signal.uaeListings }}
+                          />
+                        </span>
+                        <span className="mt-2 flex items-center gap-3 text-[9px] font-bold uppercase tracking-[0.08em] text-white/35">
+                          <span>US {signal.usListings}</span>
+                          <span>UAE {signal.uaeListings}</span>
+                        </span>
+                      </span>
+                      <span className="text-right">
+                        <strong className="block font-mono text-2xl leading-none text-lime">
+                          {String(totalListings).padStart(2, "0")}
+                        </strong>
+                        <span className="mt-1 block text-[8px] font-bold uppercase tracking-[0.12em] text-white/30">
+                          listings
+                        </span>
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              <div className="mx-3 mb-3 mt-2 overflow-hidden rounded-xl border border-white/35 bg-lime p-5 text-ink shadow-[0_20px_45px_-28px_rgba(217,243,106,0.9)]">
+                <div className="grid grid-cols-[minmax(0,1fr)_112px] items-center gap-3">
+                  <div className="self-start">
+                    <span className="inline-flex rounded-full border border-ink/15 px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.1em]">
+                      Sponsored
+                    </span>
+                    <p className="mt-4 text-[9px] font-black uppercase tracking-[0.16em] text-ink/55">
+                      Current partner code
+                    </p>
+                    <p className="mt-2 text-2xl font-semibold tracking-[-0.035em]">
+                      Save {ascensionDiscountPercent}% at Ascension
+                    </p>
+                    <p className="mt-2 font-mono text-[9px] font-bold uppercase tracking-[0.1em] text-ink/45">
+                      Featured · R-10 10mg
+                    </p>
+                  </div>
+                  <div className="relative flex h-32 w-28 items-center justify-center self-end rounded-full bg-white/25">
+                    <Image
+                      src="/images/partners/ascension/r-10.webp"
+                      alt="Ascension Peptides R-10 research vial"
+                      width={150}
+                      height={150}
+                      sizes="112px"
+                      className="h-32 w-32 max-w-none object-contain drop-shadow-[0_16px_16px_rgba(16,27,23,0.22)]"
+                    />
+                  </div>
+                </div>
+                <div className="mt-5 flex items-center justify-between gap-3 border-t border-ink/15 pt-4">
+                  <span className="font-mono text-[10px] text-ink/55">Verify at checkout</span>
+                  <CopyCodeButton code={ascensionCouponCode} compact />
+                </div>
               </div>
             </div>
           </aside>
