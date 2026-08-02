@@ -229,6 +229,7 @@ export const vendors: readonly Vendor[] = [
     testingNote:
       "Vendor publishes batch identifiers, test dates and product-linked third-party reports.",
     code: partnerPrograms.nova.code,
+    discountPercent: partnerPrograms.nova.discountPercent,
     partner: true,
     partnerStatus: partnerPrograms.nova.status,
     market: "uae-gcc",

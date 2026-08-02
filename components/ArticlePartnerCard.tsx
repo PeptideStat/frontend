@@ -15,7 +15,11 @@ import {
   hasAscensionProduct,
 } from "@/data/ascensionLinks";
 import { vendorById } from "@/data/marketplace";
-import { novaCouponCode, novaReferralUrl } from "@/data/novaLinks";
+import {
+  novaCouponCode,
+  novaDiscountPercent,
+  novaReferralUrl,
+} from "@/data/novaLinks";
 import { peptides, STATUS_LABELS, type Peptide } from "@/data/peptides";
 import { externalLinkRel } from "@/lib/externalLinks";
 
@@ -189,7 +193,7 @@ function NovaArticlePartnerCard() {
             <CopyCodeButton code={novaCouponCode} compact />
           </div>
           <span className="mt-2 block text-[9px] leading-4 text-muted-soft">
-            Discount amount and exclusions were not specified. Verify at checkout.
+            Save {novaDiscountPercent}%. Verify eligibility and exclusions at checkout.
           </span>
         </div>
 
@@ -214,7 +218,7 @@ function NovaArticlePartnerCard() {
 
         <p className="mt-4 text-[9px] leading-4 text-muted-soft">
           Research use only. We may earn a commission from this link. The
-          vendor supplied the code; verify the saving and final cart total.
+          vendor supplied the code; verify eligibility and the final cart total.
         </p>
       </div>
     </aside>

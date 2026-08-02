@@ -3,7 +3,11 @@ import {
   ascensionDiscountPercent,
   getAscensionShopUrl,
 } from "@/data/ascensionLinks";
-import { novaCouponCode, novaReferralUrl } from "@/data/novaLinks";
+import {
+  novaCouponCode,
+  novaDiscountPercent,
+  novaReferralUrl,
+} from "@/data/novaLinks";
 
 export type VendorId =
   | "ascension"
@@ -67,9 +71,10 @@ export const partnerPrograms: Readonly<Record<VendorId, PartnerProgram>> = {
     vendorId: "nova",
     status: "active",
     code: novaCouponCode,
+    discountPercent: novaDiscountPercent,
     landingUrl: novaReferralUrl,
     verifiedAt: "2026-08-03",
-    note: "Vendor-provided PeptideStat coupon code with a tracked referral link. The discount amount and exclusions were not specified; verify the final saving at checkout.",
+    note: "Vendor-provided PeptideStat coupon code for 10% off with a tracked referral link. Verify eligibility, exclusions and the final saving at checkout.",
   },
 };
 
