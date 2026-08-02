@@ -48,16 +48,16 @@ export default function ReviewsPage() {
         ])}
       />
 
-      <section className="border-b border-line bg-lime text-ink">
+      <section className="border-b border-white/10 bg-ink text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-ink/50">
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-lime">
             Editorial vendor audits
           </p>
           <h1 className="mt-5 max-w-5xl text-[clamp(3.1rem,7vw,6.6rem)] font-semibold leading-[0.9] tracking-[-0.065em]">
             Peptide vendor reviews.
-            <span className="block text-ink/55">Evidence before star scores.</span>
+            <span className="block text-lime">Evidence before star scores.</span>
           </h1>
-          <p className="mt-7 max-w-3xl text-sm leading-7 text-ink/65 sm:text-base">
+          <p className="mt-7 max-w-3xl text-sm leading-7 text-white/60 sm:text-base">
             Reviews separate current prices, vendor-hosted documents, exact
             batch records and affiliate relationships. A favorable paper trail
             is not a product test or human-use recommendation.

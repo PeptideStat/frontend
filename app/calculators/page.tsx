@@ -126,36 +126,36 @@ export default function CalculatorsPage() {
       <JsonLd data={webApplicationJsonLd({ name: title, description, path })} />
       <JsonLd data={faqPageJsonLd(RECONSTITUTION_FAQS)} />
 
-      <section className="border-b border-line bg-canvas">
+      <section className="border-b border-white/10 bg-ink text-white">
         <div className="mx-auto max-w-6xl px-5 py-16">
-          <Breadcrumbs crumbs={crumbs} className="mb-6" />
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+          <Breadcrumbs crumbs={crumbs} className="mb-6" inverse />
+          <p className="text-xs font-semibold uppercase tracking-wider text-lime">
             Tools
           </p>
-          <h1 className="mt-3 max-w-2xl text-balance text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+          <h1 className="mt-3 max-w-2xl text-balance text-4xl font-bold tracking-tight sm:text-5xl">
             {title}
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">
             {description}
           </p>
           <div className="mt-6 flex flex-wrap gap-4">
             <Link
               href="/peptides/peptide-reconstitution-guide"
-              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
+              className="inline-flex items-center gap-1 text-sm font-medium text-lime hover:text-white"
             >
               Reconstitution guide
               <ArrowRightIcon className="h-3.5 w-3.5" />
             </Link>
             <Link
               href="/peptides/bacteriostatic-water-guide"
-              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
+              className="inline-flex items-center gap-1 text-sm font-medium text-lime hover:text-white"
             >
               Bacteriostatic water guide
               <ArrowRightIcon className="h-3.5 w-3.5" />
             </Link>
             <Link
               href="/peptides/peptide-storage-guide"
-              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-accent-bright"
+              className="inline-flex items-center gap-1 text-sm font-medium text-lime hover:text-white"
             >
               Peptide storage guide
               <ArrowRightIcon className="h-3.5 w-3.5" />

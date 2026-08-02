@@ -39,13 +39,13 @@ export default function VendorsPage() {
           { name: "Research peptide vendors", path: "/vendors" },
         ])}
       />
-      <section className="border-b border-line bg-surface-2">
+      <section className="border-b border-white/10 bg-ink text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-accent">Vendor directory</p>
-          <h1 className="mt-5 max-w-5xl text-[clamp(3.2rem,7vw,6.6rem)] font-semibold leading-[0.9] tracking-[-0.065em] text-ink">
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-lime">Vendor directory</p>
+          <h1 className="mt-5 max-w-5xl text-[clamp(3.2rem,7vw,6.6rem)] font-semibold leading-[0.9] tracking-[-0.065em]">
             Legit research peptide vendors.
           </h1>
-          <p className="mt-7 max-w-2xl text-sm leading-7 text-muted sm:text-base">
+          <p className="mt-7 max-w-2xl text-sm leading-7 text-white/60 sm:text-base">
             PeptideStat tracks commercial listings and the documentation vendors publish.
             We do not equate a posted certificate with independent product verification.
           </p>

@@ -47,13 +47,14 @@ export default function DealsPage() {
           { name: "Peptide discount codes", path: "/deals" },
         ])}
       />
-      <section className="border-b border-line bg-lime text-ink">
+      <section className="border-b border-white/10 bg-ink text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-ink/50">Discount desk · checked 02 Aug 2026</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-lime">Discount desk · checked 02 Aug 2026</p>
           <h1 className="mt-5 max-w-5xl text-[clamp(3.2rem,7vw,6.8rem)] font-semibold leading-[0.9] tracking-[-0.065em]">
-            Verified peptide discount codes.<br />Nothing padded.
+            Verified peptide discount codes.
+            <span className="block text-lime">Nothing padded.</span>
           </h1>
-          <p className="mt-7 max-w-xl text-sm leading-7 text-ink/65 sm:text-base">
+          <p className="mt-7 max-w-xl text-sm leading-7 text-white/60 sm:text-base">
             We list only codes tied to PeptideStat or clearly identified public offers.
             If we do not have a code for a vendor, we show the application state instead.
           </p>
