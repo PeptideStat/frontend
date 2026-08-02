@@ -10,8 +10,10 @@ const columns = [
     links: [
       ["Compare prices", "/compare"],
       ["Vendor directory", "/vendors"],
+      ["Vendor reviews", "/reviews"],
+      ["US vendors", "/vendors/usa"],
+      ["UAE & GCC vendors", "/vendors/uae"],
       ["Discount codes", "/deals"],
-      ["Partner audit", "/peptides/ascension-peptides-review"],
     ],
   },
   {
@@ -27,6 +29,7 @@ const columns = [
     heading: "Standards",
     links: [
       ["Market methodology", "/market-methodology"],
+      ["Transparency report", "/reports/peptide-vendor-transparency-2026"],
       ["Editorial policy", "/editorial-policy"],
       ["Affiliate disclosure", "/disclaimer"],
       ["About PeptideStat", "/about"],

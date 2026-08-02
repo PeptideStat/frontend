@@ -19,15 +19,22 @@ export const metadata: Metadata = buildMetadata({
 function authorJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "PeptideStat Editorial Team",
+    "@type": "ProfilePage",
+    name: "PeptideStat Editorial Team author profile",
     url: absoluteUrl("/authors/peptidestat-editorial-team"),
-    parentOrganization: {
+    dateModified: "2026-08-02",
+    mainEntity: {
       "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
+      "@id": absoluteUrl("/authors/peptidestat-editorial-team#editorial-team"),
+      name: "PeptideStat Editorial Team",
+      url: absoluteUrl("/authors/peptidestat-editorial-team"),
+      parentOrganization: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      description,
     },
-    description,
   };
 }
 

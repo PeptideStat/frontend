@@ -79,7 +79,12 @@ const STATIC_PATHS = [
   "/bryan-johnson-discount-code",
   "/compare",
   "/vendors",
+  "/vendors/usa",
+  "/vendors/uae",
+  "/reviews",
   "/deals",
+  "/reports",
+  "/reports/peptide-vendor-transparency-2026",
   "/market-methodology",
   "/shop",
   "/calculators",
@@ -107,7 +112,15 @@ const STATIC_PAGE_BY_FILE = new Map([
   ["app/bryan-johnson-discount-code/page.tsx", "/bryan-johnson-discount-code"],
   ["app/compare/page.tsx", "/compare"],
   ["app/vendors/page.tsx", "/vendors"],
+  ["app/vendors/usa/page.tsx", "/vendors/usa"],
+  ["app/vendors/uae/page.tsx", "/vendors/uae"],
+  ["app/reviews/page.tsx", "/reviews"],
   ["app/deals/page.tsx", "/deals"],
+  ["app/reports/page.tsx", "/reports"],
+  [
+    "app/reports/peptide-vendor-transparency-2026/page.tsx",
+    "/reports/peptide-vendor-transparency-2026",
+  ],
   ["app/market-methodology/page.tsx", "/market-methodology"],
   ["app/shop/page.tsx", "/shop"],
   ["app/calculators/page.tsx", "/calculators"],
@@ -306,6 +319,29 @@ function mapChangedFilesToUrls(files) {
     }
 
     if (
+      file === "components/RegionalVendorDirectory.tsx" ||
+      file === "lib/marketReport.ts"
+    ) {
+      addAll(urls, [
+        ...HOME_PATHS,
+        ...COMPARISON_INDEX_PATHS,
+        ...comparisonPaths,
+        ...VENDOR_INDEX_PATHS,
+        ...vendorPaths,
+        "/vendors/usa",
+        "/vendors/uae",
+        "/reports",
+        "/reports/peptide-vendor-transparency-2026",
+      ]);
+      continue;
+    }
+
+    if (file === "data/vendorReviews.ts") {
+      addAll(urls, ["/reviews", ...VENDOR_INDEX_PATHS, ...vendorPaths]);
+      continue;
+    }
+
+    if (
       file === "data/marketplace.ts" ||
       file === "data/partnerPrograms.ts" ||
       file === "data/ascensionLinks.ts" ||
@@ -378,6 +414,9 @@ function mapChangedFilesToUrls(files) {
       file === "app/robots.ts" ||
       file === "lib/seo.ts" ||
       file === "site.config.ts" ||
+      file === "components/MarketHeader.tsx" ||
+      file === "components/MarketFooter.tsx" ||
+      file === "components/MarketHome.tsx" ||
       file.startsWith("components/Header") ||
       file.startsWith("components/Footer") ||
       file.startsWith("components/InternalLinkBlocks") ||

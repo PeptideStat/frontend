@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/JsonLd";
 import { VendorLogo } from "@/components/VendorLogo";
 import { vendors } from "@/data/marketplace";
 import { partnerStatusLabels } from "@/data/partnerPrograms";
-import { buildMetadata } from "@/lib/seo";
+import { getVendorReviewPath } from "@/data/vendorReviews";
+import { marketplaceUpdatedAt } from "@/lib/marketReport";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  collectionPageJsonLd,
+} from "@/lib/seo";
 
-const title = "Research peptide vendor directory";
+const title = "Legit Research Peptide Vendors (2026): COAs & Countries";
 const description =
   "A transparent directory of tracked research-peptide vendors, testing-documentation practices, shipping regions and PeptideStat partner status.";
 
@@ -14,11 +21,29 @@ export const metadata: Metadata = buildMetadata({ title, description, path: "/ve
 export default function VendorsPage() {
   return (
     <>
+      <JsonLd
+        data={collectionPageJsonLd({
+          name: title,
+          description,
+          path: "/vendors",
+          dateModified: marketplaceUpdatedAt,
+          items: vendors.map((vendor) => ({
+            name: vendor.name,
+            path: `/vendors/${vendor.id}`,
+          })),
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Research peptide vendors", path: "/vendors" },
+        ])}
+      />
       <section className="border-b border-line bg-surface-2">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-accent">Vendor directory</p>
           <h1 className="mt-5 max-w-5xl text-[clamp(3.2rem,7vw,6.6rem)] font-semibold leading-[0.9] tracking-[-0.065em] text-ink">
-            Follow the paper trail.
+            Legit research peptide vendors.
           </h1>
           <p className="mt-7 max-w-2xl text-sm leading-7 text-muted sm:text-base">
             PeptideStat tracks commercial listings and the documentation vendors publish.
@@ -29,6 +54,18 @@ export default function VendorsPage() {
 
       <section className="bg-canvas">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+          <div className="mb-10 grid gap-4 sm:grid-cols-2">
+            <Link href="/vendors/usa" className="rounded-2xl border border-line bg-paper p-6 shadow-card hover:border-accent">
+              <p className="text-[9px] font-black uppercase tracking-[0.16em] text-accent">Regional directory</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.035em] text-ink">US peptide vendors</h2>
+              <p className="mt-3 text-xs leading-6 text-muted">US-served listings, USD pricing and vendor-published documentation in one view.</p>
+            </Link>
+            <Link href="/vendors/uae" className="rounded-2xl border border-line bg-paper p-6 shadow-card hover:border-accent">
+              <p className="text-[9px] font-black uppercase tracking-[0.16em] text-accent">Regional directory</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-[-0.035em] text-ink">UAE & GCC peptide vendors</h2>
+              <p className="mt-3 text-xs leading-6 text-muted">Local and regional coverage, AED pricing, delivery scope and public COA status.</p>
+            </Link>
+          </div>
           <div className="grid gap-4 md:grid-cols-2">
             {vendors.map((vendor, index) => (
               <article key={vendor.id} className="rounded-2xl border border-line bg-paper p-6 shadow-card sm:p-8">
@@ -57,8 +94,8 @@ export default function VendorsPage() {
 
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link href={`/vendors/${vendor.id}`} className="inline-flex min-h-10 items-center justify-center rounded-lg bg-ink px-4 text-xs font-bold text-white hover:bg-accent-dark">Open market profile</Link>
-                  {vendor.id === "ascension" || vendor.id === "nova" ? (
-                    <Link href={vendor.id === "ascension" ? "/peptides/ascension-peptides-review" : "/peptides/nova-labs-uae-review"} className="inline-flex min-h-10 items-center justify-center rounded-lg border border-line-strong px-4 text-xs font-bold text-ink hover:border-ink">Read editorial audit</Link>
+                  {getVendorReviewPath(vendor.id) ? (
+                    <Link href={getVendorReviewPath(vendor.id)!} className="inline-flex min-h-10 items-center justify-center rounded-lg border border-line-strong px-4 text-xs font-bold text-ink hover:border-ink">Read editorial audit</Link>
                   ) : null}
                   <a
                     href={vendor.url}

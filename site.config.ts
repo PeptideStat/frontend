@@ -21,6 +21,7 @@ export const siteConfig = {
   author: {
     name: "PeptideStat Editorial Team",
     url: "/authors/peptidestat-editorial-team",
+    type: "Organization",
   },
   twitter: "peptidestat",
   contactEmail: "admin@peptidestat.com",
@@ -28,6 +29,7 @@ export const siteConfig = {
   nav: [
     { title: "Compare", href: "/compare" },
     { title: "Vendors", href: "/vendors" },
+    { title: "Reviews", href: "/reviews" },
     { title: "Discount Codes", href: "/deals" },
     { title: "Calculators", href: "/calculators" },
     { title: "Database", href: "/database" },

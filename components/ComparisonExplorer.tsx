@@ -25,16 +25,20 @@ type SortMode = "effective" | "unit";
 
 export function ComparisonExplorer({
   initialCompound = "bpc-157",
+  initialMarket = "us",
   compact = false,
   lockCompound = false,
+  lockMarket = false,
 }: {
   initialCompound?: string;
+  initialMarket?: MarketRegion;
   compact?: boolean;
   lockCompound?: boolean;
+  lockMarket?: boolean;
 }) {
   const [compound, setCompound] = useState(initialCompound);
   const [sortMode, setSortMode] = useState<SortMode>("unit");
-  const [market, setMarket] = useState<MarketRegion>("us");
+  const [market, setMarket] = useState<MarketRegion>(initialMarket);
 
   const listings = useMemo(() => {
     return marketListings
@@ -57,11 +61,14 @@ export function ComparisonExplorer({
       <div className="border-b border-line bg-surface-2 p-4 sm:p-5">
         <div className="mb-4 flex flex-wrap items-center gap-2 border-b border-line pb-4 text-[10px] font-bold uppercase tracking-[0.12em] text-muted">
           <span className="mr-1">Country served</span>
-          {marketRegions.map((region) => (
+          {marketRegions
+            .filter((region) => !lockMarket || region.id === market)
+            .map((region) => (
             <button
               key={region.id}
               type="button"
               onClick={() => setMarket(region.id)}
+              disabled={lockMarket}
               aria-pressed={market === region.id}
               className={`rounded-full border px-3 py-1.5 transition-colors ${
                 market === region.id
@@ -71,7 +78,7 @@ export function ComparisonExplorer({
             >
               {region.label}
             </button>
-          ))}
+            ))}
           <span className="ml-auto font-mono text-muted-soft">
             {activeMarket?.currency}
           </span>

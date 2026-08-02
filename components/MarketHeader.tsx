@@ -9,6 +9,7 @@ import { marketListings, vendors } from "@/data/marketplace";
 const navigation = [
   { title: "Compare", href: "/compare" },
   { title: "Vendors", href: "/vendors" },
+  { title: "Reviews", href: "/reviews" },
   { title: "Discount codes", href: "/deals" },
   { title: "Research", href: "/peptides" },
   { title: "Tools", href: "/calculators" },

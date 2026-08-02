@@ -109,6 +109,12 @@ export function webApplicationJsonLd({
 /** schema.org Article — rendered on each article page. */
 export function articleJsonLd(article: ArticleMeta) {
   const url = absoluteUrl(`/peptides/${article.slug}`);
+  const authorName = article.author ?? siteConfig.author.name;
+  const authorType =
+    article.authorType ??
+    (authorName === siteConfig.author.name ? siteConfig.author.type : "Person");
+  const authorUrl = article.authorUrl ?? siteConfig.author.url;
+
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -117,9 +123,9 @@ export function articleJsonLd(article: ArticleMeta) {
     datePublished: article.date,
     dateModified: article.updated ?? article.date,
     author: {
-      "@type": "Organization",
-      name: article.author ?? siteConfig.author.name,
-      url: absoluteUrl(siteConfig.author.url),
+      "@type": authorType,
+      name: authorName,
+      url: absoluteUrl(authorUrl),
     },
     publisher: {
       "@type": "Organization",
@@ -147,6 +153,118 @@ export function articleJsonLd(article: ArticleMeta) {
     ...(article.coverImage
       ? { image: absoluteUrl(article.coverImage) }
       : {}),
+  };
+}
+
+export function collectionPageJsonLd({
+  name,
+  description,
+  path,
+  items,
+  dateModified,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  items: { name: string; path?: string }[];
+  dateModified?: string;
+}) {
+  const url = absoluteUrl(path);
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description,
+    url,
+    ...(dateModified ? { dateModified } : {}),
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Thing",
+          name: item.name,
+          ...(item.path ? { url: absoluteUrl(item.path) } : {}),
+        },
+      })),
+    },
+  };
+}
+
+export function webPageAboutJsonLd({
+  name,
+  description,
+  path,
+  about,
+  dateModified,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  about: { name: string; url?: string; type?: "Organization" | "Thing" };
+  dateModified?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name,
+    description,
+    url: absoluteUrl(path),
+    ...(dateModified ? { dateModified } : {}),
+    about: {
+      "@type": about.type ?? "Thing",
+      name: about.name,
+      ...(about.url ? { url: about.url } : {}),
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+  };
+}
+
+export function datasetJsonLd({
+  name,
+  description,
+  path,
+  dateModified,
+  downloadPath,
+  variables,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  dateModified: string;
+  downloadPath: string;
+  variables: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name,
+    description,
+    url: absoluteUrl(path),
+    dateModified,
+    creator: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    variableMeasured: variables,
+    license: absoluteUrl("/editorial-policy"),
+    distribution: {
+      "@type": "DataDownload",
+      encodingFormat: "text/csv",
+      contentUrl: absoluteUrl(downloadPath),
+    },
   };
 }
 

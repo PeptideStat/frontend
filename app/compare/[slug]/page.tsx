@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ComparisonExplorer } from "@/components/ComparisonExplorer";
+import { JsonLd } from "@/components/JsonLd";
 import {
   coaRecords,
   compoundBySlug,
@@ -10,7 +11,11 @@ import {
   getListingsForCompound,
   vendorById,
 } from "@/data/marketplace";
-import { buildMetadata } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  collectionPageJsonLd,
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return compoundProfiles.map(({ slug }) => ({ slug }));
@@ -44,6 +49,10 @@ export default async function CompoundComparisonPage({
 
   const listings = getListingsForCompound(slug);
   const reports = coaRecords.filter((record) => record.compoundSlug === slug);
+  const dateModified = [...listings]
+    .map((listing) => listing.checkedAt)
+    .sort()
+    .at(-1);
   const sourcedListings = listings.filter(
     (listing) =>
       getListingEvidence(listing)?.priceSourceStatus !== "needs-deep-link",
@@ -51,6 +60,25 @@ export default async function CompoundComparisonPage({
 
   return (
     <>
+      <JsonLd
+        data={collectionPageJsonLd({
+          name: `${compound.name} price and COA comparison`,
+          description: `Compare current ${compound.name} research listings by price, market, source status and vendor-published COA records.`,
+          path: `/compare/${compound.slug}`,
+          dateModified,
+          items: listings.map((listing) => ({
+            name: `${vendorById.get(listing.vendorId)?.name ?? listing.vendorId}: ${listing.productLabel}`,
+            path: `/vendors/${listing.vendorId}`,
+          })),
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Peptide vendors compared", path: "/compare" },
+          { name: compound.name, path: `/compare/${compound.slug}` },
+        ])}
+      />
       <section className="border-b border-white/10 bg-ink text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
           <div className="flex flex-wrap items-center gap-3 text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">

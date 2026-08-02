@@ -14,6 +14,7 @@ import {
   RelatedCategoryHubs,
   RelatedDatabaseEntries,
   RelatedGuides,
+  RelatedMarketComparisons,
 } from "@/components/InternalLinkBlocks";
 import { RelatedCalculators } from "@/components/RelatedCalculators";
 import { Disclaimer } from "@/components/Disclaimer";
@@ -28,6 +29,7 @@ import {
 import { formatDate } from "@/lib/format";
 import {
   getArticleRelatedCategoryHubs,
+  getArticleRelatedComparisons,
   getArticleRelatedPeptides,
 } from "@/lib/internalLinks";
 import { siteConfig } from "@/site.config";
@@ -79,6 +81,7 @@ export default async function ArticlePage(
 
   const related = getRelatedArticles(slug);
   const relatedPeptides = getArticleRelatedPeptides(article, 5);
+  const relatedComparisons = getArticleRelatedComparisons(article, 3);
   const relatedHubs = getArticleRelatedCategoryHubs(article, 2);
   const crumbs = [
     { name: "Home", path: "/" },
@@ -158,7 +161,7 @@ export default async function ArticlePage(
                 <div className="grid grid-cols-2 border-b border-line py-3">
                   <dt className="font-bold text-muted">By</dt>
                   <dd className="text-right normal-case tracking-normal text-ink">
-                    <Link href={siteConfig.author.url} className="hover:text-cobalt">
+                    <Link href={article.authorUrl ?? siteConfig.author.url} className="hover:text-cobalt">
                       {article.author ?? siteConfig.author.name}
                     </Link>
                   </dd>
@@ -270,6 +273,11 @@ export default async function ArticlePage(
           title="Continue in the database"
           description="Structured status, mechanism and evidence notes for compounds connected to this guide."
           currentArticleSlug={article.slug}
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
+        />
+        <RelatedMarketComparisons
+          compounds={relatedComparisons}
+          description="Current commercial listings are kept separate from the scientific evidence in this guide."
           className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
         />
         <RelatedCalculators

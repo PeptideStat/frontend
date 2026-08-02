@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CopyCodeButton } from "@/components/CopyCodeButton";
+import { JsonLd } from "@/components/JsonLd";
 import { VendorLogo } from "@/components/VendorLogo";
 import { ArrowRightIcon } from "@/components/icons";
 import {
@@ -10,9 +11,14 @@ import {
 } from "@/data/ascensionLinks";
 import { vendors } from "@/data/marketplace";
 import { partnerStatusLabels } from "@/data/partnerPrograms";
-import { buildMetadata } from "@/lib/seo";
+import { marketplaceUpdatedAt } from "@/lib/marketReport";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  collectionPageJsonLd,
+} from "@/lib/seo";
 
-const title = "Peptide discount codes and vendor offers";
+const title = "Verified Peptide Discount Codes (2026): Current Vendor Offers";
 const description =
   "Current PeptideStat partner codes, vendor offers and transparent coupon-status tracking for research-peptide listings.";
 
@@ -23,11 +29,29 @@ const partnerUrl = getAscensionShopUrl("deals_primary");
 export default function DealsPage() {
   return (
     <>
+      <JsonLd
+        data={collectionPageJsonLd({
+          name: title,
+          description,
+          path: "/deals",
+          dateModified: marketplaceUpdatedAt,
+          items: vendors.map((vendor) => ({
+            name: `${vendor.name} discount code status`,
+            path: `/vendors/${vendor.id}`,
+          })),
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Peptide discount codes", path: "/deals" },
+        ])}
+      />
       <section className="border-b border-line bg-lime text-ink">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-ink/50">Discount desk · checked 02 Aug 2026</p>
           <h1 className="mt-5 max-w-5xl text-[clamp(3.2rem,7vw,6.8rem)] font-semibold leading-[0.9] tracking-[-0.065em]">
-            Codes worth using.<br />Nothing padded.
+            Verified peptide discount codes.<br />Nothing padded.
           </h1>
           <p className="mt-7 max-w-xl text-sm leading-7 text-ink/65 sm:text-base">
             We list only codes tied to PeptideStat or clearly identified public offers.

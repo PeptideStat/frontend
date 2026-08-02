@@ -33,6 +33,10 @@ export interface ArticleFrontmatter {
   coverImageAlt?: string;
   /** Display name of the author. Defaults to the editorial team. */
   author?: string;
+  /** Schema type for the author. Named individuals should use Person. */
+  authorType?: "Person" | "Organization";
+  /** Internal or external profile URL for the named author. */
+  authorUrl?: string;
   /** Free-form tags for grouping/related content. */
   tags?: string[];
   /** Topic-cluster key, e.g. "retatrutide". Ties cluster articles together. */

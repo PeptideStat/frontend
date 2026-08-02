@@ -157,6 +157,10 @@ export function MarketHome() {
                 Read the methodology
                 <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
+              <Link href="/reports/peptide-vendor-transparency-2026" className="group mt-4 flex w-fit items-center gap-2 text-sm font-bold text-ink hover:text-accent">
+                Open the 2026 transparency report
+                <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
 
             <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
@@ -184,6 +188,12 @@ export function MarketHome() {
               <h2 className="mt-3 text-4xl font-semibold tracking-[-0.045em] text-ink sm:text-5xl">Six vendors. Two markets.</h2>
             </div>
             <Link href="/vendors" className="text-sm font-bold text-ink hover:text-accent">View vendor directory →</Link>
+          </div>
+
+          <div className="mb-6 flex flex-wrap gap-4 text-xs font-bold">
+            <Link href="/vendors/usa" className="text-ink hover:text-accent">Browse US peptide vendors</Link>
+            <Link href="/vendors/uae" className="text-ink hover:text-accent">Browse UAE & GCC peptide vendors</Link>
+            <Link href="/reviews" className="text-ink hover:text-accent">Read vendor reviews</Link>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">

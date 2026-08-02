@@ -7,6 +7,7 @@ import {
 import { getPeptideEvidence } from "@/data/peptideEvidence";
 import type { PeptideCategoryHub } from "@/data/peptideCategoryHubs";
 import type { ArticleMeta } from "@/lib/content";
+import type { CompoundProfile } from "@/data/marketplace";
 
 function sectionClassName(className?: string): string {
   return className ?? "mt-10";
@@ -150,6 +151,47 @@ export function RelatedDatabaseEntries({
             </article>
           );
         })}
+      </div>
+    </section>
+  );
+}
+
+export function RelatedMarketComparisons({
+  compounds,
+  title = "Compare current vendor listings",
+  description,
+  className,
+}: {
+  compounds: CompoundProfile[];
+  title?: string;
+  description?: string;
+  className?: string;
+}) {
+  if (compounds.length === 0) return null;
+
+  return (
+    <section className={sectionClassName(className)}>
+      <div className="mb-4">
+        <h2 className="text-2xl font-semibold tracking-tight text-ink">{title}</h2>
+        {description ? (
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-soft">{description}</p>
+        ) : null}
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {compounds.map((compound) => (
+          <Link
+            key={compound.slug}
+            href={`/compare/${compound.slug}`}
+            className="group rounded-lg border border-line bg-surface-2 p-4 transition-colors hover:border-accent/40"
+          >
+            <span className="text-sm font-semibold text-ink group-hover:text-accent-bright">
+              Compare {compound.name} vendor prices & COAs
+            </span>
+            <p className="mt-2 line-clamp-3 text-xs leading-5 text-muted">
+              {compound.comparisonNote}
+            </p>
+          </Link>
+        ))}
       </div>
     </section>
   );

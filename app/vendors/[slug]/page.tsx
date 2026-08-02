@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CopyCodeButton } from "@/components/CopyCodeButton";
+import { JsonLd } from "@/components/JsonLd";
 import { VendorLogo } from "@/components/VendorLogo";
 import {
   formatMoney,
@@ -17,7 +18,13 @@ import {
   partnerPrograms,
   partnerStatusLabels,
 } from "@/data/partnerPrograms";
-import { buildMetadata } from "@/lib/seo";
+import { getVendorReviewPath } from "@/data/vendorReviews";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  faqPageJsonLd,
+  webPageAboutJsonLd,
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return vendors.map(({ id }) => ({ slug: id }));
@@ -31,9 +38,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const vendor = vendors.find((entry) => entry.id === slug);
   if (!vendor) return {};
+  const hasEditorialAudit = Boolean(getVendorReviewPath(vendor.id));
 
   return buildMetadata({
-    title: `${vendor.name} prices, COAs and discount code status`,
+    title: hasEditorialAudit
+      ? `${vendor.name} Prices & COA Tracker (2026)`
+      : `${vendor.name} Review (2026): Prices, COAs & Code Status`,
     description: `Review tracked ${vendor.name} prices, public testing-documentation status, batch references and current PeptideStat partner-code status.`,
     path: `/vendors/${vendor.id}`,
   });
@@ -49,21 +59,56 @@ export default async function VendorProfilePage({
   if (!vendor) notFound();
 
   const program = partnerPrograms[vendor.id];
-  const editorialAuditHref =
-    vendor.id === "ascension"
-      ? "/peptides/ascension-peptides-review"
-      : vendor.id === "nova"
-        ? "/peptides/nova-labs-uae-review"
-        : undefined;
+  const editorialAuditHref = getVendorReviewPath(vendor.id);
   const listings = getListingsForVendor(vendor.id);
   const reports = getCoasForVendor(vendor.id);
   const sourceReady = listings.filter(
     (listing) =>
       getListingEvidence(listing)?.priceSourceStatus !== "needs-deep-link",
   ).length;
+  const faqs = [
+    {
+      question: `Is ${vendor.name} a legit peptide vendor?`,
+      answer: `PeptideStat does not certify vendors as legitimate. This evidence-led profile records ${listings.length} current listing${listings.length === 1 ? "" : "s"}, ${sourceReady} direct price source${sourceReady === 1 ? "" : "s"} and ${reports.length} batch-specific report${reports.length === 1 ? "" : "s"}, with partner status disclosed separately.`,
+    },
+    {
+      question: `Does ${vendor.name} publish COAs?`,
+      answer:
+        reports.length > 0
+          ? `PeptideStat has recorded ${reports.length} batch-specific vendor-published report${reports.length === 1 ? "" : "s"} for ${vendor.name}. A linked report documents what the vendor publishes; it is not independent verification of a purchased sample.`
+          : `PeptideStat has not entered a batch-specific report for ${vendor.name} in this ledger yet. That is different from saying the vendor publishes no testing documentation; use the linked vendor document library to inspect the current source.`,
+    },
+    {
+      question: `Is there a ${vendor.name} discount code?`,
+      answer: vendor.code
+        ? `The current PeptideStat code is ${vendor.code} for ${vendor.discountPercent}% off. Offers can change, so verify the code, exclusions and final price at checkout.`
+        : `PeptideStat does not currently list a site-wide code for ${vendor.name}. The recorded partner status is "${partnerStatusLabels[vendor.partnerStatus]}".`,
+    },
+  ];
 
   return (
     <>
+      <JsonLd
+        data={webPageAboutJsonLd({
+          name: `${vendor.name} review and market profile`,
+          description: vendor.profileSummary,
+          path: `/vendors/${vendor.id}`,
+          dateModified: vendor.lastReviewedAt,
+          about: {
+            name: vendor.name,
+            url: vendor.url,
+            type: "Organization",
+          },
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Research peptide vendors", path: "/vendors" },
+          { name: vendor.name, path: `/vendors/${vendor.id}` },
+        ])}
+      />
+      <JsonLd data={faqPageJsonLd(faqs)} />
       <section className="border-b border-line bg-surface-2">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
           <div className="flex flex-wrap items-center gap-3 text-[10px] font-black uppercase tracking-[0.16em] text-muted">
@@ -81,7 +126,9 @@ export default async function VendorProfilePage({
               <VendorLogo vendor={vendor} size="lg" />
               <h1 className="mt-6 max-w-4xl text-[clamp(3.2rem,7vw,6.8rem)] font-semibold leading-[0.9] tracking-[-0.065em] text-ink">
                 {vendor.name}
-                <span className="block text-accent">market profile.</span>
+                <span className="block text-accent">
+                  {editorialAuditHref ? "market profile." : "review & market profile."}
+                </span>
               </h1>
               <p className="mt-7 max-w-2xl text-sm leading-7 text-muted sm:text-base">
                 {vendor.profileSummary}
@@ -366,6 +413,23 @@ export default async function VendorProfilePage({
               Open vendor site ↗
             </a>
           </div>
+
+          <section aria-labelledby="vendor-faq-heading" className="mt-14">
+            <p className="text-[9px] font-black uppercase tracking-[0.16em] text-accent">
+              Direct answers
+            </p>
+            <h2 id="vendor-faq-heading" className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-ink">
+              {vendor.name} review questions
+            </h2>
+            <div className="mt-6 divide-y divide-line border-y border-line">
+              {faqs.map((faq) => (
+                <div key={faq.question} className="py-6">
+                  <h3 className="text-base font-bold text-ink">{faq.question}</h3>
+                  <p className="mt-3 max-w-3xl text-sm leading-7 text-muted">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
       </section>
     </>

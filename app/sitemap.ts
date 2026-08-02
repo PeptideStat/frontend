@@ -1,13 +1,26 @@
 import type { MetadataRoute } from "next";
 import { peptides } from "@/data/peptides";
 import { peptideCategoryHubs } from "@/data/peptideCategoryHubs";
-import { compoundProfiles, vendors } from "@/data/marketplace";
+import {
+  compoundProfiles,
+  marketListings,
+  vendors,
+} from "@/data/marketplace";
+import { partnerPrograms } from "@/data/partnerPrograms";
 import { getAllArticles } from "@/lib/content";
+import { marketplaceUpdatedAt } from "@/lib/marketReport";
 import { absoluteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles();
-  const siteUpdatedAt = new Date("2026-08-02");
+  const siteUpdatedAt = new Date(marketplaceUpdatedAt);
+  const dealsUpdatedAt = new Date(
+    Object.values(partnerPrograms)
+      .map((program) => program.verifiedAt)
+      .filter((date): date is string => Boolean(date))
+      .sort()
+      .at(-1) ?? marketplaceUpdatedAt,
+  );
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -35,10 +48,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: absoluteUrl("/deals"),
+      url: absoluteUrl("/vendors/usa"),
       lastModified: siteUpdatedAt,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/vendors/uae"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/reviews"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/deals"),
+      lastModified: dealsUpdatedAt,
       changeFrequency: "daily",
       priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/reports"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
+    {
+      url: absoluteUrl("/reports/peptide-vendor-transparency-2026"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "weekly",
+      priority: 0.85,
     },
     {
       url: absoluteUrl("/market-methodology"),
@@ -129,7 +172,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const databaseRoutes: MetadataRoute.Sitemap = peptides.map((peptide) => ({
     url: absoluteUrl(`/database/${peptide.slug}`),
-    lastModified: siteUpdatedAt,
     changeFrequency: "monthly" as const,
     priority: 0.65,
   }));
@@ -137,24 +179,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const databaseCategoryRoutes: MetadataRoute.Sitemap = peptideCategoryHubs.map(
     (hub) => ({
       url: absoluteUrl(`/database/${hub.slug}`),
-      lastModified: siteUpdatedAt,
       changeFrequency: "monthly" as const,
       priority: 0.75,
     }),
   );
 
   const comparisonRoutes: MetadataRoute.Sitemap = compoundProfiles.map(
-    (compound) => ({
-      url: absoluteUrl(`/compare/${compound.slug}`),
-      lastModified: siteUpdatedAt,
-      changeFrequency: "daily" as const,
-      priority: 0.9,
-    }),
+    (compound) => {
+      const lastModified =
+        marketListings
+          .filter((listing) => listing.compoundSlug === compound.slug)
+          .map((listing) => listing.checkedAt)
+          .sort()
+          .at(-1) ?? marketplaceUpdatedAt;
+
+      return {
+        url: absoluteUrl(`/compare/${compound.slug}`),
+        lastModified: new Date(lastModified),
+        changeFrequency: "daily" as const,
+        priority: 0.9,
+      };
+    },
   );
 
   const vendorRoutes: MetadataRoute.Sitemap = vendors.map((vendor) => ({
     url: absoluteUrl(`/vendors/${vendor.id}`),
-    lastModified: siteUpdatedAt,
+    lastModified: new Date(vendor.lastReviewedAt),
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));

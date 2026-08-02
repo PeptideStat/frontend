@@ -13,6 +13,10 @@ import {
   type Article,
   type ArticleMeta,
 } from "@/lib/content";
+import {
+  compoundProfiles,
+  type CompoundProfile,
+} from "@/data/marketplace";
 
 type ArticleLike = Article | ArticleMeta;
 
@@ -245,6 +249,25 @@ export function getArticleRelatedCategoryHubs(
       .map((category) => getPeptideCategoryHubByCategory(category))
       .filter((hub): hub is PeptideCategoryHub => hub !== null),
   ).slice(0, limit);
+}
+
+export function getArticleRelatedComparisons(
+  article: ArticleLike,
+  limit = 3,
+): CompoundProfile[] {
+  const haystack = articleHaystack(article);
+  const relatedPeptideSlugs = new Set(
+    getArticleRelatedPeptides(article, 8).map((peptide) => peptide.slug),
+  );
+
+  return compoundProfiles
+    .filter(
+      (compound) =>
+        haystack.includes(normalize(compound.slug)) ||
+        haystack.includes(normalize(compound.name)) ||
+        relatedPeptideSlugs.has(compound.slug),
+    )
+    .slice(0, limit);
 }
 
 export function getGuidesForPeptide(
