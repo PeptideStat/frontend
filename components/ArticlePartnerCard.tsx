@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CopyCodeButton } from "@/components/CopyCodeButton";
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
 import { VendorLogo } from "@/components/VendorLogo";
 import {
@@ -14,7 +15,7 @@ import {
   hasAscensionProduct,
 } from "@/data/ascensionLinks";
 import { vendorById } from "@/data/marketplace";
-import { novaReferralUrl } from "@/data/novaLinks";
+import { novaCouponCode, novaReferralUrl } from "@/data/novaLinks";
 import { peptides, STATUS_LABELS, type Peptide } from "@/data/peptides";
 import { externalLinkRel } from "@/lib/externalLinks";
 
@@ -182,11 +183,14 @@ function NovaArticlePartnerCard() {
 
         <div className="mt-4 rounded-lg border border-line bg-surface px-3 py-3">
           <span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-muted">
-            PeptideStat relationship
+            PeptideStat coupon code
           </span>
-          <strong className="mt-1 block text-sm tracking-[-0.02em] text-ink">
-            Referral link - no public coupon claimed
-          </strong>
+          <div className="mt-2">
+            <CopyCodeButton code={novaCouponCode} compact />
+          </div>
+          <span className="mt-2 block text-[9px] leading-4 text-muted-soft">
+            Discount amount and exclusions were not specified. Verify at checkout.
+          </span>
         </div>
 
         <a
@@ -209,8 +213,8 @@ function NovaArticlePartnerCard() {
         </Link>
 
         <p className="mt-4 text-[9px] leading-4 text-muted-soft">
-          Research use only. We may earn a commission from this link. It is
-          not a coupon code, and no saving is guaranteed.
+          Research use only. We may earn a commission from this link. The
+          vendor supplied the code; verify the saving and final cart total.
         </p>
       </div>
     </aside>

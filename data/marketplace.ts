@@ -228,6 +228,7 @@ export const vendors: readonly Vendor[] = [
     coaLabel: "Batch COAs",
     testingNote:
       "Vendor publishes batch identifiers, test dates and product-linked third-party reports.",
+    code: partnerPrograms.nova.code,
     partner: true,
     partnerStatus: partnerPrograms.nova.status,
     market: "uae-gcc",
@@ -236,7 +237,7 @@ export const vendors: readonly Vendor[] = [
     documentationUrl: "https://www.nova-biolabs.com/lab-results/",
     profileSummary:
       "Dubai-based regional vendor tracked in AED with UAE/GCC delivery and product-linked batch documentation.",
-    lastReviewedAt: "2026-08-02",
+    lastReviewedAt: "2026-08-03",
     color: "#f7d36f",
     logoPath: "/images/vendors/nova.png",
     logoShape: "wordmark",

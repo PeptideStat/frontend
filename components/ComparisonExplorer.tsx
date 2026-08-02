@@ -172,6 +172,8 @@ export function ComparisonExplorer({
               if (!vendor || !evidence) return null;
 
               const effectivePrice = getEffectivePrice(listing);
+              const hasKnownDiscount =
+                typeof vendor.discountPercent === "number";
               const isBest = index === 0;
               const isSourceReady =
                 evidence.priceSourceStatus !== "needs-deep-link";
@@ -225,7 +227,9 @@ export function ComparisonExplorer({
                       <div className="flex items-center gap-2">
                         <CopyCodeButton code={vendor.code} compact />
                         <span className="text-[10px] font-bold text-accent-dark">
-                          −{vendor.discountPercent}%
+                          {hasKnownDiscount
+                            ? `−${vendor.discountPercent}%`
+                            : "Verify saving"}
                         </span>
                       </div>
                     ) : (
@@ -238,11 +242,13 @@ export function ComparisonExplorer({
                   </td>
                   <td className="px-4 py-4">
                     <strong className="font-mono text-sm text-ink">
-                      {formatMoney(effectivePrice, getListingCurrency(listing))}
+                      {vendor.code && !hasKnownDiscount
+                        ? "At checkout"
+                        : formatMoney(effectivePrice, getListingCurrency(listing))}
                     </strong>
                     {vendor.code ? (
                       <span className="mt-1 block text-[9px] text-muted-soft">
-                        estimate
+                        {hasKnownDiscount ? "estimate" : "amount not specified"}
                       </span>
                     ) : null}
                   </td>

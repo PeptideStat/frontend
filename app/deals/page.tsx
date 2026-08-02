@@ -51,7 +51,9 @@ export default function DealsPage() {
           dateModified: marketplaceUpdatedAt,
           items: vendorDeals.map((deal) => ({
             name: deal.code
-              ? `${deal.vendorName}: ${deal.discountPercent}% off with code ${deal.code}`
+              ? deal.discountPercent === null
+                ? `${deal.vendorName}: coupon code ${deal.code}`
+                : `${deal.vendorName}: ${deal.discountPercent}% off with code ${deal.code}`
               : `${deal.vendorName}: ${deal.statusLabel}`,
             path: `/vendors/${deal.vendorId}`,
           })),
@@ -66,7 +68,7 @@ export default function DealsPage() {
       />
       <section className="border-b border-white/10 bg-ink text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-lime">Discount desk · checked 02 Aug 2026</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-lime">Discount desk · checked {marketplaceUpdatedAt}</p>
           <h1 className="mt-5 max-w-5xl text-[clamp(3.2rem,7vw,6.8rem)] font-semibold leading-[0.9] tracking-[-0.065em]">
             Verified peptide discount codes.
             <span className="block text-lime">Nothing padded.</span>
@@ -214,7 +216,9 @@ export default function DealsPage() {
                         </dt>
                         <dd className="font-mono text-xs font-bold text-ink sm:text-right">
                           {deal.discountPercent === null
-                            ? "No public discount"
+                            ? deal.code
+                              ? "Verify at checkout"
+                              : "No public discount"
                             : `${deal.discountPercent}% off`}
                         </dd>
                       </div>

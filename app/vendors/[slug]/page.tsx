@@ -62,6 +62,7 @@ export default async function VendorProfilePage({
   const editorialAuditHref = getVendorReviewPath(vendor.id);
   const listings = getListingsForVendor(vendor.id);
   const reports = getCoasForVendor(vendor.id);
+  const hasKnownDiscount = typeof vendor.discountPercent === "number";
   const sourceReady = listings.filter(
     (listing) =>
       getListingEvidence(listing)?.priceSourceStatus !== "needs-deep-link",
@@ -81,7 +82,9 @@ export default async function VendorProfilePage({
     {
       question: `Is there a ${vendor.name} discount code?`,
       answer: vendor.code
-        ? `The current PeptideStat code is ${vendor.code} for ${vendor.discountPercent}% off. Offers can change, so verify the code, exclusions and final price at checkout.`
+        ? hasKnownDiscount
+          ? `The current PeptideStat code is ${vendor.code} for ${vendor.discountPercent}% off. Offers can change, so verify the code, exclusions and final price at checkout.`
+          : `The current vendor-provided PeptideStat code is ${vendor.code}. The discount amount and exclusions were not specified, so verify the saving and final price at checkout.`
         : `PeptideStat does not currently list a site-wide code for ${vendor.name}. The recorded partner status is "${partnerStatusLabels[vendor.partnerStatus]}".`,
     },
   ];
@@ -243,10 +246,19 @@ export default async function VendorProfilePage({
                           </div>
                           <div>
                             <p className="text-[9px] font-black uppercase tracking-[0.1em] text-muted-soft">
-                              {vendor.code ? "After code" : "Tracked price"}
+                              {vendor.code
+                                ? hasKnownDiscount
+                                  ? "After code"
+                                  : "Code saving"
+                                : "Tracked price"}
                             </p>
                             <p className="mt-1 font-mono text-sm font-bold text-ink">
-                              {formatMoney(getEffectivePrice(listing), getListingCurrency(listing))}
+                              {vendor.code && !hasKnownDiscount
+                                ? "At checkout"
+                                : formatMoney(
+                                    getEffectivePrice(listing),
+                                    getListingCurrency(listing),
+                                  )}
                             </p>
                           </div>
                           <div>
