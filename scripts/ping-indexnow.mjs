@@ -77,6 +77,10 @@ const host = new URL(SITE_URL).host;
 const STATIC_PATHS = [
   "/",
   "/bryan-johnson-discount-code",
+  "/compare",
+  "/vendors",
+  "/deals",
+  "/market-methodology",
   "/shop",
   "/calculators",
   "/calculators/accumulation",
@@ -93,11 +97,18 @@ const STATIC_PATHS = [
 
 const ARTICLE_INDEX_PATHS = ["/peptides"];
 const DATABASE_INDEX_PATHS = ["/database"];
+const COMPARISON_INDEX_PATHS = ["/compare"];
+const VENDOR_INDEX_PATHS = ["/vendors"];
+const DEAL_PATHS = ["/deals"];
 const HOME_PATHS = ["/"];
 
 const STATIC_PAGE_BY_FILE = new Map([
   ["app/page.tsx", "/"],
   ["app/bryan-johnson-discount-code/page.tsx", "/bryan-johnson-discount-code"],
+  ["app/compare/page.tsx", "/compare"],
+  ["app/vendors/page.tsx", "/vendors"],
+  ["app/deals/page.tsx", "/deals"],
+  ["app/market-methodology/page.tsx", "/market-methodology"],
   ["app/shop/page.tsx", "/shop"],
   ["app/calculators/page.tsx", "/calculators"],
   ["app/calculators/accumulation/page.tsx", "/calculators/accumulation"],
@@ -146,12 +157,41 @@ function extractSlugsFromTs(file) {
   return [...src.matchAll(/slug:\s*["']([a-z0-9-]+)["']/g)].map((m) => m[1]);
 }
 
+function extractArrayValuesFromTs(file, exportName, key) {
+  const fullPath = path.join(DATA_DIR, file);
+  if (!fs.existsSync(fullPath)) return [];
+
+  const src = fs.readFileSync(fullPath, "utf8");
+  const start = src.indexOf(`export const ${exportName}`);
+  if (start < 0) return [];
+
+  const end = src.indexOf("] as const;", start);
+  if (end < 0) return [];
+
+  const block = src.slice(start, end);
+  const pattern = new RegExp(
+    `${key}:\\s*["']([a-z0-9-]+)["']`,
+    "g",
+  );
+  return [...block.matchAll(pattern)].map((match) => match[1]);
+}
+
 const peptidePaths = extractSlugsFromTs("peptides.ts").map(
   (s) => `/database/${s}`,
 );
 const hubPaths = extractSlugsFromTs("peptideCategoryHubs.ts").map(
   (s) => `/database/${s}`,
 );
+const comparisonPaths = extractArrayValuesFromTs(
+  "marketplace.ts",
+  "compoundProfiles",
+  "slug",
+).map((slug) => `/compare/${slug}`);
+const vendorPaths = extractArrayValuesFromTs(
+  "marketplace.ts",
+  "vendors",
+  "id",
+).map((id) => `/vendors/${id}`);
 
 // --- build full URL list -------------------------------------------------
 
@@ -160,6 +200,8 @@ const allPaths = [
   ...readArticlePaths(),
   ...peptidePaths,
   ...hubPaths,
+  ...comparisonPaths,
+  ...vendorPaths,
 ];
 
 const urlList = [...new Set(allPaths.map((p) => `${SITE_URL}${p}`))];
@@ -247,6 +289,55 @@ function mapChangedFilesToUrls(files) {
       file === "data/peptideEvidence.ts"
     ) {
       addAll(urls, [...DATABASE_INDEX_PATHS, ...peptidePaths, ...hubPaths]);
+      continue;
+    }
+
+    if (
+      file === "app/compare/[slug]/page.tsx" ||
+      file === "components/ComparisonExplorer.tsx"
+    ) {
+      addAll(urls, [...COMPARISON_INDEX_PATHS, ...comparisonPaths]);
+      continue;
+    }
+
+    if (file === "app/vendors/[slug]/page.tsx") {
+      addAll(urls, [...VENDOR_INDEX_PATHS, ...vendorPaths]);
+      continue;
+    }
+
+    if (
+      file === "data/marketplace.ts" ||
+      file === "data/partnerPrograms.ts" ||
+      file === "data/ascensionLinks.ts" ||
+      file === "data/novaLinks.ts" ||
+      file === "components/CopyCodeButton.tsx" ||
+      file === "components/VendorLogo.tsx"
+    ) {
+      addAll(urls, [
+        ...HOME_PATHS,
+        ...COMPARISON_INDEX_PATHS,
+        ...comparisonPaths,
+        ...VENDOR_INDEX_PATHS,
+        ...vendorPaths,
+        ...DEAL_PATHS,
+      ]);
+      continue;
+    }
+
+    if (file === "components/ArticlePartnerCard.tsx") {
+      addAll(urls, readArticlePaths());
+      continue;
+    }
+
+    if (file.startsWith("public/images/vendors/")) {
+      addAll(urls, [
+        ...HOME_PATHS,
+        ...COMPARISON_INDEX_PATHS,
+        ...comparisonPaths,
+        ...VENDOR_INDEX_PATHS,
+        ...vendorPaths,
+        ...DEAL_PATHS,
+      ]);
       continue;
     }
 

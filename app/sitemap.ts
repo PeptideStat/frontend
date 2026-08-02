@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
 import { peptides } from "@/data/peptides";
 import { peptideCategoryHubs } from "@/data/peptideCategoryHubs";
+import { compoundProfiles, vendors } from "@/data/marketplace";
 import { getAllArticles } from "@/lib/content";
 import { absoluteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles();
-  const siteUpdatedAt = new Date("2026-05-18");
+  const siteUpdatedAt = new Date("2026-08-02");
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -20,6 +21,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: siteUpdatedAt,
       changeFrequency: "weekly",
       priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/compare"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "daily",
+      priority: 0.95,
+    },
+    {
+      url: absoluteUrl("/vendors"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/deals"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/market-methodology"),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "monthly",
+      priority: 0.75,
     },
     {
       url: absoluteUrl("/shop"),
@@ -118,8 +143,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
+  const comparisonRoutes: MetadataRoute.Sitemap = compoundProfiles.map(
+    (compound) => ({
+      url: absoluteUrl(`/compare/${compound.slug}`),
+      lastModified: siteUpdatedAt,
+      changeFrequency: "daily" as const,
+      priority: 0.9,
+    }),
+  );
+
+  const vendorRoutes: MetadataRoute.Sitemap = vendors.map((vendor) => ({
+    url: absoluteUrl(`/vendors/${vendor.id}`),
+    lastModified: siteUpdatedAt,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   return [
     ...staticRoutes,
+    ...comparisonRoutes,
+    ...vendorRoutes,
     ...articleRoutes,
     ...databaseCategoryRoutes,
     ...databaseRoutes,

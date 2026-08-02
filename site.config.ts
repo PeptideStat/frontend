@@ -3,7 +3,6 @@ import { getAscensionShopUrl } from "@/data/ascensionLinks";
 const defaultShopUrl = getAscensionShopUrl("nav_shop");
 export const shopUrl =
   process.env.NEXT_PUBLIC_SHOP_URL?.trim() || defaultShopUrl;
-const isExternalUrl = (href: string) => /^https?:\/\//i.test(href);
 const defaultSiteUrl = "https://www.peptidestat.com";
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || defaultSiteUrl;
 const canonicalSiteUrl = rawSiteUrl.replace(
@@ -11,41 +10,28 @@ const canonicalSiteUrl = rawSiteUrl.replace(
   defaultSiteUrl,
 );
 
-/**
- * Single source of truth for site-wide metadata.
- * Used by layout metadata, SEO helpers, sitemap, robots and JSON-LD.
- */
 export const siteConfig = {
   name: "PeptideStat",
-  tagline: "Evidence-based peptide research, decoded",
-  title: "PeptideStat — Evidence-Based Peptide Guides & Reviews",
+  tagline: "Compare prices. Check testing. Read the evidence.",
+  title: "PeptideStat — Peptide Vendor Prices & Discount Codes",
   description:
-    "In-depth, research-backed guides on peptides — dosing, benefits, side effects and how they compare. Clear answers for people researching peptides.",
-  // Set NEXT_PUBLIC_SITE_URL in production (Vercel env var).
+    "Compare research-peptide vendor prices, published testing documentation and current discount codes, backed by an evidence-led peptide research library.",
   url: canonicalSiteUrl.replace(/\/$/, ""),
   locale: "en_US",
   author: {
     name: "PeptideStat Editorial Team",
     url: "/authors/peptidestat-editorial-team",
   },
-  // Social handle (without @) — used for Twitter/X card metadata.
   twitter: "peptidestat",
-  // Contact address shown on legal pages (Privacy, Disclaimer).
   contactEmail: "admin@peptidestat.com",
-  // IndexNow key — verified by /<key>.txt under public/. Used to ping
-  // Bing/Yandex/etc when content changes. Rotate by regenerating the key,
-  // renaming the .txt file, and updating this value in a single commit.
   indexNowKey: "edb8b768a066cfe25ce55be1268c90ce",
   nav: [
-    {
-      title: "Shop Peptides",
-      href: shopUrl,
-      external: isExternalUrl(shopUrl),
-      sponsored: isExternalUrl(shopUrl),
-    },
+    { title: "Compare", href: "/compare" },
+    { title: "Vendors", href: "/vendors" },
+    { title: "Discount Codes", href: "/deals" },
     { title: "Calculators", href: "/calculators" },
     { title: "Database", href: "/database" },
-    { title: "Guides", href: "/peptides" },
+    { title: "Research", href: "/peptides" },
     { title: "About", href: "/about" },
   ],
 } as const;

@@ -119,13 +119,31 @@ export function articleJsonLd(article: ArticleMeta) {
     author: {
       "@type": "Organization",
       name: article.author ?? siteConfig.author.name,
+      url: absoluteUrl(siteConfig.author.url),
     },
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteConfig.url,
     },
     mainEntityOfPage: url,
     url,
+    ...(article.tags?.length ? { keywords: article.tags } : {}),
+    ...(article.cluster ? { articleSection: article.cluster } : {}),
+    ...(article.about
+      ? {
+          about: {
+            "@type": article.about.type ?? "Thing",
+            name: article.about.name,
+            ...(article.about.url ? { url: article.about.url } : {}),
+          },
+        }
+      : {}),
     ...(article.coverImage
       ? { image: absoluteUrl(article.coverImage) }
       : {}),

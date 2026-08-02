@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon, ExternalLinkIcon } from "@/components/icons";
+import { VendorLogo } from "@/components/VendorLogo";
 import {
   ascensionAvailabilityCheckedAt,
   ascensionCouponCode,
@@ -12,6 +13,8 @@ import {
   getAscensionShopUrl,
   hasAscensionProduct,
 } from "@/data/ascensionLinks";
+import { vendorById } from "@/data/marketplace";
+import { novaReferralUrl } from "@/data/novaLinks";
 import { peptides, STATUS_LABELS, type Peptide } from "@/data/peptides";
 import { externalLinkRel } from "@/lib/externalLinks";
 
@@ -143,7 +146,82 @@ function AscensionCatalogCard({ slug }: { slug: string }) {
   );
 }
 
+function NovaArticlePartnerCard() {
+  const novaVendor = vendorById.get("nova");
+  if (!novaVendor) return null;
+
+  return (
+    <aside
+      className="overflow-hidden rounded-xl border border-line bg-paper shadow-[0_18px_40px_-34px_rgba(17,23,19,.5)]"
+      data-affiliate-placement="article-sidebar"
+    >
+      <div className="bg-ink p-5 text-white">
+        <div className="flex items-center justify-between gap-4">
+          <VendorLogo
+            vendor={novaVendor}
+            size="md"
+            className="border-white/15"
+          />
+          <span className="rounded-full bg-lime px-2.5 py-1 text-[9px] font-extrabold uppercase tracking-[0.08em] text-ink">
+            UAE & GCC
+          </span>
+        </div>
+        <p className="mt-5 text-[9px] font-bold uppercase tracking-[0.18em] text-lime">
+          Research partner - affiliate
+        </p>
+        <h2 className="mt-3 text-2xl font-semibold leading-tight tracking-[-0.025em]">
+          NOVA Labs research catalog
+        </h2>
+      </div>
+
+      <div className="p-5">
+        <p className="text-xs leading-5 text-muted">
+          Dubai-based catalog with AED pricing, UAE delivery and tracked GCC
+          shipping. Check the current batch report before ordering.
+        </p>
+
+        <div className="mt-4 rounded-lg border border-line bg-surface px-3 py-3">
+          <span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-muted">
+            PeptideStat relationship
+          </span>
+          <strong className="mt-1 block text-sm tracking-[-0.02em] text-ink">
+            Referral link - no public coupon claimed
+          </strong>
+        </div>
+
+        <a
+          href={novaReferralUrl}
+          target="_blank"
+          rel={externalLinkRel(novaReferralUrl, { sponsored: true })}
+          data-affiliate-placement="article-sidebar"
+          data-affiliate-product="catalog"
+          className="group mt-4 flex min-h-11 items-center justify-between gap-3 rounded-lg bg-ink px-4 text-xs font-bold text-white hover:bg-accent"
+        >
+          Open NOVA Labs
+          <ExternalLinkIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </a>
+        <Link
+          href="/vendors/nova"
+          className="mt-3 flex items-center justify-between gap-3 border-b border-line py-2 text-[10px] font-bold text-ink hover:border-cobalt hover:text-cobalt"
+        >
+          View prices and batch records
+          <ArrowRightIcon className="h-3.5 w-3.5" />
+        </Link>
+
+        <p className="mt-4 text-[9px] leading-4 text-muted-soft">
+          Research use only. We may earn a commission from this link. It is
+          not a coupon code, and no saving is guaranteed.
+        </p>
+      </div>
+    </aside>
+  );
+}
+
 export function ArticlePartnerCard(props: ArticlePartnerCardProps) {
+  if (props.slug === "nova-labs-uae-review") {
+    return <NovaArticlePartnerCard />;
+  }
+
   const matchingPeptide = findMatchingPeptide(props);
   const matchingProduct =
     getAscensionProduct(props.slug) ??

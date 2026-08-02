@@ -41,6 +41,12 @@ export interface ArticleFrontmatter {
   pillar?: boolean;
   /** Optional FAQ entries used for FAQPage structured data. */
   faqs?: { question: string; answer: string }[];
+  /** Primary entity discussed by the article. */
+  about?: {
+    name: string;
+    url?: string;
+    type?: "Organization" | "Person" | "Product" | "Thing";
+  };
   /** Hide from listings, sitemap and build output. */
   draft?: boolean;
 }

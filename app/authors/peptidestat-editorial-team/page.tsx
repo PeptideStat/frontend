@@ -53,6 +53,12 @@ export default function PeptideStatEditorialTeamPage() {
             human evidence, regulatory status, side effects, sourcing risks and
             practical comparisons.
           </p>
+          <p className="mt-3 max-w-3xl text-base leading-7 text-muted">
+            For vendor coverage, we maintain dated price snapshots and inspect
+            public product pages, policies and batch documents. We report exact
+            lots and source limitations instead of treating vendor claims or
+            review-site scores as independent proof.
+          </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/editorial-policy"

@@ -41,6 +41,7 @@ yarn-error.log*
 # Kept out of git: they can be regenerated and they're large.
 scripts/glp1_serps.json
 scripts/glp1_extracted.json
+/tmp/
 
 # typescript
 *.tsbuildinfo

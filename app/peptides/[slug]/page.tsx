@@ -183,6 +183,35 @@ export default async function ArticlePage(
               />
             </div>
 
+            {article.faqs && article.faqs.length > 0 && (
+              <section
+                aria-labelledby="article-faq-heading"
+                className="mt-12 border-t border-line pt-10"
+              >
+                <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-accent">
+                  Direct answers
+                </p>
+                <h2
+                  id="article-faq-heading"
+                  className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-ink"
+                >
+                  Frequently asked questions
+                </h2>
+                <div className="mt-6 divide-y divide-line border-y border-line">
+                  {article.faqs.map((faq) => (
+                    <div key={faq.question} className="py-6">
+                      <h3 className="text-base font-bold text-ink">
+                        {faq.question}
+                      </h3>
+                      <p className="mt-3 text-sm leading-7 text-muted">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {article.tags && article.tags.length > 0 && (
               <div className="mt-12 border-t border-line pt-6">
                 <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-muted">

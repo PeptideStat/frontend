@@ -91,6 +91,32 @@ export default function EditorialPolicyPage() {
 
           <section>
             <h2 className="text-xl font-semibold tracking-tight text-ink">
+              How we review research vendors
+            </h2>
+            <p className="mt-3">
+              Vendor reviews use dated, source-linked checks of public catalogs,
+              product pages, shipping terms and vendor-hosted laboratory
+              documents. We record the product, lot, named laboratory, report
+              date and test result when those details are visible.
+            </p>
+            <p className="mt-3">
+              We distinguish what PeptideStat directly inspected from what a
+              vendor or laboratory document claims. Unless a review says
+              otherwise, PeptideStat has not purchased the product, collected
+              the sample or commissioned the laboratory analysis. A published
+              COA is a documentation signal, not proof that every vial matches
+              the report or is suitable for human use.
+            </p>
+            <Link
+              href="/market-methodology"
+              className="mt-3 inline-block font-semibold text-accent-bright underline underline-offset-4"
+            >
+              Read the market comparison methodology
+            </Link>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-semibold tracking-tight text-ink">
               Updates and corrections
             </h2>
             <p className="mt-3">

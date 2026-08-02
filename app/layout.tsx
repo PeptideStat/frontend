@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { siteConfig } from "@/site.config";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { MarketHeader } from "@/components/MarketHeader";
+import { MarketFooter } from "@/components/MarketFooter";
 import { AffiliateClickTracker } from "@/components/AffiliateClickTracker";
 import { TraceDartAnalytics } from "@/components/TraceDartAnalytics";
 
@@ -28,11 +28,20 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description: siteConfig.description,
+    images: [
+      {
+        url: "/og.png",
+        width: 1744,
+        height: 909,
+        alt: "PeptideStat — Compare the market. Read the evidence.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     site: `@${siteConfig.twitter}`,
     creator: `@${siteConfig.twitter}`,
+    images: ["/og.png"],
   },
   robots: {
     index: true,
@@ -53,9 +62,9 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <body className="flex min-h-full flex-col">
-        <Header />
+        <MarketHeader />
         <main className="flex-1">{children}</main>
-        <Footer showAnalyticsChoices />
+        <MarketFooter showAnalyticsChoices />
         <Analytics />
         <AffiliateClickTracker />
         <TraceDartAnalytics apiKey={TRACEDART_BROWSER_KEY} />
