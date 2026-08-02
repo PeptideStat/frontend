@@ -305,7 +305,7 @@ export default function ClinicalTrialsPage() {
               href="/clinical-trials/data"
               className="font-mono text-[9px] font-bold uppercase tracking-[0.12em] text-white/45 hover:text-lime"
             >
-              Machine-readable JSON →
+              Machine-readable API →
             </Link>
           </div>
           <ClinicalTrialExplorer
