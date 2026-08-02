@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: {
+    "/clinical-trials/data": [
+      "./data/clinicalTrials.snapshot.json",
+      "./data/clinicalTrialQueries.json",
+    ],
+    "/clinical-trials/search": [
+      "./data/clinicalTrials.snapshot.json",
+      "./data/clinicalTrialQueries.json",
+    ],
+  },
   async redirects() {
     return [
       {
