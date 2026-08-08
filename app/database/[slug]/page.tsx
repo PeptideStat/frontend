@@ -263,29 +263,31 @@ export default async function PeptideDetailPage(
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href={guideHref}
+                  className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent"
+                >
+                  {peptide.articleSlug
+                    ? "Read full research guide"
+                    : "Browse research guides"}
+                  <ArrowRightIcon className="h-4 w-4" />
+                </Link>
                 {clinicalTrialQuery ? (
                   <Link
                     href={`/clinical-trials/${clinicalTrialQuery.slug}`}
-                    className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-line bg-surface px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent/50 hover:text-accent-bright"
                   >
                     View clinical trials
                     <ArrowRightIcon className="h-4 w-4" />
                   </Link>
                 ) : null}
-                <Link
-                  href={guideHref}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-line bg-surface px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent/50 hover:text-accent-bright"
-                >
-                  {peptide.articleSlug ? "Read guide" : "Browse guides"}
-                  <ArrowRightIcon className="h-4 w-4" />
-                </Link>
                 <a
                   href={buyHref}
                   target="_blank"
                   rel={externalLinkRel(buyHref, { sponsored: true })}
                   data-affiliate-placement="database-detail"
                   data-affiliate-product={peptide.slug}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-canvas transition-colors hover:bg-accent-bright"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-line bg-surface px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent/50 hover:text-accent-bright"
                 >
                   {productAvailability === "out-of-stock"
                     ? "Recheck source availability"
@@ -293,6 +295,13 @@ export default async function PeptideDetailPage(
                   <ExternalLinkIcon className="h-4 w-4" />
                 </a>
               </div>
+              {peptide.articleSlug ? (
+                <p className="mt-3 max-w-2xl text-xs leading-5 text-muted">
+                  This page is a structured profile. Narrative evidence, dosing
+                  context and FAQs live on the research guide — not duplicated
+                  here as a second full article.
+                </p>
+              ) : null}
             </div>
 
             <div className="rounded-xl border border-line bg-surface-2 p-5 shadow-card">

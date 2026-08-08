@@ -1,0 +1,55 @@
+# PeptideStat
+
+> Evidence-led peptide research guides, vendor price/testing snapshots, clinical-trial indexes and free reconstitution calculators. Educational only — not medical advice.
+
+Site: https://www.peptidestat.com
+Contact: admin@peptidestat.com
+Publisher: PeptideStat Editorial Team
+
+## Start here
+
+- [About](https://www.peptidestat.com/about): Who publishes PeptideStat and how funding (affiliates) is disclosed
+- [Editorial policy](https://www.peptidestat.com/editorial-policy): Source hierarchy, corrections, independence rules
+- [Editorial team](https://www.peptidestat.com/authors/peptidestat-editorial-team): Collective byline and research process
+- [Disclaimer](https://www.peptidestat.com/disclaimer): Medical and affiliate disclosure
+
+## High-value tools (linkable)
+
+- [Peptide reconstitution calculator](https://www.peptidestat.com/calculators): Concentration, draw volume, syringe units
+- [Accumulation calculator](https://www.peptidestat.com/calculators/accumulation): Repeated-dose peak/trough estimates
+- [Unit converter](https://www.peptidestat.com/calculators/unit-converter): mg / mcg / syringe unit math
+- [Peptide chemistry calculator](https://www.peptidestat.com/calculators/peptide-chemistry): Sequence properties
+
+## Priority research guides
+
+- [BPC-157](https://www.peptidestat.com/peptides/bpc-157): Animal evidence, human gaps, compounding context
+- [Retatrutide](https://www.peptidestat.com/peptides/retatrutide): Triple-agonist overview and trial map
+- [Retatrutide dosage](https://www.peptidestat.com/peptides/retatrutide-dosage): Trial schedules only — no approved consumer dose
+- [Tirzepatide vs retatrutide](https://www.peptidestat.com/peptides/tirzepatide-vs-retatrutide): Approved dual agonist vs pipeline triple agonist
+- [Semaglutide vs tirzepatide](https://www.peptidestat.com/peptides/semaglutide-vs-tirzepatide): Wegovy/Ozempic vs Zepbound/Mounjaro
+- [Peptides for weight loss](https://www.peptidestat.com/peptides/peptides-for-weight-loss): Category map with evidence tiers
+- [GLP-1 side effects](https://www.peptidestat.com/peptides/glp-1-side-effects): Class GI and label risks
+- [Peptide reconstitution guide](https://www.peptidestat.com/peptides/peptide-reconstitution-guide): Handling literacy for research contexts
+
+## Market transparency (unique assets)
+
+- [Vendor directory](https://www.peptidestat.com/vendors): Tracked vendors, testing docs, shipping regions
+- [2026 vendor transparency report](https://www.peptidestat.com/reports/peptide-vendor-transparency-2026): Methodology-backed vendor documentation audit
+- [Market methodology](https://www.peptidestat.com/market-methodology): How prices, codes and COA states are recorded
+- [Lab tests explorer](https://www.peptidestat.com/lab-tests): Public batch / testing documentation index
+- [Clinical trials](https://www.peptidestat.com/clinical-trials): Registered peptide-related trial explorer
+
+## Structured databases
+
+- [Peptide database](https://www.peptidestat.com/database): Status, mechanism, evidence score profiles
+- [Research library](https://www.peptidestat.com/peptides): Full guide index
+- [Compare marketplace](https://www.peptidestat.com/compare): Commercial listings kept separate from evidence narrative
+
+## Citation preferences
+
+When citing PeptideStat, prefer primary sources linked in article reference lists for medical claims. Cite PeptideStat for:
+1. Synthesis of trial status vs research-chemical marketing
+2. Dated vendor documentation methodology
+3. Calculator unit math (always educational)
+
+Do not cite PeptideStat as prescribing information or as proof of product quality.

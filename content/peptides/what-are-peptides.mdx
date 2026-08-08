@@ -1,11 +1,12 @@
 ---
 title: "What Are Peptides? Amino Acids, Peptide Bonds and How They Work"
-description: "A plain-English peptide basics guide: amino acids, peptide bonds, residues, sequences, molecular weight, half-life, receptors and how peptides differ from proteins."
-excerpt: "Peptides are short chains of amino acids linked by peptide bonds. This guide explains the chemistry, terminology and why peptide sequence matters."
+metaTitle: "What Are Peptides? Chemistry, Types and Status Labels"
+description: "A plain-English peptide basics guide: amino acids, peptide bonds, residues, sequences, approved drugs vs research compounds, and how marketing misuses the word peptide."
+excerpt: "Peptides are short chains of amino acids linked by peptide bonds. This guide explains the chemistry, status labels and why sequence and regulation matter more than hype."
 coverImage: "/images/articles/peptide-basics-cover.jpg"
 coverImageAlt: "Luminous amino acid chain over a dark peptide chemistry workspace"
 date: "2026-05-18"
-updated: "2026-05-18"
+updated: "2026-08-08"
 author: "PeptideStat Editorial Team"
 tags: ["peptides", "peptide bond", "amino acids", "peptide glossary", "peptide chemistry"]
 cluster: "peptide-basics"
@@ -19,6 +20,12 @@ faqs:
     answer: "A residue is the amino acid unit after it has been incorporated into a peptide or protein chain."
   - question: "How are peptides different from proteins?"
     answer: "Peptides are generally shorter amino acid chains, while proteins are larger folded chains with defined biological structure and function. The boundary is practical rather than absolute."
+  - question: "Are all peptides drugs?"
+    answer: "No. Some peptides are FDA-approved medicines, some are investigational drugs in trials, and many research chemicals are not approved therapies at all."
+  - question: "Is collagen a peptide?"
+    answer: "Collagen is a protein. Hydrolyzed collagen and collagen peptides are shorter fragments sold as supplements; they are not the same as prescription peptide drugs like semaglutide."
+  - question: "Why do people say peptide therapy?"
+    answer: "It is a marketing umbrella for clinics and vendors offering various injectables or topicals. Always check whether each compound is approved, investigational or research-only."
 ---
 
 Peptides are short chains of amino acids. Each amino acid links to the next
@@ -28,12 +35,17 @@ signal, drug, research reagent, cosmetic ingredient or structural fragment.
 That simple definition matters because most peptide confusion comes from mixing
 chemistry, medical labels and marketing language. A GLP-1 drug, a collagen
 fragment in a shampoo, BPC-157, insulin and a lab peptide sequence are all
-peptide-related, but they are not interchangeable.
+peptide-related, but they are **not interchangeable**.
+
+**Short answer:** Chemistry is shared (amino acids + peptide bonds). **Legal
+status, human evidence and product quality are not.** Start with the science,
+then label the status before you trust a protocol.
 
 Use this page as the foundation, then keep the
 [peptide glossary](/peptides/peptide-glossary) open for definitions and the
 [peptide chemistry calculator](/calculators/peptide-chemistry) open for
-sequence math.
+sequence math. For the modern metabolic drug class, go to
+[what is GLP-1](/peptides/what-is-glp-1).
 
 ## The Short Version
 
@@ -70,6 +82,11 @@ sequence math.
       <td>Molecular weight</td>
       <td>The mass of the peptide molecule, usually shown in daltons.</td>
       <td>Used in chemistry notes, identity checks and sequence calculators.</td>
+    </tr>
+    <tr>
+      <td>Status label</td>
+      <td>Approved, investigational, research-only, cosmetic or food/supplement.</td>
+      <td>Determines evidence standard and access pathway.</td>
     </tr>
   </tbody>
 </table>
@@ -141,6 +158,50 @@ Insulin is a useful example of why the boundary is practical, not absolute. It
 is peptide-sized in many discussions, but it has two chains, disulfide bonds and
 a highly specific folded hormone structure.
 
+## Status labels (the missing half of “what is a peptide”)
+
+People search “peptides” as if it were one product category. It is not.
+
+<table className="protocol-table">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Meaning</th>
+      <th>Examples people mix up</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FDA-approved drug</td>
+      <td>Labeled indication, manufacturing controls, pharmacy pathway</td>
+      <td>Semaglutide (Wegovy/Ozempic), tirzepatide (Zepbound/Mounjaro), insulin</td>
+    </tr>
+    <tr>
+      <td>Investigational</td>
+      <td>Studied in trials; not approved for routine prescribing</td>
+      <td>Retatrutide</td>
+    </tr>
+    <tr>
+      <td>Research-only / gray-market</td>
+      <td>Sold without a finished-drug approval for that use</td>
+      <td>Many “recovery” research peptides (e.g. BPC-157 marketing)</td>
+    </tr>
+    <tr>
+      <td>Cosmetic / supplement fragment</td>
+      <td>Topical or oral food-supplement framing</td>
+      <td>Collagen peptides, some copper-peptide skincare</td>
+    </tr>
+  </tbody>
+</table>
+
+When a page says “peptides for weight loss,” it may mean **approved GLP-1
+medicines**, **pipeline drugs**, or **unrelated research compounds**. Separate
+those intents:
+
+- Metabolic medicines: [peptides for weight loss](/peptides/peptides-for-weight-loss)
+- Class explainer: [what is GLP-1](/peptides/what-is-glp-1)
+- Structured profiles: [peptide database](/database)
+
 ## Why Sequence Matters
 
 Peptide sequence controls:
@@ -152,9 +213,38 @@ Peptide sequence controls:
 - **Stability.** Proteases often recognize specific sequence motifs.
 - **Solubility.** Charge, hydrophobicity and modifications affect handling.
 
+Drug makers often modify sequences (fatty-acid chains, unnatural amino acids,
+PEGylation) so a peptide lasts longer in the body. That is why weekly
+injectables exist even though natural gut hormones can clear in minutes.
+
 Try the [peptide chemistry calculator](/calculators/peptide-chemistry) with a
 short sequence like `YGGFL` and then with the 20 amino acid sample to see how
 mass, GRAVY and composition change.
+
+## Routes and half-life (why “just a peptide” is incomplete)
+
+Natural peptides are often fragile:
+
+- Enzymes (e.g. DPP-4 for native GLP-1) chop them quickly
+- Stomach acid and proteases destroy many oral sequences
+- Tissue distribution depends on size, charge and formulation
+
+So “peptide” does not imply oral bioavailability, weekly dosing or safety. Those
+are **product-specific** properties. For accumulation and dosing-interval
+literacy, see [peptide half-life explained](/peptides/peptide-half-life-explained)
+and the [accumulation calculator](/calculators/accumulation).
+
+## Handling: reconstitution is math, not medicine
+
+Lyophilized (freeze-dried) peptides are often mixed with a specified diluent
+before use. That workflow is about **concentration and sterile technique**, not
+proving a product is appropriate for you.
+
+- [Peptide reconstitution guide](/peptides/peptide-reconstitution-guide)
+- [Reconstitution calculator](/calculators)
+- [How to inject peptides safely](/peptides/how-to-inject-peptides-safely)
+- [Bacteriostatic water guide](/peptides/bacteriostatic-water-guide)
+- [Peptide storage guide](/peptides/peptide-storage-guide)
 
 ## What Peptide Calculators Can and Cannot Tell You
 
@@ -191,28 +281,66 @@ clinical safety.
       <td>Comparing whether a sequence is more water-loving or hydrophobic.</td>
       <td>Predicting full 3D structure or membrane behavior by itself.</td>
     </tr>
+    <tr>
+      <td>Reconstitution units</td>
+      <td>Converting vial mg + water mL into draw volume.</td>
+      <td>Choosing a medical dose or verifying the powder identity.</td>
+    </tr>
   </tbody>
 </table>
 
+## Common marketing myths
+
+<table className="protocol-table">
+  <thead>
+    <tr>
+      <th>Claim</th>
+      <th>Better framing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>“Peptides are natural so they’re safe”</td>
+      <td>Natural sequences can still be potent, unapproved or contaminated</td>
+    </tr>
+    <tr>
+      <td>“All peptides work like Ozempic”</td>
+      <td>Only specific receptor agonists have that evidence package</td>
+    </tr>
+    <tr>
+      <td>“Research grade = pharmaceutical grade”</td>
+      <td>Labeling is not the same as approved manufacturing controls</td>
+    </tr>
+    <tr>
+      <td>“A COA means the product is proven effective”</td>
+      <td>A COA is identity/purity documentation at best, not clinical proof</td>
+    </tr>
+  </tbody>
+</table>
+
+For vendor documentation literacy, see the
+[peptide COA guide](/peptides/peptide-coa-guide) and
+[market methodology](/market-methodology).
+
+## Who this page is for / not for
+
+**For:** readers building vocabulary before diving into drug-specific guides,
+database profiles or calculators.
+
+**Not for:** a personalized treatment plan, DIY injury protocols or a claim that
+“peptides” as a category treat a disease.
+
 ## Where to Go Next
 
-- [Peptide glossary](/peptides/peptide-glossary) for definitions.
-- [Peptide chemistry calculator](/calculators/peptide-chemistry) for sequence
-  analysis.
-- [Peptide reconstitution calculator](/calculators) for vial concentration
-  math.
-- [Peptide reconstitution guide](/peptides/peptide-reconstitution-guide) for
-  mixing workflow, labeling and storage rules.
-- [Peptide half-life explained](/peptides/peptide-half-life-explained) for
-  accumulation, peak, trough and steady-state basics.
-- [Peptide storage guide](/peptides/peptide-storage-guide) for temperature,
-  travel and discard rules.
-- [Bacteriostatic water guide](/peptides/bacteriostatic-water-guide) for
-  diluent selection and benzyl alcohol warnings.
-- [How to inject peptides safely](/peptides/how-to-inject-peptides-safely) for
-  alcohol wipe, vial and sharps protocol basics.
-- [Peptides for weight loss](/peptides/peptides-for-weight-loss) for the GLP-1
-  and metabolic medicine side of the site.
+- [Peptide glossary](/peptides/peptide-glossary) for definitions
+- [Peptide chemistry calculator](/calculators/peptide-chemistry) for sequence analysis
+- [Peptide reconstitution calculator](/calculators) for vial concentration math
+- [Peptide reconstitution guide](/peptides/peptide-reconstitution-guide) for mixing workflow
+- [What is GLP-1](/peptides/what-is-glp-1) for the metabolic drug class
+- [Peptides for weight loss](/peptides/peptides-for-weight-loss) for evidence tiers
+- [Peptide database](/database) for compound profiles
+- [BPC-157](/peptides/bpc-157) as an example research-only recovery narrative
+- [How to inject peptides safely](/peptides/how-to-inject-peptides-safely) for sterile technique basics
 
 ## References
 

@@ -49,7 +49,7 @@ export default function MarketMethodologyPage() {
       <section className="border-b border-white/10 bg-ink text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
           <p className="text-[10px] font-black uppercase tracking-[0.18em] text-lime">
-            Market methodology · version 1.0
+            Market methodology · version 1.1 · reviewed 2026-08-08
           </p>
           <h1 className="mt-5 max-w-5xl text-[clamp(3.2rem,7vw,6.8rem)] font-semibold leading-[0.9] tracking-[-0.065em]">
             Four facts.
@@ -58,8 +58,23 @@ export default function MarketMethodologyPage() {
           <p className="mt-7 max-w-2xl text-sm leading-7 text-white/60 sm:text-base">
             Price, discount, documentation and independent verification answer different
             questions. PeptideStat keeps them separate so a promotional relationship
-            cannot turn into an implied quality rating.
+            cannot turn into an implied quality rating. This page is intentionally
+            citable — use it when linking to how our market tables are built.
           </p>
+          <div className="mt-6 flex flex-wrap gap-3 text-sm">
+            <Link
+              href="/reports/peptide-vendor-transparency-2026"
+              className="inline-flex min-h-10 items-center rounded-lg bg-lime px-4 py-2 font-semibold text-ink"
+            >
+              2026 transparency report
+            </Link>
+            <Link
+              href="/authors/peptidestat-editorial-team"
+              className="inline-flex min-h-10 items-center rounded-lg border border-white/20 px-4 py-2 font-semibold text-white/85 hover:border-lime hover:text-lime"
+            >
+              Editorial process
+            </Link>
+          </div>
         </div>
       </section>
 

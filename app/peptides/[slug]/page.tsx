@@ -168,7 +168,7 @@ export default async function ArticlePage(
                   <dt className="font-bold text-muted">Reading time</dt>
                   <dd className="text-right text-ink">{article.readingTime}</dd>
                 </div>
-                <div className="grid grid-cols-2 border-b border-line py-3">
+                <div className="grid grid-cols-2 py-3">
                   <dt className="font-bold text-muted">By</dt>
                   <dd className="text-right normal-case tracking-normal text-ink">
                     <Link href={article.authorUrl ?? siteConfig.author.url} className="hover:text-cobalt">
@@ -183,10 +183,9 @@ export default async function ArticlePage(
 
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,760px)_300px] lg:justify-between lg:gap-16 lg:px-8 lg:py-20">
           <div className="min-w-0">
-            <div className="border-l-2 border-coral pl-5 text-xs leading-5 text-muted sm:pl-6">
-              This article separates published evidence from commercial claims.
-              It is educational, not medical advice.
-            </div>
+            <p className="border-l-2 border-coral pl-4 text-xs leading-5 text-muted sm:pl-5">
+              Educational only — not medical advice.
+            </p>
 
             <div className="mt-8">
               <MDXRemote
@@ -248,7 +247,7 @@ export default async function ArticlePage(
             </div>
           </div>
 
-          <div className="order-first lg:order-none">
+          <div>
             <div className="lg:sticky lg:top-32">
               <ArticlePartnerCard
                 slug={article.slug}
@@ -257,21 +256,6 @@ export default async function ArticlePage(
                 cluster={article.cluster}
                 tags={article.tags}
               />
-              <div className="mt-8 hidden border-t border-ink pt-4 lg:block">
-                <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-muted">
-                  Editorial standard
-                </p>
-                <p className="mt-3 text-[11px] leading-5 text-muted">
-                  Sources remain linked in the reference list. Partner placement
-                  never changes our evidence grading or conclusions.
-                </p>
-                <Link
-                  href="/editorial-policy"
-                  className="mt-3 inline-block border-b border-line text-[10px] font-bold text-ink hover:border-cobalt hover:text-cobalt"
-                >
-                  Read our editorial policy
-                </Link>
-              </div>
             </div>
           </div>
         </div>

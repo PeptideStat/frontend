@@ -56,8 +56,17 @@ export default function AboutPage() {
           >
             PeptideStat Editorial Team
           </Link>
-          . Our pages are source-led and written to distinguish approved drugs,
-          investigational compounds and research-only peptides.
+          — a collective byline under one sourcing standard. We do not invent
+          individual medical credentials for marketing. Our pages are source-led
+          and written to distinguish approved drugs, investigational compounds
+          and research-only peptides. See the full{" "}
+          <Link
+            href="/editorial-policy"
+            className="font-semibold text-accent-bright underline underline-offset-4"
+          >
+            editorial policy
+          </Link>{" "}
+          for source hierarchy, affiliate independence and corrections.
         </p>
 
         <h2 className="pt-4 text-xl font-semibold tracking-tight text-ink">

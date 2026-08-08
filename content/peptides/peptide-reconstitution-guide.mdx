@@ -5,7 +5,7 @@ excerpt: "How peptide reconstitution works: choosing the right diluent, calculat
 coverImage: "/images/articles/peptide-handling-storage-cover.jpg"
 coverImageAlt: "Sterile peptide vials, diluent, alcohol pads, and storage checklist in a clinical prep area"
 date: "2026-05-18"
-updated: "2026-05-18"
+updated: "2026-08-08"
 author: "PeptideStat Editorial Team"
 tags: ["peptide reconstitution", "bacteriostatic water", "BAC water", "vial math", "injection safety"]
 cluster: "peptide-basics"
@@ -20,6 +20,12 @@ faqs:
     answer: "Divide total peptide amount in the vial by total diluent volume. For example, 10 mg mixed with 2 mL equals 5 mg/mL."
   - question: "Can you save a reconstituted vial?"
     answer: "Only if the product instructions allow it. Storage time, temperature, and discard date depend on the product, diluent, sterility, and manufacturer instructions."
+  - question: "How many units is 250 mcg on a U-100 syringe?"
+    answer: "It depends on concentration. At 5 mg/mL, 250 mcg (0.25 mg) is 0.05 mL, which is 5 units on a U-100 syringe. Always recalculate from your actual mix."
+  - question: "Is bacteriostatic water always the right diluent?"
+    answer: "Only when the product instructions allow it. Some products specify sterile water for injection or come ready-to-use. BAC water also has benzyl alcohol considerations."
+  - question: "Does reconstitution math equal a recommended dose?"
+    answer: "No. Calculators convert vial amount, water volume and target amount into draw volume. The target amount must come from a label, prescriber or appropriate research protocol — not from a website."
 ---
 
 Reconstitution means adding a sterile diluent to a vial so the contents become a
@@ -125,6 +131,95 @@ The basic formula is simple:
 Do the math before mixing. If the calculated draw volume is too tiny to measure
 accurately or too large for the syringe, ask the prescriber or pharmacist before
 changing the water volume yourself.
+
+Open the free [reconstitution calculator](/calculators) to check the arithmetic
+with editable vial, water and dose fields (including syringe unit output).
+
+## Worked examples (educational math only)
+
+These examples show **unit conversion**, not medical dosing advice.
+
+<table className="protocol-table">
+  <thead>
+    <tr>
+      <th>Setup</th>
+      <th>Concentration</th>
+      <th>Example target</th>
+      <th>Draw volume</th>
+      <th>U-100 units</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>10 mg + 2 mL</td>
+      <td>5 mg/mL</td>
+      <td>1 mg</td>
+      <td>0.20 mL</td>
+      <td>20 units</td>
+    </tr>
+    <tr>
+      <td>10 mg + 2 mL</td>
+      <td>5 mg/mL</td>
+      <td>0.25 mg (250 mcg)</td>
+      <td>0.05 mL</td>
+      <td>5 units</td>
+    </tr>
+    <tr>
+      <td>5 mg + 2 mL</td>
+      <td>2.5 mg/mL</td>
+      <td>0.25 mg (250 mcg)</td>
+      <td>0.10 mL</td>
+      <td>10 units</td>
+    </tr>
+    <tr>
+      <td>5 mg + 1 mL</td>
+      <td>5 mg/mL</td>
+      <td>0.50 mg (500 mcg)</td>
+      <td>0.10 mL</td>
+      <td>10 units</td>
+    </tr>
+  </tbody>
+</table>
+
+**Why water volume is a choice, not a vibe:** more water makes small mcg draws
+easier to measure; less water keeps injection volume small. Changing water
+**must** change every later unit calculation.
+
+Related tools: [unit converter](/calculators/unit-converter) ·
+[accumulation calculator](/calculators/accumulation).
+
+## Labeled pens vs research vials
+
+<table className="protocol-table">
+  <thead>
+    <tr>
+      <th>Product type</th>
+      <th>What reconstitution means</th>
+      <th>Who sets the rules</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ready-to-use pen / prefilled syringe</td>
+      <td>Often no patient reconstitution at all</td>
+      <td>Product label and pharmacist counseling</td>
+    </tr>
+    <tr>
+      <td>Pharmacy-compounded vial</td>
+      <td>May arrive reconstituted or with pharmacy instructions</td>
+      <td>Pharmacy + prescriber; still not “DIY internet dose”</td>
+    </tr>
+    <tr>
+      <td>Research lyophilized vial</td>
+      <td>Often requires diluent choice and unit math</td>
+      <td>Not an approved therapy pathway by default</td>
+    </tr>
+  </tbody>
+</table>
+
+If the product is an approved pen, follow the **pen instructions** — do not
+import forum “BAC water charts” from research-chemical culture. Background on
+status labels: [what are peptides](/peptides/what-are-peptides).
 
 ## Before You Mix
 
@@ -341,8 +436,60 @@ Avoid these:
       <td>Final concentration changed.</td>
       <td>Do not guess. Recalculate and confirm with the pharmacist or prescriber.</td>
     </tr>
+    <tr>
+      <td>Draw is &lt; a few units</td>
+      <td>Concentration is high relative to a tiny target</td>
+      <td>Do not “eyeball.” Ask whether a more dilute mix is allowed before changing anything</td>
+    </tr>
+    <tr>
+      <td>Draw exceeds one full syringe</td>
+      <td>Target volume is large for the selected scale</td>
+      <td>Recheck mg vs mcg, concentration and syringe type</td>
+    </tr>
   </tbody>
 </table>
+
+## FAQ
+
+### What does reconstitution mean?
+
+Adding the correct sterile diluent to powder or concentrate so the contents
+become a measured solution.
+
+### Can you use any water?
+
+No. Tap water and “whatever is handy” are contamination and chemistry risks.
+Use only the specified diluent.
+
+### Should you shake the vial?
+
+Default: no. Swirl or roll gently unless the product instructions say otherwise.
+
+### How do you calculate concentration?
+
+Vial amount ÷ diluent volume. Example: 10 mg ÷ 2 mL = 5 mg/mL.
+
+### How many units is 250 mcg?
+
+Depends on concentration. At 5 mg/mL, 250 mcg is 0.05 mL = 5 units on U-100.
+Recalculate for *your* mix with the [calculator](/calculators).
+
+### Can you save a reconstituted vial?
+
+Only when product instructions allow multi-dose storage. Date it and discard on
+time.
+
+### Is this a dosing recommendation?
+
+No. This is technique and arithmetic literacy only.
+
+## Next reading
+
+- [How to inject peptides safely](/peptides/how-to-inject-peptides-safely)
+- [Bacteriostatic water guide](/peptides/bacteriostatic-water-guide)
+- [Peptide storage guide](/peptides/peptide-storage-guide)
+- [Peptide half-life explained](/peptides/peptide-half-life-explained)
+- [What are peptides](/peptides/what-are-peptides)
 
 ## References
 
