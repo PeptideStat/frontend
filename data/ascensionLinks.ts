@@ -180,9 +180,11 @@ const outOfStockProductIds = new Set(availabilitySnapshot.outOfStock);
 /** Database slugs and article slugs that should deep-link to a catalog item. */
 const ascensionProductAliases: Record<string, string> = {
   "ara-290-cibinetide": "ara-290",
+  "bpc-157-oral-vs-injectable": "bpc-157",
   "bpc-157-vs-tb-500": "wolverine-stack",
   bremelanotide: "pt-141",
   cagrilintide: "c-10",
+  cagrisema: "c-10",
   "dsip-peptide": "dsip",
   "foxo4-dri-peptide": "foxo4-dri",
   "glutathione-peptide": "glutathione",
